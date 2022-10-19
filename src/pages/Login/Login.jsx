@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Navbar from "../../sections/Navbar";
 
 const Login = () => {
   return (
-    <div>Login</div>
-  )
-}
+    <>
+      <Navbar />
+      <div>Login</div>
+    </>
+  );
+};
 
-export default Login
+export default Login;
