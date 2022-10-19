@@ -2,10 +2,11 @@ import React from "react";
 import Home from "./pages/Home";
 import Login from "./pages/Login/Login";
 import { Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
+import AuthContext from "./authContext/AuthContext";
 
 const App = () => {
-  const [isAuth, setIsAuth] = useState(false);
+  const { isAuth, setIsAuth } = useContext(AuthContext);
 
   const isAuthenticated = async () => {
     try {
@@ -17,7 +18,6 @@ const App = () => {
         headers: { "Content-Type": "application/json", token: token },
       });
       const parseRes = await response.json();
-      console.log(parseRes);
       if (parseRes === true) {
         setIsAuth(true);
       } else {
