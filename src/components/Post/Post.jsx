@@ -1,10 +1,11 @@
 import React from "react";
+import "./post.css"
 
 const Post = ({ src, avatar, username, dateTime, body }) => {
   return (
-    <div>
+    <div className = "my-5">
       <div className="d-flex align-items-center">
-        <img src={avatar} />
+        <img src={avatar} className = "post-avatar"/>
         <div className="d-flex flex-column mx-3">
           <h2>{username}</h2>
           <p>{dateTime}</p>

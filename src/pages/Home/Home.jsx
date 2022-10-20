@@ -30,7 +30,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <div>{postComponents}</div>
+      <div className="d-flex flex-column align-items-center my-4">{postComponents}</div>
     </>
   );
 };
