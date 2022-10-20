@@ -4,7 +4,7 @@ import Navbar from "../../sections/Navbar";
 import { getAllPosts } from "../../utils/api";
 import Post from "../../components/Post";
 import PostInput from "../../components/PostInput";
-import "./home.css"
+import "./home.css";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -32,7 +32,7 @@ const Home = () => {
   return (
     <div className="container-fluid d-flex flex-column">
       <Navbar />
-      <div className = "post-input">
+      <div className="post-input">
         <PostInput />
       </div>
       <div className="d-flex flex-column align-items-center my-4">

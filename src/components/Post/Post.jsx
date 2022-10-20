@@ -14,7 +14,7 @@ const Post = ({
   comments = 0,
 }) => {
   return (
-    <div className="my-5 w-25 post">
+    <div className="my-5 w-25 post p-3">
       <div className="d-flex align-items-center">
         <img src={avatar} className="post-avatar" />
         <div className="d-flex flex-column mx-3">
