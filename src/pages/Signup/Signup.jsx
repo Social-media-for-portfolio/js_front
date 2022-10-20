@@ -51,9 +51,13 @@ const Signup = () => {
         body: JSON.stringify(body),
       });
       const parseRes = await response.json();
+      console.log(parseRes);
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
         setIsAuth(true);
+      } else {
+        setIsAuth(false);
+        alert(parseRes);
       }
     } catch (error) {
       console.error(error);
@@ -91,7 +95,7 @@ const Signup = () => {
           placeholder="Enter your password"
           id="password"
         />
-        <button>Log in</button>
+        <button>Sign up</button>
       </form>
     </div>
   );
