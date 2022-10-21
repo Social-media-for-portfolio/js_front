@@ -1,12 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { GrLike } from "react-icons/gr";
 import { FaRegCommentDots } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
 import { DateTime } from "luxon";
 import CommentInput from "../CommentInput/CommentInput";
+import Comment from "../Comment";
 import AuthContext from "../../context/authContext/AuthContext";
 import FeedContext from "../../context/feedContext/FeedContext";
-import { deletePost } from "../../utils/api";
+import { deletePost, getAllComments } from "../../utils/api";
 import "./post.css";
 
 const Post = ({
@@ -27,6 +28,25 @@ const Post = ({
   const [revealComments, setRevealComments] = useState(false);
   const [postComments, setPostComments] = useState([]);
 
+  const commentComponents = postComments.map((comment) => {
+    return (
+      <Comment
+        key={comment.id}
+        commentId={comment.id}
+        avatar={comment.avatar_url}
+        username={comment.first_name + " " + comment.last_name}
+        dateTime={comment.created_at}
+        body={comment.content}
+        userId={comment.user_id}
+      />
+    );
+  });
+
+  const updateComments = async (id) => {
+    const comments = await getAllComments(id);
+    setPostComments(comments);
+  };
+
   const toggleComments = () => {
     if (revealComments) {
       setRevealComments(false);
@@ -43,6 +63,10 @@ const Post = ({
     const newFeed = updateFeed();
     setFeed(newFeed);
   };
+
+  useEffect(() => {
+    updateComments(postId);
+  }, []);
   return (
     <div className="my-5 w-50 post p-3">
       <div className="d-flex align-items-center">
@@ -79,7 +103,10 @@ const Post = ({
         <div className="mt-4">
           <div className="line mb-4"></div>
           <CommentInput />
-          <div className="d-flex flex-column align-items-end"></div>
+          <div className="line my-4"></div>
+          <div className="d-flex flex-column align-items-end">
+            {commentComponents}
+          </div>
         </div>
       )}
     </div>

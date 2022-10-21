@@ -4,7 +4,7 @@ import "./comment-input.css";
 
 const CommentInput = ({ userAvatar }) => {
   const { userInfo } = useContext(AuthContext);
-  const [commentContent, setCommentContent] = useState();
+  const [commentContent, setCommentContent] = useState("");
 
   const handleChange = (e) => {
     setCommentContent(e.target.value);
