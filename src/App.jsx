@@ -7,7 +7,7 @@ import AuthContext from "./context/authContext/AuthContext";
 import Signup from "./pages/Signup";
 
 const App = () => {
-  const { isAuth, setIsAuth, userInfo, setUserInfo} = useContext(AuthContext);
+  const { isAuth, setIsAuth, userInfo, setUserInfo } = useContext(AuthContext);
 
   const isAuthenticated = async () => {
     try {

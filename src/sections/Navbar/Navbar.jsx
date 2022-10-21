@@ -21,7 +21,7 @@ const Navbar = () => {
       </div>
       {isAuth && (
         <div className="d-flex align-items-center">
-          <h5 onClick={logout}>Logout</h5>
+          <h5 onClick={handleClick}>Logout</h5>
           <img className="navbar-avatar mx-3" src={userInfo.avatarUrl} />
         </div>
       )}
