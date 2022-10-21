@@ -33,6 +33,7 @@ const PostInput = ({ userAvatar }) => {
     const newPost = await createPost(postContent);
     const post = createNewPostData(newPost[0].id, newPost[0].user_id);
     setFeed([post, ...feed]);
+    setPostContent("");
   };
   return (
     <div className="d-flex justify-content-between h-100 align-items-center">

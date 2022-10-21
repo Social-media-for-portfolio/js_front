@@ -8,6 +8,7 @@ import PostInput from "../../components/PostInput";
 import "./home.css";
 import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
+import { FaPooStorm } from "react-icons/fa";
 
 const Home = () => {
   const { userInfo, setUserInfo } = useContext(AuthContext);
@@ -30,6 +31,7 @@ const Home = () => {
     return (
       <Post
         key={post.id}
+        postId = {post.id}
         userId={post.user_id}
         avatar={post.avatar_url}
         username={post.first_name + " " + post.last_name}
