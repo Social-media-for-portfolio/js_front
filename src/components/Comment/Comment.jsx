@@ -18,7 +18,7 @@ const Comment = ({
 
   return (
     <div>
-      <div className="my-5 w-50 post p-3">
+      <div className="my-2 post p-3">
         <div className="d-flex align-items-center">
           <img src={avatar} className="post-avatar" />
           <div className="d-flex flex-column mx-3">

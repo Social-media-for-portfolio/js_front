@@ -103,7 +103,7 @@ const Post = ({
         <div className="mt-4">
           <div className="line mb-4"></div>
           <CommentInput />
-          <div className="line my-4"></div>
+          <div className="line my-3"></div>
           <div className="d-flex flex-column align-items-end">
             {commentComponents}
           </div>
