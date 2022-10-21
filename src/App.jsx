@@ -20,8 +20,10 @@ const App = () => {
       });
       const parseRes = await response.json();
       if (parseRes) {
+        console.log(parseRes)
         setIsAuth(true);
         setUserInfo({...userInfo, id: parseRes})
+        console.log(userInfo);
       } else {
         setIsAuth(false);
       }
