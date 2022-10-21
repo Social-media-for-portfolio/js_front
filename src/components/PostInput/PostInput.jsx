@@ -1,9 +1,12 @@
 import React, { useState, useContext } from "react";
+import {DateTime} from "luxon"
 import { createPost, getPost } from "../../utils/api";
 import FeedContext from "../../context/feedContext/FeedContext";
+import AuthContext from "../../context/authContext/AuthContext";
 import "./post-input.css";
 import Post from "../Post/Post";
 const PostInput = ({ userAvatar }) => {
+  const { userInfo, setUserInfo } = useContext(AuthContext);
   const { feed, setFeed } = useContext(FeedContext);
   const [postContent, setPostContent] = useState("");
 
@@ -13,9 +16,17 @@ const PostInput = ({ userAvatar }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await(createPost(postContent));
-
-    
+    await createPost(postContent);
+    const { avatarUrl, firstName, lastName } = userInfo;
+    const post = {
+      avatar_url: avatarUrl,
+      first_name: firstName,
+      last_name: lastName,
+      created_at: DateTime.now().toISO(),
+      content: postContent,
+    };
+    console.log(post);
+    setFeed([post, ...feed]);
   };
   return (
     <div className="d-flex justify-content-between h-100 align-items-center">

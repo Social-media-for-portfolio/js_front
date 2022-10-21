@@ -23,7 +23,6 @@ export const getUserInfo = async (id) => {
       headers: { "Content-Type": "application/json", token: token },
     });
     const parseRes = await response.json();
-    console.log(parseRes);
     return parseRes;
   } catch (error) {
     throw error;

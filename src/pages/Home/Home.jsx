@@ -1,17 +1,28 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import Navbar from "../../sections/Navbar";
-import { getAllPosts } from "../../utils/api";
+import { getAllPosts, getUserInfo } from "../../utils/api";
 import Post from "../../components/Post";
 import PostInput from "../../components/PostInput";
 import "./home.css";
 import FeedContext from "../../context/feedContext/FeedContext";
+import AuthContext from "../../context/authContext/AuthContext";
 
 const Home = () => {
+  const { userInfo, setUserInfo } = useContext(AuthContext);
   const { feed, setFeed } = useContext(FeedContext);
 
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
+    const { first_name, last_name, avatar_url } = await getUserInfo(
+      userInfo.id
+    );
+    setUserInfo({
+      ...userInfo,
+      firstName: first_name,
+      lastName: last_name,
+      avatarUrl: avatar_url,
+    });
   };
 
   const postComponents = feed.map((post) => {

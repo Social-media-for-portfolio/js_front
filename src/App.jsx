@@ -7,7 +7,7 @@ import AuthContext from "./context/authContext/AuthContext";
 import Signup from "./pages/Signup";
 
 const App = () => {
-  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const { isAuth, setIsAuth, userInfo, setUserInfo} = useContext(AuthContext);
 
   const isAuthenticated = async () => {
     try {
@@ -19,8 +19,9 @@ const App = () => {
         headers: { "Content-Type": "application/json", token: token },
       });
       const parseRes = await response.json();
-      if (parseRes === true) {
+      if (parseRes) {
         setIsAuth(true);
+        setUserInfo({...userInfo, id: parseRes})
       } else {
         setIsAuth(false);
       }
