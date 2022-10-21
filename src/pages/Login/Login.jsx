@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useContext } from "react";
 import Navbar from "../../sections/Navbar";
-import AuthContext from "../../authContext/AuthContext";
+import AuthContext from "../../context/authContext/AuthContext";
 
 const Login = () => {
   const { setIsAuth } = useContext(AuthContext);

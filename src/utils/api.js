@@ -70,6 +70,25 @@ export const getAllComments = async (id) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
+    const response = await fetch(
+      `http://localhost:5000/feed/posts/${id}/comments`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json", token: token },
+      }
+    );
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};
+
+export const getPost = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
     const response = await fetch(`http://localhost:5000/feed/posts/${id}`, {
       method: "GET",
       headers: { "Content-Type": "application/json", token: token },

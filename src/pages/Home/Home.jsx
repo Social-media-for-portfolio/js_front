@@ -1,19 +1,20 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Navbar from "../../sections/Navbar";
 import { getAllPosts } from "../../utils/api";
 import Post from "../../components/Post";
 import PostInput from "../../components/PostInput";
 import "./home.css";
+import FeedContext from "../../context/feedContext/FeedContext";
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
+  const { feed, setFeed } = useContext(FeedContext);
 
   const retrieveFeed = async () => {
-    setPosts(await getAllPosts());
+    setFeed(await getAllPosts());
   };
 
-  const postComponents = posts.map((post) => {
+  const postComponents = feed.map((post) => {
     return (
       <Post
         avatar={post.avatar_url}
@@ -23,7 +24,6 @@ const Home = () => {
       />
     );
   });
-
 
   useEffect(() => {
     retrieveFeed();

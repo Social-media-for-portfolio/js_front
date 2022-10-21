@@ -1,17 +1,22 @@
-import React, { useState } from "react";
-import { createPost } from "../../utils/api";
+import React, { useState, useContext } from "react";
+import { createPost, getPost } from "../../utils/api";
+import FeedContext from "../../context/feedContext/FeedContext";
 import "./post-input.css";
+import Post from "../Post/Post";
 const PostInput = ({ userAvatar }) => {
+  const { feed, setFeed } = useContext(FeedContext);
   const [postContent, setPostContent] = useState("");
 
   const handleChange = (e) => {
     setPostContent(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    createPost(postContent);
-  }
+    await(createPost(postContent));
+
+    
+  };
   return (
     <div className="d-flex justify-content-between h-100 align-items-center">
       <img src={userAvatar} />
