@@ -1,0 +1,8 @@
+.comment-input-avatar {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.comment-input-area {
+    resize: none;
+}

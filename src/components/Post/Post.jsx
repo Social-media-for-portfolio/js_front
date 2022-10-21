@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { GrLike } from "react-icons/gr";
 import { FaRegCommentDots } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
 import { DateTime } from "luxon";
+import CommentInput from "../CommentInput/CommentInput";
 import AuthContext from "../../context/authContext/AuthContext";
 import FeedContext from "../../context/feedContext/FeedContext";
 import { deletePost } from "../../utils/api";
@@ -23,6 +24,15 @@ const Post = ({
   const { feed, setFeed } = useContext(FeedContext);
   const { id } = userInfo;
 
+  const [revealComments, setRevealComments] = useState(false);
+  const [postComments, setPostComments] = useState([]);
+
+  const toggleComments = () => {
+    if (revealComments) {
+      setRevealComments(false);
+    } else setRevealComments(true);
+  };
+
   const updateFeed = () => {
     const newFeed = feed.filter((post) => post.id !== postId);
     return newFeed;
@@ -34,7 +44,7 @@ const Post = ({
     setFeed(newFeed);
   };
   return (
-    <div className="my-5 w-25 post p-3">
+    <div className="my-5 w-50 post p-3">
       <div className="d-flex align-items-center">
         <img src={avatar} className="post-avatar" />
         <div className="d-flex flex-column mx-3">
@@ -52,9 +62,9 @@ const Post = ({
             <p>{likes}</p>
             <GrLike className="mx-2 fs-4" />
           </div>
-          <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-between">
             <p>{comments + " "}Comments</p>
-            <FaRegCommentDots className="mx-2 fs-4" />
+            <FaRegCommentDots onClick={toggleComments} className="mx-2 fs-4" />
             {userId === id && (
               <TiDeleteOutline
                 onClick={handleDeletePost}
@@ -64,6 +74,14 @@ const Post = ({
           </div>
         </div>
       </div>
+
+      {revealComments && (
+        <div className="mt-4">
+          <div className="line mb-4"></div>
+          <CommentInput />
+          <div className="d-flex flex-column align-items-end"></div>
+        </div>
+      )}
     </div>
   );
 };
