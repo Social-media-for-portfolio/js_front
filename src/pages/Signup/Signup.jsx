@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Navbar from "../../sections/Navbar";
 import AuthContext from "../../context/authContext/AuthContext";
 
@@ -51,12 +50,10 @@ const Signup = () => {
         body: JSON.stringify(body),
       });
       const parseRes = await response.json();
-      console.log(parseRes);
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
         setIsAuth(true);
       } else {
-        setIsAuth(false);
         alert(parseRes);
       }
     } catch (error) {
@@ -85,13 +82,13 @@ const Signup = () => {
         />
         <input
           onChange={handleChange}
-          type="text"
+          type="email"
           placeholder="Enter your email"
           id="email"
         />
         <input
           onChange={handleChange}
-          type="text"
+          type="password"
           placeholder="Enter your password"
           id="password"
         />

@@ -1,18 +1,17 @@
-import React from "react";
-import { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
-import { getAllPosts, getUserInfo } from "../../utils/api";
 import Post from "../../components/Post";
 import PostInput from "../../components/PostInput";
-import "./home.css";
+import { getAllPosts, getUserInfo } from "../../utils/api";
 import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
+import "./home.css";
 
 const Home = () => {
   const { userInfo, setUserInfo } = useContext(AuthContext);
   const { feed, setFeed } = useContext(FeedContext);
-  console.log(userInfo);
+
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
     const { id, first_name, last_name, avatar_url } = await getUserInfo();

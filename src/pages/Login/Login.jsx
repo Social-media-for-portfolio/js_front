@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Navbar from "../../sections/Navbar";
 import AuthContext from "../../context/authContext/AuthContext";
 
@@ -56,13 +55,13 @@ const Login = () => {
       >
         <input
           onChange={handleChange}
-          type="text"
+          type="email"
           placeholder="Enter your email"
           id="email"
         />
         <input
           onChange={handleChange}
-          type="text"
+          type="password"
           placeholder="Enter your password"
           id="password"
         />
