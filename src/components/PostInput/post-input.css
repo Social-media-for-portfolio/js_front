@@ -1,4 +1,9 @@
 .input-area {
-    height: 100px;
-    resize: none;
+  height: 100px;
+  resize: none;
+}
+
+.post-input-avatar {
+  width: 100px;
+  border-radius: 50%;
 }

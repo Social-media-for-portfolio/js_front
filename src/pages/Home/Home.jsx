@@ -29,6 +29,8 @@ const Home = () => {
   const postComponents = feed.map((post) => {
     return (
       <Post
+        key={post.id}
+        userId={post.user_id}
         avatar={post.avatar_url}
         username={post.first_name + " " + post.last_name}
         dateTime={post.created_at}

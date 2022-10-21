@@ -57,7 +57,6 @@ export const postComment = async (content, id) => {
       body: JSON.stringify({ content: content }),
     });
     const parseRes = await response.json();
-    console.log(parseRes);
     return parseRes;
   } catch (error) {
     throw error;

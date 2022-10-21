@@ -1,8 +1,10 @@
-import React from "react";
-import "./post.css";
+import React, {useContext} from "react";
 import { GrLike } from "react-icons/gr";
 import { FaRegCommentDots } from "react-icons/fa";
 import { DateTime } from "luxon";
+import AuthContext from "../../context/authContext/AuthContext";
+import "./post.css";
+
 
 
 const Post = ({
@@ -11,9 +13,14 @@ const Post = ({
   username,
   dateTime,
   body,
+  userId,
   likes = 0,
   comments = 0,
+
 }) => {
+  const {userInfo} = useContext(AuthContext);
+  const {id} = userInfo;
+
   return (
     <div className="my-5 w-25 post p-3">
       <div className="d-flex align-items-center">
@@ -36,6 +43,9 @@ const Post = ({
         <div className="d-flex justify-content-between ">
           <p>{comments + " "}Comments</p>
           <FaRegCommentDots className="mx-2 fs-4" />
+          {userId === id && (
+            <h4>Delete Post</h4>
+          )}
         </div>
         </div>
       </div>
