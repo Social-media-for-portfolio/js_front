@@ -14,11 +14,11 @@ export const getAllPosts = async () => {
   }
 };
 
-export const getUserInfo = async (id) => {
+export const getUserInfo = async () => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/${id}`, {
+    const response = await fetch(`http://localhost:5000/users/me`, {
       method: "GET",
       headers: { "Content-Type": "application/json", token: token },
     });

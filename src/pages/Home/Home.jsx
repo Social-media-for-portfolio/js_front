@@ -13,14 +13,13 @@ import { FaPooStorm } from "react-icons/fa";
 const Home = () => {
   const { userInfo, setUserInfo } = useContext(AuthContext);
   const { feed, setFeed } = useContext(FeedContext);
-
+  console.log(userInfo)
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
-    const { first_name, last_name, avatar_url } = await getUserInfo(
-      userInfo.id
-    );
+    const {id, first_name, last_name, avatar_url } = await getUserInfo();
     setUserInfo({
       ...userInfo,
+      id: id,
       firstName: first_name,
       lastName: last_name,
       avatarUrl: avatar_url,
