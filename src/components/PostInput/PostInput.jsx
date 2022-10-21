@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import {DateTime} from "luxon"
+import { DateTime } from "luxon";
 import { createPost, getPost } from "../../utils/api";
 import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
@@ -25,7 +25,6 @@ const PostInput = ({ userAvatar }) => {
       created_at: DateTime.now().toISO(),
       content: postContent,
     };
-    console.log(post);
     setFeed([post, ...feed]);
   };
   return (

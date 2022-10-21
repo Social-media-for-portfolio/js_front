@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import Navbar from "../../sections/Navbar";
+import Footer from "../../sections/Footer";
 import { getAllPosts, getUserInfo } from "../../utils/api";
 import Post from "../../components/Post";
 import PostInput from "../../components/PostInput";
@@ -40,7 +41,7 @@ const Home = () => {
     retrieveFeed();
   }, []);
   return (
-    <div className="container-fluid d-flex flex-column">
+    <div className="container-fluid d-flex flex-column p-0">
       <Navbar />
       <div className="post-input">
         <PostInput />
@@ -48,6 +49,7 @@ const Home = () => {
       <div className="d-flex flex-column align-items-center my-4">
         {postComponents}
       </div>
+      <Footer />
     </div>
   );
 };
