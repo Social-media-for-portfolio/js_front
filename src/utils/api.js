@@ -114,4 +114,3 @@ export const deletePost = async (id) => {
   } finally {
   }
 };
-

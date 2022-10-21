@@ -5,8 +5,8 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { DateTime } from "luxon";
 import AuthContext from "../../context/authContext/AuthContext";
 import FeedContext from "../../context/feedContext/FeedContext";
-import "./post.css";
 import { deletePost } from "../../utils/api";
+import "./post.css";
 
 const Post = ({
   postId,

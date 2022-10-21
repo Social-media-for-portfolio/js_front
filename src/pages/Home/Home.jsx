@@ -8,15 +8,14 @@ import PostInput from "../../components/PostInput";
 import "./home.css";
 import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
-import { FaPooStorm } from "react-icons/fa";
 
 const Home = () => {
   const { userInfo, setUserInfo } = useContext(AuthContext);
   const { feed, setFeed } = useContext(FeedContext);
-  console.log(userInfo)
+  console.log(userInfo);
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
-    const {id, first_name, last_name, avatar_url } = await getUserInfo();
+    const { id, first_name, last_name, avatar_url } = await getUserInfo();
     setUserInfo({
       ...userInfo,
       id: id,
@@ -30,7 +29,7 @@ const Home = () => {
     return (
       <Post
         key={post.id}
-        postId = {post.id}
+        postId={post.id}
         userId={post.user_id}
         avatar={post.avatar_url}
         username={post.first_name + " " + post.last_name}

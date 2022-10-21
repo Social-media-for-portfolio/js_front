@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { DateTime } from "luxon";
-import { createPost } from "../../utils/api";
 import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
+import { createPost } from "../../utils/api";
 import "./post-input.css";
 
 const PostInput = ({ userAvatar }) => {
@@ -14,11 +14,11 @@ const PostInput = ({ userAvatar }) => {
     setPostContent(e.target.value);
   };
 
-  const createNewPostData = (id, userId) => {
-    const { avatarUrl, firstName, lastName } = userInfo;
+  const createNewPostData = (postId) => {
+    const { avatarUrl, firstName, lastName, id } = userInfo;
     const post = {
-      id: id,
-      user_id: userId,
+      id: postId,
+      user_id: id,
       avatar_url: avatarUrl,
       first_name: firstName,
       last_name: lastName,
@@ -31,7 +31,7 @@ const PostInput = ({ userAvatar }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newPost = await createPost(postContent);
-    const post = createNewPostData(newPost[0].id, newPost[0].user_id);
+    const post = createNewPostData(newPost[0].id);
     setFeed([post, ...feed]);
     setPostContent("");
   };
