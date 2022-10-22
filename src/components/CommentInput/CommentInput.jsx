@@ -7,7 +7,7 @@ import "./comment-input.css";
 
 const CommentInput = ({ postId, postComments, setPostComments }) => {
   const { userInfo } = useContext(AuthContext);
-  const {feedMetrics, setFeedMetrics} = useContext(FeedContext)
+  const { feedMetrics, setFeedMetrics } = useContext(FeedContext);
   const [commentContent, setCommentContent] = useState("");
 
   const handleChange = (e) => {
@@ -34,7 +34,7 @@ const CommentInput = ({ postId, postComments, setPostComments }) => {
     const newComment = await postComment(commentContent, postId);
     const comment = createNewCommentData(newComment[0].id);
     setPostComments([comment, ...postComments]);
-    
+
     const map = { ...feedMetrics };
     if (postId in map) {
       map[postId][0] += 1;

@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
-import Logo from "../../assets/logo.jpg"
+import Logo from "../../assets/logo.jpg";
 import AuthContext from "../../context/authContext/AuthContext";
-import "./login.css"
+import "./login.css";
 
 const Login = () => {
   const { setIsAuth } = useContext(AuthContext);
@@ -55,7 +55,7 @@ const Login = () => {
       <div>
         <div className="row">
           <div className="col-4">
-            <img src = {Logo}/>
+            <img src={Logo} />
           </div>
           <div className="col-8 d-flex flex-column justify-content-around my-4 align-items-center w-50 h-25 form-wrapper">
             <form
@@ -69,13 +69,15 @@ const Login = () => {
                 id="email"
               />
               <input
-                className = "my-2"
+                className="my-2"
                 onChange={handleChange}
                 type="password"
                 placeholder="Enter your password"
                 id="password"
               />
-              <button className = "w-25 align-self-end btn btn-primary">Log in</button>
+              <button className="w-25 align-self-end btn btn-primary">
+                Log in
+              </button>
             </form>
           </div>
         </div>
