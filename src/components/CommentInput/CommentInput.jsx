@@ -1,8 +1,10 @@
 import React, { useState, useContext } from "react";
+import { DateTime } from "luxon";
 import AuthContext from "../../context/authContext/AuthContext";
+import { postComment } from "../../utils/api";
 import "./comment-input.css";
 
-const CommentInput = ({ userAvatar }) => {
+const CommentInput = ({ postId, postComments, setPostComments }) => {
   const { userInfo } = useContext(AuthContext);
   const [commentContent, setCommentContent] = useState("");
 
@@ -10,12 +12,35 @@ const CommentInput = ({ userAvatar }) => {
     setCommentContent(e.target.value);
   };
 
+  const createNewCommentData = (commentId) => {
+    const { avatarUrl, firstName, lastName, id } = userInfo;
+    const comment = {
+      id: commentId,
+      user_id: id,
+      post_id: postId,
+      content: commentContent,
+      avatar_url: avatarUrl,
+      first_name: firstName,
+      last_name: lastName,
+      created_at: DateTime.now().toISO(),
+    };
+    return comment;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newComment = await postComment(commentContent, postId);
+    const comment = createNewCommentData(newComment[0].id);
+    setPostComments([comment, ...postComments]);
+    setCommentContent("");
+  };
+
   return (
     <div className="d-flex justify-content-between h-100 align-items-center">
       <img className="comment-input-avatar" src={userInfo.avatarUrl} />
       <form
         className="d-flex justify-content-between w-100"
-        // onSubmit={}
+        onSubmit={handleSubmit}
       >
         <textarea
           className="w-100 mx-2 p-2 comment-input-area"

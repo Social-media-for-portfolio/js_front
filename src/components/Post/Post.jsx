@@ -28,6 +28,8 @@ const Post = ({
   const [revealComments, setRevealComments] = useState(false);
   const [postComments, setPostComments] = useState([]);
 
+  console.log(postComments)
+
   const commentComponents = postComments.map((comment) => {
     return (
       <Comment
@@ -102,7 +104,11 @@ const Post = ({
       {revealComments && (
         <div className="mt-4">
           <div className="line mb-4"></div>
-          <CommentInput />
+          <CommentInput
+            postId={postId}
+            postComments={postComments}
+            setPostComments={setPostComments}
+          />
           <div className="line my-3"></div>
           <div className="d-flex flex-column align-items-end">
             {commentComponents}
