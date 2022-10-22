@@ -77,7 +77,7 @@ const Post = ({
         </div>
       </div>
       <div>
-        <p className="px-3">{body}</p>
+        <p className="px-3 pt-3">{body}</p>
         {src && <img src={src} className="w-100 h-100" />}
       </div>
       <div className="mt-5">
