@@ -3,6 +3,7 @@ import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
 import Logo from "../../assets/logo.jpg"
 import AuthContext from "../../context/authContext/AuthContext";
+import "./login.css"
 
 const Login = () => {
   const { setIsAuth } = useContext(AuthContext);
@@ -53,10 +54,10 @@ const Login = () => {
       <Navbar />
       <div>
         <div className="row">
-          <div className="col-6">
-            <img src = {Logo} alt = "logo"/>
+          <div className="col-4">
+            <img src = {Logo}/>
           </div>
-          <div className="col-6 d-flex flex-column align-items-end">
+          <div className="col-8 d-flex flex-column justify-content-around my-4 align-items-center w-50 h-25 form-wrapper">
             <form
               onSubmit={handleSubmit}
               className="d-flex flex-column h-25 w-50 my-5 mx-5"
@@ -68,12 +69,13 @@ const Login = () => {
                 id="email"
               />
               <input
+                className = "my-2"
                 onChange={handleChange}
                 type="password"
                 placeholder="Enter your password"
                 id="password"
               />
-              <button>Log in</button>
+              <button className = "w-25 align-self-end btn btn-primary">Log in</button>
             </form>
           </div>
         </div>
