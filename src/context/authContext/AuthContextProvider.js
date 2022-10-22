@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AuthContext from "./AuthContext";
 
 const AuthContextProvider = ({ children }) => {
@@ -9,6 +9,29 @@ const AuthContextProvider = ({ children }) => {
     avatarUrl: "",
     id: ""
   })
+
+  useEffect(() => {
+    const isAuthenticated = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const response = await fetch("http://localhost:5000/auth/is-verified", {
+          method: "GET",
+          headers: { "Content-Type": "application/json", token: token },
+        });
+        const parseRes = await response.json();
+        if (parseRes) {
+          setIsAuth(true);
+        } else {
+          setIsAuth(false);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    isAuthenticated();
+  }, []);
 
   const state = {
     isAuth,

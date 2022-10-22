@@ -10,7 +10,7 @@ import "./home.css";
 
 const Home = () => {
   const { userInfo, setUserInfo } = useContext(AuthContext);
-  const { feed, setFeed } = useContext(FeedContext);
+  const { feed, setFeed} = useContext(FeedContext);
 
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
