@@ -28,11 +28,12 @@ const Post = ({
   const [revealComments, setRevealComments] = useState(false);
   const [postComments, setPostComments] = useState([]);
 
-  console.log(postComments)
-
   const commentComponents = postComments.map((comment) => {
     return (
       <Comment
+        postComments={postComments}
+        setPostComments={setPostComments}
+        postId={comment.post_id}
         key={comment.id}
         commentId={comment.id}
         avatar={comment.avatar_url}

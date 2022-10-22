@@ -114,3 +114,22 @@ export const deletePost = async (id) => {
   } finally {
   }
 };
+
+export const deleteComment = async (postId, commentId) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(
+      `http://localhost:5000/feed/posts/${postId}/comments/${commentId}`,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json", token: token },
+      }
+    );
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};
