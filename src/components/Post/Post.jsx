@@ -10,20 +10,13 @@ import FeedContext from "../../context/feedContext/FeedContext";
 import { deletePost, getAllComments } from "../../utils/api";
 import "./post.css";
 
-const Post = ({
-  postId,
-  src,
-  avatar,
-  username,
-  dateTime,
-  body,
-  userId,
-  likes = 0,
-  comments = 0,
-}) => {
+const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
   const { userInfo } = useContext(AuthContext);
-  const { feed, setFeed } = useContext(FeedContext);
+  const { feed, setFeed, feedMetrics } = useContext(FeedContext);
   const { id } = userInfo;
+
+  const likes = feedMetrics[postId] ? feedMetrics[postId][1] : 0;
+  const comments = feedMetrics[postId] ? feedMetrics[postId][0] : 0;
 
   const [revealComments, setRevealComments] = useState(false);
   const [postComments, setPostComments] = useState([]);
