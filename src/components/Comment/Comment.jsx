@@ -3,6 +3,7 @@ import { GrLike } from "react-icons/gr";
 import { TiDeleteOutline } from "react-icons/ti";
 import { DateTime } from "luxon";
 import AuthContext from "../../context/authContext/AuthContext";
+import FeedContext from "../../context/feedContext/FeedContext";
 import { deleteComment } from "../../utils/api";
 import "./comment.css";
 
@@ -20,6 +21,7 @@ const Comment = ({
   likes = 0,
 }) => {
   const { userInfo } = useContext(AuthContext);
+  const { feedMetrics, setFeedMetrics } = useContext(FeedContext);
 
   const updateComments = () => {
     const newComments = postComments.filter(
@@ -32,6 +34,10 @@ const Comment = ({
     await deleteComment(postId, commentId);
     const newComments = updateComments();
     setPostComments(newComments);
+    const map = { ...feedMetrics };
+    map[postId][0] -= 1;
+
+    setFeedMetrics(map);
   };
 
   return (
