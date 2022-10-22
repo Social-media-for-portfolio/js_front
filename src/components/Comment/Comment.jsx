@@ -18,7 +18,6 @@ const Comment = ({
   const { userInfo } = useContext(AuthContext);
 
   return (
-    <div>
       <div className="my-2 comment p-3">
         <div className="d-flex align-items-center">
           <img src={avatar} className="comment-avatar" />
@@ -48,7 +47,6 @@ const Comment = ({
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
