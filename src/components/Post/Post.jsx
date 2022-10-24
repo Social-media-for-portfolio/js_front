@@ -13,13 +13,13 @@ import {
   getAllComments,
   likePost,
   unlikePost,
-  userLikesPost
+  userLikesPost,
 } from "../../utils/api";
 import "./post.css";
 
 const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
   const { userInfo } = useContext(AuthContext);
-  const { feed, setFeed, feedMetrics } = useContext(FeedContext);
+  const { feed, setFeed, feedMetrics, setFeedMetrics } = useContext(FeedContext);
   const { id } = userInfo;
 
   const likes = feedMetrics[postId] ? feedMetrics[postId][1] : 0;
@@ -41,10 +41,10 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
       if (postId in map) {
         map[postId][1] += 1;
       } else {
-        console.log("works?")
         map[postId] = [0, 1];
       }
     }
+    setFeedMetrics(map);
   };
 
   const commentComponents = postComments.map((comment) => {
@@ -70,12 +70,12 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
     return;
   };
 
-  const checkLike = async() => {
-    const boolean = await userLikesPost(postId)
-    if(boolean) setIsLiked(true);
+  const checkLike = async () => {
+    const boolean = await userLikesPost(postId);
+    if (boolean) setIsLiked(true);
     else setIsLiked(false);
     return;
-  }
+  };
   const toggleComments = () => {
     if (revealComments) {
       setRevealComments(false);
