@@ -5,7 +5,12 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { DateTime } from "luxon";
 import AuthContext from "../../context/authContext/AuthContext";
 import FeedContext from "../../context/feedContext/FeedContext";
-import { deleteComment, userLikesComment, likeComment , unlikeComment} from "../../utils/api";
+import {
+  deleteComment,
+  userLikesComment,
+  likeComment,
+  unlikeComment,
+} from "../../utils/api";
 import "./comment.css";
 
 const Comment = ({
@@ -55,7 +60,7 @@ const Comment = ({
   const handleLikeComment = async () => {
     const map = { ...commentMetrics };
     if (!isLiked) {
-      await likeComment(commentId);
+      await likeComment(commentId, postId);
       if (commentId in map) {
         map[commentId] += 1;
       } else {

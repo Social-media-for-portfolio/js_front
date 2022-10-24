@@ -210,13 +210,14 @@ export const userLikesComment = async (commentId) => {
   }
 };
 
-export const likeComment = async (commentId) => {
+export const likeComment = async (commentId, postId) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
       `http://localhost:5000/feed/comments/${commentId}/likes`,
       {
+        body: JSON.stringify({postId}),
         method: "POST",
         headers: { "Content-Type": "application/json", token: token },
       }
