@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
-import { GrLike } from "react-icons/gr";
+import React, { useContext, useEffect, useState } from "react";
+import { FcLikePlaceholder } from "react-icons/fc";
+import { FcLike } from "react-icons/fc";
 import { TiDeleteOutline } from "react-icons/ti";
 import { DateTime } from "luxon";
 import AuthContext from "../../context/authContext/AuthContext";
 import FeedContext from "../../context/feedContext/FeedContext";
-import { deleteComment } from "../../utils/api";
+import { deleteComment, userLikesComment} from "../../utils/api";
 import "./comment.css";
 
 const Comment = ({
@@ -20,7 +21,10 @@ const Comment = ({
   userId,
 }) => {
   const { userInfo } = useContext(AuthContext);
-  const { feedMetrics, setFeedMetrics, commentMetrics, setCommentMetrics} = useContext(FeedContext);
+  const { feedMetrics, setFeedMetrics, commentMetrics, setCommentMetrics } =
+    useContext(FeedContext);
+
+  const [isLiked, setIsLiked] = useState(false);
 
   const likes = commentMetrics[commentId] ? commentMetrics[commentId] : 0;
 
@@ -41,6 +45,16 @@ const Comment = ({
     setFeedMetrics(map);
   };
 
+  const checkLike = async () => {
+    const boolean = await userLikesComment(commentId);
+    if (boolean) setIsLiked(true);
+    else setIsLiked(false);
+    return;
+  };
+  useEffect(() => {
+    checkLike();
+  })
+
   return (
     <div className="my-2 comment p-3">
       <div className="d-flex align-items-center">
@@ -58,7 +72,11 @@ const Comment = ({
         <div className="d-flex justify-content-end">
           <div className="d-flex">
             <p>{likes}</p>
-            <GrLike className="mx-2 fs-4" />
+            {isLiked ? (
+              <FcLike className="mx-2 fs-4" />
+            ) : (
+              <FcLikePlaceholder className="mx-2 fs-4" />
+            )}
           </div>
           <div className="d-flex justify-content-between">
             {userId === userInfo.id && (
