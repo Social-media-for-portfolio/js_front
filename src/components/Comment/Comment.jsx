@@ -18,10 +18,11 @@ const Comment = ({
   dateTime,
   body,
   userId,
-  likes = 0,
 }) => {
   const { userInfo } = useContext(AuthContext);
-  const { feedMetrics, setFeedMetrics } = useContext(FeedContext);
+  const { feedMetrics, setFeedMetrics, commentMetrics, setCommentMetrics} = useContext(FeedContext);
+
+  const likes = commentMetrics[commentId] ? commentMetrics[commentId] : 0;
 
   const updateComments = () => {
     const newComments = postComments.filter(

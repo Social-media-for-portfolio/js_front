@@ -4,17 +4,22 @@ import FeedContext from "./FeedContext";
 const FeedContextProvider = ({ children }) => {
   const [feed, setFeed] = useState([]);
   const [feedMetrics, setFeedMetrics] = useState({});
+  const [commentMetrics, setCommentMetrics] = useState({});
 
   const state = {
     feed,
     setFeed,
     feedMetrics,
     setFeedMetrics,
+    commentMetrics, 
+    setCommentMetrics
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const getMetrics = async () => {
+
+    //Get Post Metrics
+    const getPostMetrics = async () => {
       const map = {};
       const commentResponse = await fetch(
         "http://localhost:5000/feed/comments/metrics",
@@ -44,7 +49,27 @@ const FeedContextProvider = ({ children }) => {
       }
       setFeedMetrics(map);
     };
-    getMetrics();
+    getPostMetrics();
+
+    //Get Comment Metrics
+
+    const getCommentMetrics = async () => {
+      const map = {};
+
+      const response = await fetch(
+        "http://localhost:5000/feed/comments/likes",
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json", token: token },
+        }
+      );
+      const commentLikesData = await response.json();
+      for (let commentLike of commentLikesData) {
+        map[commentLike.comment_id] = parseInt(commentLike.likecount);
+      }
+      setCommentMetrics(map);
+    };
+    getCommentMetrics();
   }, []);
   return <FeedContext.Provider value={state}>{children}</FeedContext.Provider>;
 };
