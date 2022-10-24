@@ -21,7 +21,7 @@ const AuthContextProvider = ({ children }) => {
           headers: { "Content-Type": "application/json", token: token },
         });
         const parseRes = await response.json();
-        if (parseRes) {
+        if (parseRes === true) {
           setIsAuth(true);
         } else {
           setIsAuth(false);
