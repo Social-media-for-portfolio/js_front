@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
-import { GrLike } from "react-icons/gr";
+import { FcLikePlaceholder } from "react-icons/fc";
+import { FcLike } from "react-icons/fc";
 import { FaRegCommentDots } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
 import { DateTime } from "luxon";
@@ -20,6 +21,15 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
 
   const [revealComments, setRevealComments] = useState(false);
   const [postComments, setPostComments] = useState([]);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLike = () => {
+    if (isLiked) {
+      setIsLiked(false);
+    } else {
+      setIsLiked(true);
+    }
+  };
 
   const commentComponents = postComments.map((comment) => {
     return (
@@ -80,7 +90,11 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
         <div className="d-flex justify-content-between">
           <div className="d-flex">
             <p>{likes}</p>
-            <GrLike className="mx-2 fs-4" />
+            {isLiked ? (
+              <FcLike onClick={handleLike} className="mx-2 fs-4" />
+            ) : (
+              <FcLikePlaceholder onClick={handleLike} className="mx-2 fs-4" />
+            )}
           </div>
           <div className="d-flex justify-content-between">
             <p>{comments + " "}Comments</p>
