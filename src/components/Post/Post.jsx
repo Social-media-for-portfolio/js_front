@@ -8,7 +8,13 @@ import CommentInput from "../CommentInput/CommentInput";
 import Comment from "../Comment";
 import AuthContext from "../../context/authContext/AuthContext";
 import FeedContext from "../../context/feedContext/FeedContext";
-import { deletePost, getAllComments } from "../../utils/api";
+import {
+  deletePost,
+  getAllComments,
+  likePost,
+  unlikePost,
+  userLikesPost
+} from "../../utils/api";
 import "./post.css";
 
 const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
@@ -24,10 +30,20 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLike = () => {
+    const map = { ...feedMetrics };
     if (isLiked) {
       setIsLiked(false);
+      unlikePost(postId);
+      map[postId][1] -= 1;
     } else {
       setIsLiked(true);
+      likePost(postId);
+      if (postId in map) {
+        map[postId][1] += 1;
+      } else {
+        console.log("works?")
+        map[postId] = [0, 1];
+      }
     }
   };
 
@@ -51,8 +67,15 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
   const updateComments = async (id) => {
     const comments = await getAllComments(id);
     setPostComments(comments);
+    return;
   };
 
+  const checkLike = async() => {
+    const boolean = await userLikesPost(postId)
+    if(boolean) setIsLiked(true);
+    else setIsLiked(false);
+    return;
+  }
   const toggleComments = () => {
     if (revealComments) {
       setRevealComments(false);
@@ -72,6 +95,7 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
 
   useEffect(() => {
     updateComments(postId);
+    checkLike();
   }, []);
   return (
     <div className="my-5 w-50 post p-3">
