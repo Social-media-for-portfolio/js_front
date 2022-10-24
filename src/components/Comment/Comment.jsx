@@ -5,7 +5,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { DateTime } from "luxon";
 import AuthContext from "../../context/authContext/AuthContext";
 import FeedContext from "../../context/feedContext/FeedContext";
-import { deleteComment, userLikesComment} from "../../utils/api";
+import { deleteComment, userLikesComment, likeComment , unlikeComment} from "../../utils/api";
 import "./comment.css";
 
 const Comment = ({
@@ -51,9 +51,29 @@ const Comment = ({
     else setIsLiked(false);
     return;
   };
+
+  const handleLikeComment = async () => {
+    const map = { ...commentMetrics };
+    if (!isLiked) {
+      await likeComment(commentId);
+      if (commentId in map) {
+        map[commentId] += 1;
+      } else {
+        map[commentId] = 1;
+      }
+      setIsLiked(true);
+      setCommentMetrics(map);
+      return;
+    }
+    await unlikeComment(commentId);
+    map[commentId] -= 1;
+    setIsLiked(false);
+    setCommentMetrics(map);
+    return;
+  };
   useEffect(() => {
     checkLike();
-  })
+  });
 
   return (
     <div className="my-2 comment p-3">
@@ -73,9 +93,12 @@ const Comment = ({
           <div className="d-flex">
             <p>{likes}</p>
             {isLiked ? (
-              <FcLike className="mx-2 fs-4" />
+              <FcLike onClick={handleLikeComment} className="mx-2 fs-4" />
             ) : (
-              <FcLikePlaceholder className="mx-2 fs-4" />
+              <FcLikePlaceholder
+                onClick={handleLikeComment}
+                className="mx-2 fs-4"
+              />
             )}
           </div>
           <div className="d-flex justify-content-between">

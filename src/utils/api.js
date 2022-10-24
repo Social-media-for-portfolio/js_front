@@ -209,3 +209,41 @@ export const userLikesComment = async (commentId) => {
   } finally {
   }
 };
+
+export const likeComment = async (commentId) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(
+      `http://localhost:5000/feed/comments/${commentId}/likes`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json", token: token },
+      }
+    );
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};
+
+export const unlikeComment = async (commentId) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(
+      `http://localhost:5000/feed/comments/${commentId}/likes`,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json", token: token },
+      }
+    );
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};
