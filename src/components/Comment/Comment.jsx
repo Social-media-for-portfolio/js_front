@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { FcLikePlaceholder } from "react-icons/fc";
 import { FcLike } from "react-icons/fc";
 import { TiDeleteOutline } from "react-icons/ti";
@@ -83,7 +84,9 @@ const Comment = ({
   return (
     <div className="my-2 comment p-3">
       <div className="d-flex align-items-center">
-        <img src={avatar} className="comment-avatar" />
+        <Link to="userProfile" state={{ userId }}>
+          <img src={avatar} className="comment-avatar" />
+        </Link>
         <div className="d-flex flex-column mx-3">
           <h4>{username}</h4>
           <p>{DateTime.fromISO(dateTime).toRelative()}</p>

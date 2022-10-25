@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import AuthContext from "../../context/authContext/AuthContext";
 import "./navbar.css";
 
 const Navbar = () => {
   const { isAuth, setIsAuth, userInfo } = useContext(AuthContext);
+  const userId = userInfo.id;
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -22,7 +24,9 @@ const Navbar = () => {
       {isAuth && (
         <div className="d-flex align-items-center">
           <h5 onClick={handleClick}>Logout</h5>
-          <img className="navbar-avatar mx-3" src={userInfo.avatarUrl} />
+          <Link to="userProfile" state={{ userId }}>
+            <img className="navbar-avatar mx-3" src={userInfo.avatarUrl} />
+          </Link>
         </div>
       )}
     </nav>
