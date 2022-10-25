@@ -14,7 +14,7 @@ export const getAllPosts = async () => {
   }
 };
 
-export const getUserInfo = async () => {
+export const getMyUserInfo = async () => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
@@ -23,6 +23,23 @@ export const getUserInfo = async () => {
       headers: { "Content-Type": "application/json", token: token },
     });
     const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};
+
+export const getUserInfo = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(`http://localhost:5000/users/profile/${id}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json", token: token },
+    });
+    const parseRes = await response.json();
+    console.log(parseRes);
     return parseRes;
   } catch (error) {
     throw error;

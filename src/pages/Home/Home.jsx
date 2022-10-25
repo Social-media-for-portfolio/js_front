@@ -3,7 +3,7 @@ import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
 import Post from "../../components/Post";
 import PostInput from "../../components/PostInput";
-import { getAllPosts, getUserInfo } from "../../utils/api";
+import { getAllPosts, getMyUserInfo } from "../../utils/api";
 import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
 import "./home.css";
@@ -15,7 +15,7 @@ const Home = () => {
 
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
-    const { id, first_name, last_name, avatar_url } = await getUserInfo();
+    const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
     setUserInfo({
       ...userInfo,
       id: id,
