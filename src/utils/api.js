@@ -39,7 +39,6 @@ export const getUserInfo = async (id) => {
       headers: { "Content-Type": "application/json", token: token },
     });
     const parseRes = await response.json();
-    console.log(parseRes);
     return parseRes;
   } catch (error) {
     throw error;
@@ -234,7 +233,7 @@ export const likeComment = async (commentId, postId) => {
     const response = await fetch(
       `http://localhost:5000/feed/comments/${commentId}/likes`,
       {
-        body: JSON.stringify({postId}),
+        body: JSON.stringify({ postId }),
         method: "POST",
         headers: { "Content-Type": "application/json", token: token },
       }
@@ -255,6 +254,25 @@ export const unlikeComment = async (commentId) => {
       `http://localhost:5000/feed/comments/${commentId}/likes`,
       {
         method: "DELETE",
+        headers: { "Content-Type": "application/json", token: token },
+      }
+    );
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};
+
+export const getPostsByUser = async (userId) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(
+      `http://localhost:5000/users/profile/${userId}/posts`,
+      {
+        method: "GET",
         headers: { "Content-Type": "application/json", token: token },
       }
     );
