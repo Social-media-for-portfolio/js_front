@@ -24,7 +24,7 @@ const Navbar = () => {
       {isAuth && (
         <div className="d-flex align-items-center">
           <h5 onClick={handleClick}>Logout</h5>
-          <Link to="userProfile" state={{ userId }}>
+          <Link to="/userProfile" state={{ userId }}>
             <img className="navbar-avatar mx-3" src={userInfo.avatarUrl} />
           </Link>
         </div>
