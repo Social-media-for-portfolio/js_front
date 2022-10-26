@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
+import UserProfileCard from "../../components/UserProfileCard/UserProfileCard"
 import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
 import {
@@ -101,9 +102,9 @@ const UserProfile = () => {
     getCommentMetrics();
   }, [id]);
   return (
-    <div>
+    <div className = "d-flex flex-column">
       <Navbar />
-      <div>userProfile</div>
+      <UserProfileCard avatar = {profile.avatar_url} firstName = {profile.first_name} lastName = {profile.last_name}/>
       <Footer />
     </div>
   );
