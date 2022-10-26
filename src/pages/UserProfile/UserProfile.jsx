@@ -8,7 +8,6 @@ import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
 import {
   getUserInfo,
-  getPostsByUser,
   getAllPosts,
   getMyUserInfo,
   getPostsWithUserComments,
@@ -82,17 +81,12 @@ const UserProfile = () => {
   const { id } = useParams();
 
   const [profile, setProfile] = useState({});
-  // const [userPosts, setUserPosts] = useState({});
   const [userComments, setUserComments] = useState([]);
 
   const getUserProfile = async () => {
     const profile = await getUserInfo(id);
     setProfile(profile);
   };
-  // const getUserPosts = async () => {
-  //   const posts = await getPostsByUser(id);
-  //   setUserPosts(posts);
-  // };
 
   const getUserComments = async () => {
     const postsWithUserComments = await getPostsWithUserComments(id);

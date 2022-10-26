@@ -50,9 +50,9 @@ const Login = () => {
   };
 
   return (
-    <div className="container-fluid px-0 mx-0">
+    <div className="container-fluid">
       <Navbar />
-      <div>
+      <div className = "login">
         <div className="row">
           <div className="col-4">
             <img src={Logo} />
