@@ -116,16 +116,18 @@ const UserProfile = () => {
     getCommentMetrics();
   }, [id]);
   return (
-    <div className="d-flex flex-column">
+    <div className="d-flex flex-column justiyf-content-between">
       <Navbar />
-      <UserProfileCard
-        avatar={profile.avatar_url}
-        firstName={profile.first_name}
-        lastName={profile.last_name}
-      />
-      <ToggleActivites />
-      <div className="d-flex flex-column align-items-center">
-        {postComponents}
+      <div className="content">
+        <UserProfileCard
+          avatar={profile.avatar_url}
+          firstName={profile.first_name}
+          lastName={profile.last_name}
+        />
+        <ToggleActivites />
+        <div className="d-flex flex-column align-items-center">
+          {postComponents}
+        </div>
       </div>
       <Footer />
     </div>
