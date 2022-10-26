@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
-import UserProfileCard from "../../components/UserProfileCard"
-import Post from "../../components/Post"
+import UserProfileCard from "../../components/UserProfileCard";
+import ToggleActivites from "../../components/ToggleActivities/ToggleActivites";
+import Post from "../../components/Post";
 import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
 import {
@@ -78,10 +79,8 @@ const UserProfile = () => {
 
   const { id } = useParams();
 
-
   const [profile, setProfile] = useState({});
   const [userPosts, setUserPosts] = useState({});
-
 
   const getUserProfile = async () => {
     const profile = await getUserInfo(id);
@@ -92,7 +91,6 @@ const UserProfile = () => {
     setUserPosts(posts);
   };
 
-   
   const profileFeed = feed.filter((post) => post.user_id === profile.id);
 
   const postComponents = profileFeed.map((post) => {
@@ -118,10 +116,17 @@ const UserProfile = () => {
     getCommentMetrics();
   }, [id]);
   return (
-    <div className = "d-flex flex-column">
+    <div className="d-flex flex-column">
       <Navbar />
-      <UserProfileCard avatar = {profile.avatar_url} firstName = {profile.first_name} lastName = {profile.last_name}/>
-      <div className = "d-flex flex-column align-items-center">{postComponents}</div>
+      <UserProfileCard
+        avatar={profile.avatar_url}
+        firstName={profile.first_name}
+        lastName={profile.last_name}
+      />
+      <ToggleActivites />
+      <div className="d-flex flex-column align-items-center">
+        {postComponents}
+      </div>
       <Footer />
     </div>
   );
