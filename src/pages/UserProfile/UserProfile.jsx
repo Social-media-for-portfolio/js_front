@@ -11,6 +11,7 @@ import {
   getPostsByUser,
   getAllPosts,
   getMyUserInfo,
+  getPostsWithUserComments,
 } from "../../utils/api";
 import { useParams } from "react-router-dom";
 
@@ -19,6 +20,7 @@ const UserProfile = () => {
   const { setFeed, feed, setFeedMetrics, setCommentMetrics } =
     useContext(FeedContext);
 
+  const [toggle, setToggle] = useState("posts");
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
     const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
@@ -80,18 +82,42 @@ const UserProfile = () => {
   const { id } = useParams();
 
   const [profile, setProfile] = useState({});
-  const [userPosts, setUserPosts] = useState({});
+  // const [userPosts, setUserPosts] = useState({});
+  const [userComments, setUserComments] = useState([]);
 
   const getUserProfile = async () => {
     const profile = await getUserInfo(id);
     setProfile(profile);
   };
-  const getUserPosts = async () => {
-    const posts = await getPostsByUser(id);
-    setUserPosts(posts);
+  // const getUserPosts = async () => {
+  //   const posts = await getPostsByUser(id);
+  //   setUserPosts(posts);
+  // };
+
+  const getUserComments = async () => {
+    const postsWithUserComments = await getPostsWithUserComments(id);
+    setUserComments(postsWithUserComments);
   };
 
+  console.log(userComments);
+
   const profileFeed = feed.filter((post) => post.user_id === profile.id);
+
+  console.log(userComments)
+
+  const postCommentComponents = userComments.map((post) => {
+    return (
+      <Post
+        key={post.id}
+        postId={post.id}
+        userId={post.user_id}
+        avatar={post.avatar_url}
+        username={post.first_name + " " + post.last_name}
+        dateTime={post.created_at}
+        body={post.content}
+      />
+    );
+  });
 
   const postComponents = profileFeed.map((post) => {
     return (
@@ -106,12 +132,12 @@ const UserProfile = () => {
       />
     );
   });
-  console.log(profileFeed);
 
   useEffect(() => {
     getUserProfile();
     retrieveFeed();
-    getUserPosts();
+    // getUserPosts();
+    getUserComments();
     getPostMetrics();
     getCommentMetrics();
   }, [id]);
@@ -124,9 +150,9 @@ const UserProfile = () => {
           firstName={profile.first_name}
           lastName={profile.last_name}
         />
-        <ToggleActivites />
+        <ToggleActivites toggle={toggle} setToggle={setToggle} />
         <div className="d-flex flex-column align-items-center">
-          {postComponents}
+          {toggle === "posts" ? postComponents : postCommentComponents}
         </div>
       </div>
       <Footer />

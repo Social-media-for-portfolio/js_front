@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import "./toggle.css";
 
-const ToggleActivites = () => {
-  const [toggle, setToggle] = useState("posts");
-
+const ToggleActivites = ({toggle, setToggle}) => {
   const handleClick = (e) => {
     setToggle(e.target.id);
   };
-  console.log(toggle);
   return (
     <div className="d-flex flex-column">
       <div className="d-flex align-self-center">
