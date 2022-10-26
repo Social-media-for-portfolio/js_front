@@ -81,7 +81,6 @@ const UserProfile = () => {
   const [profile, setProfile] = useState({});
   const [userPosts, setUserPosts] = useState({});
 
-  console.log(profile);
   console.log(userPosts);
 
   const getUserProfile = async () => {
@@ -93,13 +92,14 @@ const UserProfile = () => {
     setUserPosts(posts);
   };
 
+  console.log(profile);
   useEffect(() => {
-    retrieveFeed();
     getUserProfile();
+    retrieveFeed();
     getUserPosts();
     getPostMetrics();
     getCommentMetrics();
-  }, []);
+  }, [id]);
   return (
     <div>
       <Navbar />
