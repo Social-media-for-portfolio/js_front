@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FcLikePlaceholder } from "react-icons/fc";
 import { FcLike } from "react-icons/fc";
 import { FaRegCommentDots } from "react-icons/fa";
@@ -20,7 +20,8 @@ import "./post.css";
 
 const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
   const { userInfo } = useContext(AuthContext);
-  const { feed, setFeed, feedMetrics, setFeedMetrics } = useContext(FeedContext);
+  const { feed, setFeed, feedMetrics, setFeedMetrics } =
+    useContext(FeedContext);
   const { id } = userInfo;
 
   const likes = feedMetrics[postId] ? feedMetrics[postId][1] : 0;
@@ -93,9 +94,7 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
     const newFeed = updateFeed();
     setFeed(newFeed);
   };
-  const handleNavigate = () => {
-    
-  }
+  const handleNavigate = () => {};
 
   useEffect(() => {
     updateComments(postId);
@@ -104,7 +103,9 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
   return (
     <div className="my-5 w-50 post p-3">
       <div className="d-flex align-items-center">
-        <Link to = "/userProfile" state={{ userId }}><img src={avatar} className="post-avatar"/></Link>
+        <Link to={`/userProfile/${userId}`}>
+          <img src={avatar} className="post-avatar" />
+        </Link>
         <div className="d-flex flex-column mx-3">
           <h2>{username}</h2>
           <p>{DateTime.fromISO(dateTime).toRelative()}</p>
