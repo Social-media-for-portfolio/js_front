@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
-import UserProfileCard from "../../components/UserProfileCard/UserProfileCard"
+import UserProfileCard from "../../components/UserProfileCard"
+import Post from "../../components/Post"
 import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
 import {
@@ -14,7 +15,7 @@ import { useParams } from "react-router-dom";
 
 const UserProfile = () => {
   const { userInfo, setUserInfo } = useContext(AuthContext);
-  const { setFeed, setFeedMetrics, setCommentMetrics } =
+  const { setFeed, feed, setFeedMetrics, setCommentMetrics } =
     useContext(FeedContext);
 
   const retrieveFeed = async () => {
@@ -77,12 +78,10 @@ const UserProfile = () => {
 
   const { id } = useParams();
 
-  console.log(id);
 
   const [profile, setProfile] = useState({});
   const [userPosts, setUserPosts] = useState({});
 
-  console.log(userPosts);
 
   const getUserProfile = async () => {
     const profile = await getUserInfo(id);
@@ -93,7 +92,24 @@ const UserProfile = () => {
     setUserPosts(posts);
   };
 
-  console.log(profile);
+   
+  const profileFeed = feed.filter((post) => post.user_id === profile.id);
+
+  const postComponents = profileFeed.map((post) => {
+    return (
+      <Post
+        key={post.id}
+        postId={post.id}
+        userId={post.user_id}
+        avatar={post.avatar_url}
+        username={post.first_name + " " + post.last_name}
+        dateTime={post.created_at}
+        body={post.content}
+      />
+    );
+  });
+  console.log(profileFeed);
+
   useEffect(() => {
     getUserProfile();
     retrieveFeed();
@@ -105,6 +121,7 @@ const UserProfile = () => {
     <div className = "d-flex flex-column">
       <Navbar />
       <UserProfileCard avatar = {profile.avatar_url} firstName = {profile.first_name} lastName = {profile.last_name}/>
+      <div className = "d-flex flex-column align-items-center">{postComponents}</div>
       <Footer />
     </div>
   );
