@@ -18,13 +18,13 @@ const ToggleActivites = () => {
           <h5 id="posts" onClick={handleClick}>
             Posts
           </h5>
-          {toggle === "posts" && <div className="line"></div>}
+          {toggle === "posts" && <div className="toggle-line"></div>}
         </div>
         <div>
           <h5 id="comments" onClick={handleClick}>
             Comments
           </h5>
-          {toggle === "comments" && <div className="line"></div>}
+          {toggle === "comments" && <div className="toggle-line"></div>}
         </div>
       </div>
     </div>
