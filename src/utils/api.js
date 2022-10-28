@@ -350,7 +350,7 @@ export const getFriendsForUser = async(userId) => {
     const map = {};
 
     for(let i = 0; i < filtered.length; i++) {
-      map[filtered[i].id] = [filtered[i].first_name, filtered[i].last_name, filtered[i].avatar_url] 
+      map[filtered[i].id] = [filtered[i].first_name, filtered[i].last_name, filtered[i].avatar_url, filtered[i].id] 
     }
     return map;
   } catch (error) {

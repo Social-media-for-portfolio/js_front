@@ -87,26 +87,35 @@ const UserProfileCard = ({
     }
   };
 
-  const getFriendAvatars = () => {
+  const getFriendAvatarsAndId = () => {
     let avatar1 = null;
     let avatar2 = null;
     let avatar3 = null;
+    let id1 = null;
+    let id2 = null;
+    let id3 = null;
     let counter = 0;
-    for(let friend in userFriends) {
-      console.log(friend)
-      if(counter === 0) avatar1 = userFriends[friend][2];
-      if(counter === 1) avatar2 = userFriends[friend][2];
-      if(counter === 2) {
-        avatar3 = userFriends[friend][2]
+    for (let friend in userFriends) {
+      console.log(friend);
+      if (counter === 0) {
+        avatar1 = userFriends[friend][2];
+        id1 = userFriends[friend][3];
+      }
+      if (counter === 1) {
+        avatar2 = userFriends[friend][2];
+        id2 = userFriends[friend][3];
+      }
+      if (counter === 2) {
+        avatar3 = userFriends[friend][2];
+        id3 = userFriends[friend][3];
         break;
       }
-      counter ++; 
+      counter++;
     }
-    return {avatar1, avatar2, avatar3};
-  }
+    return { avatar1, avatar2, avatar3, id1, id2, id3 };
+  };
 
-const {avatar1, avatar2, avatar3} = getFriendAvatars();
-  
+  const { avatar1, avatar2, avatar3, id1, id2, id3 } = getFriendAvatarsAndId();
 
   return (
     <div className="d-flex flex-column profile-card">
@@ -188,6 +197,9 @@ const {avatar1, avatar2, avatar3} = getFriendAvatars();
           </div>
         )}
         <UserProfileFriendsCard
+          id1={id1}
+          id2={id2}
+          id3={id3}
           avatar1={avatar1}
           avatar2={avatar2}
           avatar3={avatar3}
