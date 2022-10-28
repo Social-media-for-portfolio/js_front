@@ -14,7 +14,7 @@ const UserProfileCard = ({
   birthday,
   location,
 }) => {
-  const { userInfo } = useContext(AuthContext);
+  const { userInfo, friends} = useContext(AuthContext);
   const isMyUser = Number(userId) === userInfo.id ? true : false;
 
   const [info, setInfo] = useState({
@@ -101,8 +101,11 @@ const UserProfileCard = ({
               </button>
             )}
           </div>
-          {!isMyUser && (
+          {!isMyUser && !(userId in friends) &&  (
             <button className = "btn btn-success h-25 align-self-center mx-4">Add to friends!</button>
+        )}
+         {!isMyUser && userId in friends &&  (
+            <button className = "btn btn-danger h-25 align-self-center mx-4">Remove from friends!</button>
         )}
           </div>
         )}

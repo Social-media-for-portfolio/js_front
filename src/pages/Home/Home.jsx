@@ -9,14 +9,14 @@ import AuthContext from "../../context/authContext/AuthContext";
 import "./home.css";
 
 const Home = () => {
-  const { userInfo, setUserInfo, friends, setFriends} = useContext(AuthContext);
+  const { userInfo, setUserInfo, setFriends} = useContext(AuthContext);
   const { feed, setFeed, setFeedMetrics, setCommentMetrics } =
     useContext(FeedContext);
 
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
     const { id, first_name, last_name, avatar_url} = await getMyUserInfo();
-    getFriendsForUser(id);
+    setFriends(await getFriendsForUser(id));
     setUserInfo({
       ...userInfo,
       id: id,
