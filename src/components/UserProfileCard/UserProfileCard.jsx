@@ -134,17 +134,17 @@ const UserProfileCard = ({
                   Edit Profile
                 </button>
               )}
+              {!isMyUser && !(userId in friends) && (
+                <button className="btn btn-success h-25 align-self-center mx-4">
+                  Add to friends!
+                </button>
+              )}
+              {!isMyUser && userId in friends && (
+                <button className="btn btn-danger h-25 align-self-center mx-4">
+                  Remove from friends!
+                </button>
+              )}
             </div>
-            {!isMyUser && !(userId in friends) && (
-              <button className="btn btn-success h-25 align-self-center mx-4">
-                Add to friends!
-              </button>
-            )}
-            {!isMyUser && userId in friends && (
-              <button className="btn btn-danger h-25 align-self-center mx-4">
-                Remove from friends!
-              </button>
-            )}
           </div>
         )}
         {isEditing && (
