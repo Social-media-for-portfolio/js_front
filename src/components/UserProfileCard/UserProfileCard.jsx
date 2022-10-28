@@ -88,6 +88,7 @@ const UserProfileCard = ({
       <div className="d-flex justify-content-start align-items-center my-5 py-5 mx-3">
         <img src={avatar} className="profile-avatar mx-3" />
         {!isEditing && (
+          <div className = "d-flex">
           <div className="d-flex flex-column justify-content-end align-items-center">
             <h2 className="mx-4">{`${firstName} ${lastName}`}</h2>
             <h5 className="my-2">{location}</h5>
@@ -100,9 +101,13 @@ const UserProfileCard = ({
               </button>
             )}
           </div>
+          {!isMyUser && (
+            <button className = "btn btn-success h-25 align-self-center mx-4">Add to friends!</button>
+        )}
+          </div>
         )}
         {isEditing && (
-          <form className="d-flex flex-column ">
+          <div className="d-flex flex-column ">
             <input
               onChange={handleChange}
               value={info.firstName}
@@ -148,7 +153,7 @@ const UserProfileCard = ({
                 Done editing
               </button>
             )}
-          </form>
+          </div>
         )}
       </div>
     </div>
