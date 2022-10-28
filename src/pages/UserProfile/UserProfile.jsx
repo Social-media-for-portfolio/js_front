@@ -11,6 +11,7 @@ import {
   getAllPosts,
   getMyUserInfo,
   getPostsWithUserComments,
+  getFriendsForUser,
 } from "../../utils/api";
 import { useParams } from "react-router-dom";
 
@@ -20,6 +21,8 @@ const UserProfile = () => {
     useContext(FeedContext);
 
   const [toggle, setToggle] = useState("posts");
+
+  const [userFriends, setUserFriends] = useState({});
 
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
@@ -33,7 +36,6 @@ const UserProfile = () => {
       avatarUrl: avatar_url,
     });
   };
-
 
   const getPostMetrics = async () => {
     const token = localStorage.getItem("token");
@@ -82,6 +84,10 @@ const UserProfile = () => {
   };
 
   const { id } = useParams();
+  const getFriends = async () => {
+    setUserFriends(await getFriendsForUser(Number(id)));
+  };
+  console.log(userFriends);
 
   const [profile, setProfile] = useState({});
   const [userComments, setUserComments] = useState([]);
@@ -132,12 +138,14 @@ const UserProfile = () => {
     getUserComments();
     getPostMetrics();
     getCommentMetrics();
+    getFriends();
   }, [id]);
   return (
     <div className="d-flex flex-column justiyf-content-between">
       <Navbar />
       <div className="content">
         <UserProfileCard
+          userFriends={userFriends}
           profile={profile}
           setProfile={setProfile}
           userId={id}
