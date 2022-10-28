@@ -335,3 +335,20 @@ export const updateUserInfo = async (
   } finally {
   }
 };
+
+export const getFriendsForUser = async(userId) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(`http://localhost:5000/users/profile/${userId}/friends`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json", token: token },
+    });
+    const parseRes = await response.json();
+    const filtered = parseRes.filter((friend) => friend.id !== userId);
+    console.log(filtered);
+  } catch (error) {
+    throw(error) 
+    
+  }
+}

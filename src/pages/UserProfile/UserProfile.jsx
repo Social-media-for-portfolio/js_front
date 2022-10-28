@@ -24,6 +24,7 @@ const UserProfile = () => {
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
     const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
+
     setUserInfo({
       ...userInfo,
       id: id,
@@ -32,6 +33,7 @@ const UserProfile = () => {
       avatarUrl: avatar_url,
     });
   };
+
 
   const getPostMetrics = async () => {
     const token = localStorage.getItem("token");
