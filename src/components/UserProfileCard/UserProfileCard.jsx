@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
-import { useEffect } from "react";
 import AuthContext from "../../context/authContext/AuthContext";
 import { updateUserInfo } from "../../utils/api";
 import "./user-profile-card.css";
 
 const UserProfileCard = ({
+  profile,
+  setProfile,
   userId,
   avatar,
   firstName,
@@ -23,7 +24,7 @@ const UserProfileCard = ({
     birthday: "",
     bio: "",
   });
-  console.log(info)
+
   const [isEditing, setIsEditing] = useState(false);
 
   const handleChange = (e) => {
@@ -47,11 +48,31 @@ const UserProfileCard = ({
         setInfo({ ...info, bio: e.target.value });
         break;
     }
-    console.log(info);
   };
 
   const handleInfoUpdate = async () => {
-    await updateUserInfo(userId, info.firstName, info.lastName, info.location, info.birthday, info.bio);
+    const firstName =
+      info.firstName !== "" ? info.firstName : profile.first_name;
+    const lastName = info.lastName !== "" ? info.lastName : profile.last_name;
+    const location = info.location !== "" ? info.location : profile.location;
+    const birthday = info.birthday !== "" ? info.birthday : profile.birthday;
+    const bio = info.bio !== "" ? info.bio : profile.bio;
+    await updateUserInfo(userId, firstName, lastName, location, birthday, bio);
+    setProfile({
+      ...profile,
+      first_name: firstName,
+      last_name: lastName,
+      location: location,
+      birthday: birthday,
+      bio: bio,
+    });
+    setInfo({
+      firstName: "",
+      lastName: "",
+      location: "",
+      birthday: "",
+      bio: "",
+    });
   };
   const handleEdit = () => {
     if (isEditing) {
@@ -61,8 +82,6 @@ const UserProfileCard = ({
       setIsEditing(true);
     }
   };
-
-  useEffect(() => {}, [isEditing]);
 
   return (
     <div className="d-flex flex-column profile-card">

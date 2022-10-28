@@ -20,6 +20,7 @@ const UserProfile = () => {
     useContext(FeedContext);
 
   const [toggle, setToggle] = useState("posts");
+
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
     const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
@@ -93,11 +94,7 @@ const UserProfile = () => {
     setUserComments(postsWithUserComments);
   };
 
-  console.log(userComments);
-
   const profileFeed = feed.filter((post) => post.user_id === profile.id);
-
-  console.log(userComments)
 
   const postCommentComponents = userComments.map((post) => {
     return (
@@ -130,7 +127,6 @@ const UserProfile = () => {
   useEffect(() => {
     getUserProfile();
     retrieveFeed();
-    // getUserPosts();
     getUserComments();
     getPostMetrics();
     getCommentMetrics();
@@ -140,13 +136,15 @@ const UserProfile = () => {
       <Navbar />
       <div className="content">
         <UserProfileCard
-          userId= {id}
+          profile={profile}
+          setProfile={setProfile}
+          userId={id}
           avatar={profile.avatar_url}
           firstName={profile.first_name}
           lastName={profile.last_name}
-          bio = {profile.bio}
-          location = {profile.location}
-          birthday = {profile.birthday}
+          bio={profile.bio}
+          location={profile.location}
+          birthday={profile.birthday}
         />
         <ToggleActivites toggle={toggle} setToggle={setToggle} />
         <div className="d-flex flex-column align-items-center">
