@@ -140,9 +140,13 @@ const UserProfile = () => {
       <Navbar />
       <div className="content">
         <UserProfileCard
+          userId= {id}
           avatar={profile.avatar_url}
           firstName={profile.first_name}
           lastName={profile.last_name}
+          bio = {profile.bio}
+          location = {profile.location}
+          birthday = {profile.birthday}
         />
         <ToggleActivites toggle={toggle} setToggle={setToggle} />
         <div className="d-flex flex-column align-items-center">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./toggle.css";
 
 const ToggleActivites = ({toggle, setToggle}) => {

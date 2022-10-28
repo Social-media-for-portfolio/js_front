@@ -15,7 +15,7 @@ const Home = () => {
 
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
-    const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
+    const { id, first_name, last_name, avatar_url} = await getMyUserInfo();
     setUserInfo({
       ...userInfo,
       id: id,

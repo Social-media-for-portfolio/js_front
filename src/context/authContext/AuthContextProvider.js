@@ -7,7 +7,10 @@ const AuthContextProvider = ({ children }) => {
     firstName: "",
     lastName: "",
     avatarUrl: "",
-    id: ""
+    id: "",
+    bio: "",
+    birthday: "",
+    location: ""
   })
 
   useEffect(() => {
