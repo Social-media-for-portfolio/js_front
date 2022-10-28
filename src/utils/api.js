@@ -302,3 +302,36 @@ export const getPostsWithUserComments = async (userId) => {
   } finally {
   }
 };
+
+export const updateUserInfo = async (
+  userId,
+  firstName,
+  lastName,
+  location,
+  birthday,
+  bio
+) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(
+      `http://localhost:5000/users/profile/${userId}/info`,
+      {
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          location: location,
+          birthday: birthday,
+          bio: bio,
+        }),
+        method: "PUT",
+        headers: { "Content-Type": "application/json", token: token },
+      }
+    );
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};
