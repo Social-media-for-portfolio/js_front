@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import Home from "./pages/Home";
 import Login from "./pages/Login/Login";
 import UserProfile from "./pages/UserProfile/UserProfile";
+import UserFriends from "./pages/UserFriends/UserFriends";
 import { Routes, Route } from "react-router-dom";
 
 import AuthContext from "./context/authContext/AuthContext";
@@ -18,6 +19,9 @@ const App = () => {
       <Route
         path="/userProfile/:id"
         element={isAuth ? <UserProfile /> : <Login />}
+      ></Route>
+      <Route path="/userProfile/:id/friends"
+        element={isAuth ? <UserFriends /> : <Login />}
       ></Route>
     </Routes>
   );

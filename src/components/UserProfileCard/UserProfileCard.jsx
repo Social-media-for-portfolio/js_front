@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import UserProfileFriendsCard from "../UserProfileFriendsCard";
 import AuthContext from "../../context/authContext/AuthContext";
-import { updateUserInfo, getFriendsForUser } from "../../utils/api";
+import { updateUserInfo } from "../../utils/api";
 import "./user-profile-card.css";
 
 const UserProfileCard = ({
@@ -199,6 +199,8 @@ const UserProfileCard = ({
         )}
         </div>
         <UserProfileFriendsCard
+          userFriends = {userFriends}
+          userId = {userId}
           friendMetric = {Object.keys(userFriends)}
           id1={id1}
           id2={id2}
