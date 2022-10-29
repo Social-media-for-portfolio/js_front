@@ -141,9 +141,10 @@ const UserProfile = () => {
     getFriends();
   }, [id]);
   return (
-    <div className="d-flex flex-column justiyf-content-between">
+    <div className="d-flex flex-column">
       <Navbar />
-      <div className="content">
+      <div className = "content">
+      <div className="d-flex flex-column align-items-center mt-3">
         <UserProfileCard
           userFriends={userFriends}
           profile={profile}
@@ -156,10 +157,13 @@ const UserProfile = () => {
           location={profile.location}
           birthday={profile.birthday}
         />
+        </div>
+        <div className = "mt-4">
         <ToggleActivites toggle={toggle} setToggle={setToggle} />
         <div className="d-flex flex-column align-items-center">
           {toggle === "posts" ? postComponents : postCommentComponents}
         </div>
+      </div>
       </div>
       <Footer />
     </div>

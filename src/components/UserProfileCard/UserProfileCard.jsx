@@ -118,8 +118,9 @@ const UserProfileCard = ({
   const { avatar1, avatar2, avatar3, id1, id2, id3 } = getFriendAvatarsAndId();
 
   return (
-    <div className="d-flex flex-column profile-card">
-      <div className="d-flex justify-content-start align-items-center my-5 py-5 mx-3">
+    <div className="d-flex flex-column profile-card w-75">
+      <div className="d-flex justify-content-around align-items-center my-5 py-5 mx-3">
+        <div className = "d-flex align-items-center">
         <img src={avatar} className="profile-avatar mx-3" />
         {!isEditing && (
           <div className="d-flex">
@@ -196,7 +197,9 @@ const UserProfileCard = ({
             )}
           </div>
         )}
+        </div>
         <UserProfileFriendsCard
+          friendMetric = {Object.keys(userFriends)}
           id1={id1}
           id2={id2}
           id3={id3}
