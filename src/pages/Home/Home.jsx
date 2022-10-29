@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from "react";
+// import {createBrowserHistory} from "history";
 import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
 import Post from "../../components/Post";
@@ -9,10 +10,13 @@ import AuthContext from "../../context/authContext/AuthContext";
 import "./home.css";
 
 const Home = () => {
+
+  // const history = createBrowserHistory();
+  // history.push("/home");
   const { userInfo, setUserInfo, setFriends} = useContext(AuthContext);
   const { feed, setFeed, setFeedMetrics, setCommentMetrics } =
     useContext(FeedContext);
-
+  
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
     const { id, first_name, last_name, avatar_url} = await getMyUserInfo();
