@@ -23,7 +23,7 @@ const UserFriends = () => {
   const friends = createFriendsArr(userFriends);
 
   const friendCardComponents = friends.map((friend) => {
-    return <UserCard firstName = {friend[0]} lastName = {friend[1]} avatar = {friend[2]} id = {friend[3]}/>
+    return <UserCard firstName = {friend[0]} lastName = {friend[1]} avatar = {friend[2]} friendId = {friend[3]} authUserId = {userInfo.id} userId = {id}/>
   })
   const [toggleFriends, setToggleFriends] = useState("friends");
   return (
