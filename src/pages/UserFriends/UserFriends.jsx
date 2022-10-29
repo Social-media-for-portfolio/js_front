@@ -10,10 +10,12 @@ const UserFriends = () => {
   const { id } = useParams();
   const location = useLocation();
   const { userFriends } = location.state;
+  console.log(userFriends);
   const [toggleFriends, setToggleFriends] = useState("friends");
   return (
     <div>
       <Navbar />
+      <div className = "content">
       {userInfo.id === Number(id) && (
       <><ToggleFriends setToggleFriends={setToggleFriends} />
       <div>
@@ -25,7 +27,7 @@ const UserFriends = () => {
       {userInfo.id !== Number(id) && (
         <h3>Friends</h3>
       )}
-      
+      </div>
       <Footer />
     </div>
   );

@@ -15,7 +15,7 @@ const ToggleFriends = ({ setToggleFriends }) => {
     }
   };
   return (
-    <div className="d-flex justify-content-between">
+    <div className="d-flex justify-content-around mx-2 my-2">
       <h5 onClick = {handleToggle} id="incoming">Incoming Requests</h5>
       <h5 onClick = {handleToggle} id="outgoing">Outgoing Requests</h5>
       <h5 onClick = {handleToggle} id="friends">Friends</h5>

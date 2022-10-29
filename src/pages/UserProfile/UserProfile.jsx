@@ -87,7 +87,6 @@ const UserProfile = () => {
   const getFriends = async () => {
     setUserFriends(await getFriendsForUser(Number(id)));
   };
-  console.log(userFriends);
 
   const [profile, setProfile] = useState({});
   const [userComments, setUserComments] = useState([]);
