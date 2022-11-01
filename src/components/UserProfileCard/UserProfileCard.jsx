@@ -6,6 +6,7 @@ import "./user-profile-card.css";
 
 const UserProfileCard = ({
   userFriends,
+  setUserFriends,
   profile,
   setProfile,
   userId,
@@ -17,6 +18,7 @@ const UserProfileCard = ({
   location,
 }) => {
   const { userInfo, friends } = useContext(AuthContext);
+
 
   const isMyUser = Number(userId) === userInfo.id ? true : false;
 
@@ -200,6 +202,7 @@ const UserProfileCard = ({
         </div>
         <UserProfileFriendsCard
           userFriends = {userFriends}
+          setUserFriends = {setUserFriends}
           userId = {userId}
           friendMetric = {Object.keys(userFriends)}
           id1={id1}

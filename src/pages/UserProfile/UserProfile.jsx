@@ -24,6 +24,7 @@ const UserProfile = () => {
 
   const [userFriends, setUserFriends] = useState({});
 
+
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
     const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
@@ -146,6 +147,7 @@ const UserProfile = () => {
       <div className="d-flex flex-column align-items-center mt-3">
         <UserProfileCard
           userFriends={userFriends}
+          setUserFriends = {setUserFriends}
           profile={profile}
           setProfile={setProfile}
           userId={id}

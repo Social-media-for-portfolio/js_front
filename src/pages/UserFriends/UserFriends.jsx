@@ -1,21 +1,33 @@
 import React, { useState, useContext, useEffect} from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
 import ToggleFriends from "../../components/ToggleFriends";
 import UserCard from "../../components/UserCard";
-import { getIncomingRequests } from "../../utils/api";
+import { getIncomingRequests, removeFriend, getFriendsForUser} from "../../utils/api";
 import AuthContext from "../../context/authContext/AuthContext";
 
 
 const UserFriends = () => {
   const {userInfo} = useContext(AuthContext);
   const { id } = useParams();
-  const location = useLocation();
-  const { userFriends } = location.state;
-  
+
+  const getFriends = async () => {
+    setUserFriends(await getFriendsForUser(id));
+  };
+
+  const [userFriends, setUserFriends] = useState({});
   const [incomingRequests, setIncomingRequests] = useState([]);
   const [outgoingRequests, setOutgoingRequests] = useState([]);
+
+
+  const unfriend = async(id) => {
+    await removeFriend(id);
+    const obj = {...userFriends};
+    delete obj[id];
+    setUserFriends(obj)
+
+  }
 
   const fetchIncomingRequests = async() => {
     const requests = await getIncomingRequests();
@@ -32,15 +44,16 @@ const UserFriends = () => {
   const friends = createFriendsArr(userFriends);
 
   const friendCardComponents = friends.map((friend) => {
-    return <UserCard firstName = {friend[0]} lastName = {friend[1]} avatar = {friend[2]} friendId = {friend[3]} authUserId = {userInfo.id} userId = {id}/>
+    return <UserCard firstName = {friend[0]} lastName = {friend[1]} avatar = {friend[2]} friendId = {friend[3]} authUserId = {userInfo.id} userId = {id} btnText = "Remove from Friends!" btnStyle = "btn-danger" func={unfriend}/>
   })
   const incomingRequestComponents = incomingRequests.map((friend) => {
-    return <UserCard firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id}/>
+    return <UserCard firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Accept!" btnStyle = "btn-success"/>
   })
   const [toggleFriends, setToggleFriends] = useState("friends");
 
   useEffect(() => {
     fetchIncomingRequests();
+    getFriends();
   },[])
   return (
     <div>
