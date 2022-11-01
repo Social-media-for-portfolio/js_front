@@ -28,6 +28,12 @@ const UserFriends = () => {
     setUserFriends(obj)
 
   }
+  const cancelRequest = async(id) => {
+    await removeFriend(id);
+    const newRequests = outgoingRequests.filter(friend => friend.id !== id);
+    setOutgoingRequests(newRequests);
+
+  }
 
   const fetchIncomingRequests = async() => {
     const requests = await getIncomingRequests();
@@ -52,11 +58,11 @@ const UserFriends = () => {
     return <UserCard firstName = {friend[0]} lastName = {friend[1]} avatar = {friend[2]} friendId = {friend[3]} authUserId = {userInfo.id} userId = {id} btnText = "Remove from Friends!" btnStyle = "btn-danger" func={unfriend}/>
   })
   const incomingRequestComponents = incomingRequests.map((friend) => {
-    return <UserCard firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Accept" btnStyle = "btn-success"/>
+    return <UserCard firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Accept" btnStyle = "btn-success" />
   })
 
   const outgoingRequestsComponents = outgoingRequests.map((friend) => {
-    return <UserCard firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Cancel Request" btnStyle = "btn-danger"/>
+    return <UserCard firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Cancel Request" btnStyle = "btn-danger" func ={cancelRequest}/>
   })
   const [toggleFriends, setToggleFriends] = useState("friends");
 
