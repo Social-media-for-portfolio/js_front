@@ -4,7 +4,7 @@ import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
 import ToggleFriends from "../../components/ToggleFriends";
 import UserCard from "../../components/UserCard";
-import { getIncomingRequests, removeFriend, getFriendsForUser} from "../../utils/api";
+import { getIncomingRequests, removeFriend, getFriendsForUser, getOutgoingRequests} from "../../utils/api";
 import AuthContext from "../../context/authContext/AuthContext";
 
 
@@ -34,6 +34,11 @@ const UserFriends = () => {
     setIncomingRequests(requests);
   }
 
+  const fetchOutgoingRequests = async() => {
+    const requests = await getOutgoingRequests();
+    setOutgoingRequests(requests);
+  }
+
   const createFriendsArr = (obj) => {
     const result = [];
     for(let key in obj) {
@@ -47,12 +52,17 @@ const UserFriends = () => {
     return <UserCard firstName = {friend[0]} lastName = {friend[1]} avatar = {friend[2]} friendId = {friend[3]} authUserId = {userInfo.id} userId = {id} btnText = "Remove from Friends!" btnStyle = "btn-danger" func={unfriend}/>
   })
   const incomingRequestComponents = incomingRequests.map((friend) => {
-    return <UserCard firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Accept!" btnStyle = "btn-success"/>
+    return <UserCard firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Accept" btnStyle = "btn-success"/>
+  })
+
+  const outgoingRequestsComponents = outgoingRequests.map((friend) => {
+    return <UserCard firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Cancel Request" btnStyle = "btn-danger"/>
   })
   const [toggleFriends, setToggleFriends] = useState("friends");
 
   useEffect(() => {
     fetchIncomingRequests();
+    fetchOutgoingRequests();
     getFriends();
   },[])
   return (
@@ -63,7 +73,7 @@ const UserFriends = () => {
       <><ToggleFriends setToggleFriends={setToggleFriends} />
       <div>
         {toggleFriends === "incoming" && <div>{incomingRequestComponents}</div>}
-        {toggleFriends === "outgoing" && <div>Outgoing</div>}
+        {toggleFriends === "outgoing" && <div>{outgoingRequestsComponents}</div>}
         {toggleFriends === "friends" && <div>{friendCardComponents}</div>}
       </div>
       </>)}
