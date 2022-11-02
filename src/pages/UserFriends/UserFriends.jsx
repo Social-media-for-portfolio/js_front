@@ -13,7 +13,10 @@ const UserFriends = () => {
   const { id } = useParams();
 
   const getFriends = async () => {
-    setUserFriends(await getFriendsForUser(id));
+    const res = await getFriendsForUser(id);
+    const obj = {...res};
+    if(userInfo.id in obj) delete obj[userInfo.id];
+    setUserFriends(obj)
   };
 
   const [userFriends, setUserFriends] = useState({});
