@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import UserProfileFriendsCard from "../UserProfileFriendsCard";
 import AuthContext from "../../context/authContext/AuthContext";
-import { updateUserInfo } from "../../utils/api";
+import { removeFriend, updateUserInfo, sendFriendRequest} from "../../utils/api";
 import "./user-profile-card.css";
 
 const UserProfileCard = ({
@@ -32,6 +32,12 @@ const UserProfileCard = ({
 
   const [isEditing, setIsEditing] = useState(false);
 
+  const unfriend = async() => {
+    await removeFriend(userId);
+  }
+  const sendRequest = async() => {
+    await sendFriendRequest(userId)
+  }
   const handleChange = (e) => {
     switch (e.target.id) {
       case "firstName":
@@ -138,12 +144,12 @@ const UserProfileCard = ({
                 </button>
               )}
               {!isMyUser && !(userId in friends) && (
-                <button className="btn btn-success h-25 align-self-center mx-4">
+                <button onClick = {sendRequest} className="btn btn-success h-25 align-self-center mx-4">
                   Add to friends!
                 </button>
               )}
               {!isMyUser && userId in friends && (
-                <button className="btn btn-danger h-25 align-self-center mx-4">
+                <button onClick = {unfriend} className="btn btn-danger h-25 align-self-center mx-4">
                   Remove from friends!
                 </button>
               )}

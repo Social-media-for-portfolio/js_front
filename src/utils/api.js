@@ -336,89 +336,113 @@ export const updateUserInfo = async (
   }
 };
 
-export const getFriendsForUser = async(userId) => {
+export const getFriendsForUser = async (userId) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/profile/${userId}/friends`, {
+    const response = await fetch(
+      `http://localhost:5000/users/profile/${userId}/friends`,
+      {
         method: "GET",
         headers: { "Content-Type": "application/json", token: token },
-    });
+      }
+    );
     const parseRes = await response.json();
-    console.log(parseRes)
+    console.log(parseRes);
     const filtered = parseRes.filter((friend) => friend.id !== userId);
     const map = {};
 
-    for(let i = 0; i < filtered.length; i++) {
-      map[filtered[i].id] = [filtered[i].first_name, filtered[i].last_name, filtered[i].avatar_url, filtered[i].id] 
+    for (let i = 0; i < filtered.length; i++) {
+      map[filtered[i].id] = [
+        filtered[i].first_name,
+        filtered[i].last_name,
+        filtered[i].avatar_url,
+        filtered[i].id,
+      ];
     }
     return map;
   } catch (error) {
-    throw(error) 
-    
+    throw error;
   }
-}
+};
 
-export const getIncomingRequests = async() => {
+export const getIncomingRequests = async () => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/me/friends/incoming`, {
+    const response = await fetch(
+      `http://localhost:5000/users/me/friends/incoming`,
+      {
         method: "GET",
         headers: { "Content-Type": "application/json", token: token },
-    });
+      }
+    );
     const parseRes = await response.json();
     return parseRes;
   } catch (error) {
-    throw(error) 
-    
+    throw error;
   }
-}
+};
 
-export const removeFriend = async(id) => {
+export const removeFriend = async (id) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(`http://localhost:5000/users/profile/${id}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json", token: token },
+      method: "DELETE",
+      headers: { "Content-Type": "application/json", token: token },
     });
     const parseRes = await response.json();
     return parseRes;
   } catch (error) {
-    throw(error) 
-    
+    throw error;
   }
-}
+};
 
-export const getOutgoingRequests = async() => {
+export const getOutgoingRequests = async () => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/me/friends/outgoing`, {
+    const response = await fetch(
+      `http://localhost:5000/users/me/friends/outgoing`,
+      {
         method: "GET",
         headers: { "Content-Type": "application/json", token: token },
-    });
+      }
+    );
     const parseRes = await response.json();
     return parseRes;
   } catch (error) {
-    throw(error) 
-    
+    throw error;
   }
-}
+};
 
 export const acceptFriendRequest = async (id) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(`http://localhost:5000/users/profile/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json", token: token },
+      method: "PUT",
+      headers: { "Content-Type": "application/json", token: token },
     });
     const parseRes = await response.json();
     return parseRes;
   } catch (error) {
-    throw(error) 
-    
+    throw error;
   }
-}
+};
+
+export const sendFriendRequest = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(`http://localhost:5000/users/profile/${id}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", token: token },
+    });
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  }
+};
