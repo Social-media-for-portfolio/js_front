@@ -406,3 +406,19 @@ export const getOutgoingRequests = async() => {
     
   }
 }
+
+export const acceptFriendRequest = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(`http://localhost:5000/users/profile/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json", token: token },
+    });
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw(error) 
+    
+  }
+}
