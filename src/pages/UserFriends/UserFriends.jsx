@@ -17,6 +17,7 @@ const UserFriends = () => {
     console.log(res)
     const obj = {...res};
     if(userInfo.id === Number(id) && userInfo.id in obj) delete obj[userInfo.id];
+    if(id in obj) delete obj[id];
     setUserFriends(obj)
   };
 

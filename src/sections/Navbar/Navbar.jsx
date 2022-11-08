@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import {createBrowserHistory} from "history";
+import { createBrowserHistory } from "history";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/authContext/AuthContext";
 import "./navbar.css";
@@ -13,7 +13,6 @@ const Navbar = () => {
     localStorage.removeItem("token");
     setIsAuth(false);
     history.replace("/login");
-    
   };
   const handleClick = (e) => {
     e.preventDefault();
@@ -22,8 +21,12 @@ const Navbar = () => {
 
   return (
     <nav className="d-flex justify-content-between navbar align-items-center">
-      <div className="d-flex">
-        <Link to ="/home" className="link text-dark"><h5 className = "mx-3">Home</h5></Link>
+      <div className="d-flex mx-2">
+        {isAuth && (
+          <Link to="/home" className="link text-dark">
+            <h5 className="mx-3">Home</h5>
+          </Link>
+        )}
         <h5>About</h5>
       </div>
       {isAuth && (
