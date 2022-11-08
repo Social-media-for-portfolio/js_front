@@ -16,7 +16,7 @@ const UserProfileFriendsCard = ({ avatar1, avatar2, avatar3, id1, id2, id3, user
                 <h6 className = "mx-2">{`and ${friends} more`}</h6>
             )}
     </div>
-        {<Link to = {`/userProfile/${userId}/friends`}><h5 className = "my-5">View all</h5></Link>}      
+        {<Link to = {`/userProfile/${userId}/friends`}><button className = "btn view-btn my-5">View all</button></Link>}      
     </div>
   );
 };

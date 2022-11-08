@@ -1,3 +1,23 @@
 .content {
   min-height: calc(100vh - 160px);
 }
+
+.unfriend-btn {
+  color:white;
+  background-color: #f5716c;
+}
+
+.unfriend-btn:hover {
+  color:white;
+  background-color: #e23832;
+}
+
+.addfriend-btn {
+  color:white;
+  background-color:#85dd85 ;
+}
+
+.addfriend-btn:hover {
+  color: white;
+  background-color: #25c025;
+}

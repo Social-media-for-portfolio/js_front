@@ -35,10 +35,19 @@
 
 .addfriend-btn {
   color:white;
-  background-color:#6acf6a ;
+  background-color:#85dd85 ;
 }
 
 .addfriend-btn:hover {
   color: white;
-  background-color: #21a721;
+  background-color: #25c025;
+}
+
+.request-sent-btn {
+  color: white;
+  background-color: #808080;
+}
+.request-sent-btn:hover {
+  color: white;
+  background-color: #494949;
 }

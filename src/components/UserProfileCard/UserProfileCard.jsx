@@ -175,7 +175,7 @@ const UserProfileCard = ({
                 {!isMyUser && userId in requests && (
                   <button
                     onClick={unfriend}
-                    className="btn btn-secondary h-25 align-self-center mx-4"
+                    className="btn request-sent-btn h-25 align-self-center mx-4"
                   >
                     Request sent
                   </button>
