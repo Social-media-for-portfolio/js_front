@@ -1,6 +1,10 @@
 import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "../../sections/Navbar";
+import Footer from "../../sections/Footer";
+import logo from "../../assets/logo.jpg";
 import AuthContext from "../../context/authContext/AuthContext";
+import "./signup.css";
 
 const Signup = () => {
   const { setIsAuth } = useContext(AuthContext);
@@ -62,38 +66,49 @@ const Signup = () => {
   };
 
   return (
-    <div>
+    <div className="container-fluid mx-0 px-0">
       <Navbar />
-      <form
-        onSubmit={handleSubmit}
-        className="d-flex flex-column h-25 w-50 justify-content-between"
-      >
-        <input
-          onChange={handleChange}
-          type="text"
-          placeholder="Enter your first name"
-          id="firstName"
-        />
-        <input
-          onChange={handleChange}
-          type="text"
-          placeholder="Enter your last name"
-          id="lastName"
-        />
-        <input
-          onChange={handleChange}
-          type="email"
-          placeholder="Enter your email"
-          id="email"
-        />
-        <input
-          onChange={handleChange}
-          type="password"
-          placeholder="Enter your password"
-          id="password"
-        />
-        <button>Sign up</button>
-      </form>
+      <div className="login d-flex flex-column align-items-center justify-content-center">
+        <form
+          onSubmit={handleSubmit}
+          className="d-flex flex-column w-50 px-4 py-4 align-items-center justify-content-center form-wrapper"
+        >
+          <img className="logo mb-3" src={logo} />
+          <input
+            className="w-25"
+            onChange={handleChange}
+            type="text"
+            placeholder="Enter your first name"
+            id="firstName"
+          />
+          <input
+            className="w-25 mt-2"
+            onChange={handleChange}
+            type="text"
+            placeholder="Enter your last name"
+            id="lastName"
+          />
+          <input
+            className="w-25 mt-2"
+            onChange={handleChange}
+            type="email"
+            placeholder="Enter your email"
+            id="email"
+          />
+          <input
+            className="w-25 my-2"
+            onChange={handleChange}
+            type="password"
+            placeholder="Enter your password"
+            id="password"
+          />
+          <button className="btn button">Sign up</button>
+          <p className="my-2">
+            Already have an account? <Link to="/login">Login</Link>
+          </p>
+        </form>
+      </div>
+      <Footer />
     </div>
   );
 };

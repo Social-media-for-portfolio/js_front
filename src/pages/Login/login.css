@@ -1,8 +1,21 @@
 .form-wrapper {
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
 
 .login {
   min-height: calc(100vh - 160px);
+}
+.logo {
+  width:350px;
+}
+
+.button {
+  width: 100px;
+  color: white;
+  background-color: #b698f0;
+}
+
+.button:hover {
+  color: white;
+  background-color: #7d3cff;
 }

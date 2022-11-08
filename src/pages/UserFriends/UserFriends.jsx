@@ -14,8 +14,9 @@ const UserFriends = () => {
 
   const getFriends = async () => {
     const res = await getFriendsForUser(id);
+    console.log(res)
     const obj = {...res};
-    if(userInfo.id in obj) delete obj[userInfo.id];
+    if(userInfo.id === Number(id) && userInfo.id in obj) delete obj[userInfo.id];
     setUserFriends(obj)
   };
 

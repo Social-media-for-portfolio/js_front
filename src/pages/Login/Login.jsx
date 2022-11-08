@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
-import Logo from "../../assets/logo.jpg";
+import logo from "../../assets/logo.jpg";
 import AuthContext from "../../context/authContext/AuthContext";
 import "./login.css";
 
@@ -11,6 +12,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     switch (e.target.id) {
@@ -29,9 +32,11 @@ const Login = () => {
     e.preventDefault();
     try {
       const { email, password } = inputs;
-      if (![email, password].every(Boolean)) {
+      if (!email || !password) {
+        setError("missing credentials");
         return;
       }
+
       const body = { email: email, password: password };
       const response = await fetch("http://localhost:5000/auth/login", {
         method: "POST",
@@ -43,46 +48,52 @@ const Login = () => {
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
         setIsAuth(true);
-      } else alert(parseRes);
+      } else setError("invalid credentials");
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid mx-0 px-0">
       <Navbar />
-      <div className = "login">
-        <div className="row">
-          <div className="col-4">
-            <img src={Logo} />
-          </div>
-          <div className="col-8 d-flex flex-column justify-content-around my-4 align-items-center w-50 h-25 form-wrapper">
-            <form
-              onSubmit={handleSubmit}
-              className="d-flex flex-column h-25 w-50 my-5 mx-5"
-            >
-              <input
-                onChange={handleChange}
-                type="email"
-                placeholder="Enter your email"
-                id="email"
-              />
-              <input
-                className="my-2"
-                onChange={handleChange}
-                type="password"
-                placeholder="Enter your password"
-                id="password"
-              />
-              <button className="w-25 align-self-end btn btn-primary">
-                Log in
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
+      <div className="login d-flex flex-column align-items-center justify-content-center">
+        <form
+          onSubmit={handleSubmit}
+          className="d-flex flex-column w-50 px-4 py-4 align-items-center justify-content-center form-wrapper"
+        >
+          <img className="logo mb-3" src={logo} />
+          <input
+            className="w-25"
+            onChange={handleChange}
+            type="email"
+            placeholder="Enter your email"
+            id="email"
+          />
 
+          <input
+            className="my-2 w-25"
+            onChange={handleChange}
+            type="password"
+            placeholder="Enter your password"
+            id="password"
+          />
+          <button className="btn button">Login</button>
+          {error === "missing credentials" && (
+            <p className="error my-2 text-danger">
+              Please enter your email and password
+            </p>
+          )}
+          {error === "invalid credentials" && (
+            <p className="error my-2 text-danger">
+              Password or email is incorrect
+            </p>
+          )}
+          <p className="my-2">
+            Don't have an account? <Link to="/register">Register</Link>
+          </p>
+        </form>
+      </div>
       <Footer />
     </div>
   );
