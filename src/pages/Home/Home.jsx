@@ -10,16 +10,15 @@ import AuthContext from "../../context/authContext/AuthContext";
 import "./home.css";
 
 const Home = () => {
-
   // const history = createBrowserHistory();
   // history.push("/home");
-  const { userInfo, setUserInfo, setFriends} = useContext(AuthContext);
+  const { userInfo, setUserInfo, setFriends, setRequests} = useContext(AuthContext);
   const { feed, setFeed, setFeedMetrics, setCommentMetrics } =
     useContext(FeedContext);
-  
+
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
-    const { id, first_name, last_name, avatar_url} = await getMyUserInfo();
+    const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
     setFriends(await getFriendsForUser(id));
     setUserInfo({
       ...userInfo,
@@ -86,10 +85,33 @@ const Home = () => {
     }
     setCommentMetrics(map);
   };
+
+  const getOutgoingRequests = async () => {
+    try {
+      const map = {};
+      const token = localStorage.getItem("token");
+      if (!token) return;
+      const respsonse = await fetch(
+        "http://localhost:5000/users/me/friends/outgoing",
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json", token: token },
+        }
+      );
+      const parseRes = await respsonse.json();
+      for (let user of parseRes) {
+        map[user.id] = true;
+      }
+      setRequests(map);
+    } catch (error) {
+      console.error("error");
+    }
+  };
   useEffect(() => {
     retrieveFeed();
     getPostMetrics();
     getCommentMetrics();
+    getOutgoingRequests();
   }, []);
   return (
     <div className="container-fluid d-flex flex-column p-0">

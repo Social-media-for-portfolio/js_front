@@ -14,6 +14,7 @@ const AuthContextProvider = ({ children }) => {
   });
 
   const [friends, setFriends] = useState({});
+  const [requests, setRequests] = useState({});
 
   useEffect(() => {
     const isAuthenticated = async () => {
@@ -45,6 +46,8 @@ const AuthContextProvider = ({ children }) => {
     setUserInfo,
     friends,
     setFriends,
+    requests,
+    setRequests,
   };
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;
 };

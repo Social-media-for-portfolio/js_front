@@ -1,7 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import UserProfileFriendsCard from "../UserProfileFriendsCard";
 import AuthContext from "../../context/authContext/AuthContext";
-import { removeFriend, updateUserInfo, sendFriendRequest} from "../../utils/api";
+import {
+  removeFriend,
+  updateUserInfo,
+  sendFriendRequest,
+} from "../../utils/api";
 import "./user-profile-card.css";
 
 const UserProfileCard = ({
@@ -17,8 +21,8 @@ const UserProfileCard = ({
   birthday,
   location,
 }) => {
-  const { userInfo, friends } = useContext(AuthContext);
-
+  const { userInfo, friends, requests, setRequests, setFriends } =
+    useContext(AuthContext);
 
   const isMyUser = Number(userId) === userInfo.id ? true : false;
 
@@ -32,12 +36,25 @@ const UserProfileCard = ({
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const unfriend = async() => {
+  const unfriend = async () => {
     await removeFriend(userId);
-  }
-  const sendRequest = async() => {
-    await sendFriendRequest(userId)
-  }
+    if (userId in friends) {
+      const map = { ...friends };
+      delete map[userId];
+      setFriends(map);
+    }
+    if (userId in requests) {
+      const map = { ...requests };
+      delete map[userId];
+      setRequests(map);
+    }
+  };
+  const sendRequest = async () => {
+    const map = { ...requests };
+    map[userId] = true;
+    setRequests(map);
+    await sendFriendRequest(userId);
+  };
   const handleChange = (e) => {
     switch (e.target.id) {
       case "firstName":
@@ -128,89 +145,103 @@ const UserProfileCard = ({
   return (
     <div className="d-flex flex-column profile-card w-75">
       <div className="d-flex justify-content-around align-items-center my-5 py-5 mx-3">
-        <div className = "d-flex align-items-center">
-        <img src={avatar} className="profile-avatar mx-3" />
-        {!isEditing && (
-          <div className="d-flex">
-            <div className="d-flex flex-column justify-content-end align-items-center">
-              <h2 className="mx-4">{`${firstName} ${lastName}`}</h2>
-              <h5 className="my-2">{location}</h5>
-              <h6 className="my-1">{birthday}</h6>
-              <h6 className="my-1"> Bio:</h6>
-              <p>{bio}</p>
+        <div className="d-flex align-items-center">
+          <img src={avatar} className="profile-avatar mx-3" />
+          {!isEditing && (
+            <div className="d-flex">
+              <div className="d-flex flex-column justify-content-end align-items-center">
+                <h2 className="mx-4">{`${firstName} ${lastName}`}</h2>
+                <h5 className="my-2">{location}</h5>
+                <h6 className="my-1">{birthday}</h6>
+                <h6 className="my-1"> Bio:</h6>
+                <p>{bio}</p>
+                {isMyUser && (
+                  <button className="my-2 btn btn-success" onClick={handleEdit}>
+                    Edit Profile
+                  </button>
+                )}
+                {!isMyUser && !(userId in friends) && !(userId in requests) && (
+                  <button
+                    onClick={sendRequest}
+                    className="btn btn-success h-25 align-self-center mx-4"
+                  >
+                    Add to friends!
+                  </button>
+                )}
+                {!isMyUser && userId in friends && (
+                  <button
+                    onClick={unfriend}
+                    className="btn btn-danger h-25 align-self-center mx-4"
+                  >
+                    Remove from friends!
+                  </button>
+                )}
+                {!isMyUser && userId in requests && (
+                  <button
+                    onClick={unfriend}
+                    className="btn btn-secondary h-25 align-self-center mx-4"
+                  >
+                    Request sent!
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+          {isEditing && (
+            <div className="d-flex flex-column ">
+              <input
+                onChange={handleChange}
+                value={info.firstName}
+                id="firstName"
+                type="text"
+                className="my-1"
+                placeholder="First name"
+              ></input>
+              <input
+                onChange={handleChange}
+                value={info.lastName}
+                id="lastName"
+                type="text"
+                className="my-1"
+                placeholder="Last name"
+              ></input>
+              <input
+                onChange={handleChange}
+                value={info.location}
+                id="location"
+                type="text"
+                className="my-1"
+                placeholder="Location"
+              ></input>
+              <input
+                onChange={handleChange}
+                value={info.birthday}
+                id="birthday"
+                type="text"
+                className="my-1"
+                placeholder="Birthday"
+              ></input>
+              <input
+                onChange={handleChange}
+                value={info.bio}
+                id="bio"
+                type="text"
+                className="my-1"
+                placeholder="Bio"
+              ></input>
               {isMyUser && (
                 <button className="my-2 btn btn-success" onClick={handleEdit}>
-                  Edit Profile
-                </button>
-              )}
-              {!isMyUser && !(userId in friends) && (
-                <button onClick = {sendRequest} className="btn btn-success h-25 align-self-center mx-4">
-                  Add to friends!
-                </button>
-              )}
-              {!isMyUser && userId in friends && (
-                <button onClick = {unfriend} className="btn btn-danger h-25 align-self-center mx-4">
-                  Remove from friends!
+                  Done editing
                 </button>
               )}
             </div>
-          </div>
-        )}
-        {isEditing && (
-          <div className="d-flex flex-column ">
-            <input
-              onChange={handleChange}
-              value={info.firstName}
-              id="firstName"
-              type="text"
-              className="my-1"
-              placeholder="First name"
-            ></input>
-            <input
-              onChange={handleChange}
-              value={info.lastName}
-              id="lastName"
-              type="text"
-              className="my-1"
-              placeholder="Last name"
-            ></input>
-            <input
-              onChange={handleChange}
-              value={info.location}
-              id="location"
-              type="text"
-              className="my-1"
-              placeholder="Location"
-            ></input>
-            <input
-              onChange={handleChange}
-              value={info.birthday}
-              id="birthday"
-              type="text"
-              className="my-1"
-              placeholder="Birthday"
-            ></input>
-            <input
-              onChange={handleChange}
-              value={info.bio}
-              id="bio"
-              type="text"
-              className="my-1"
-              placeholder="Bio"
-            ></input>
-            {isMyUser && (
-              <button className="my-2 btn btn-success" onClick={handleEdit}>
-                Done editing
-              </button>
-            )}
-          </div>
-        )}
+          )}
         </div>
         <UserProfileFriendsCard
-          userFriends = {userFriends}
-          setUserFriends = {setUserFriends}
-          userId = {userId}
-          friendMetric = {Object.keys(userFriends)}
+          userFriends={userFriends}
+          setUserFriends={setUserFriends}
+          userId={userId}
+          friendMetric={Object.keys(userFriends)}
           id1={id1}
           id2={id2}
           id3={id3}

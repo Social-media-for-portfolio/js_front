@@ -16,7 +16,7 @@ import {
 import { useParams } from "react-router-dom";
 
 const UserProfile = () => {
-  const { userInfo, setUserInfo } = useContext(AuthContext);
+  const { userInfo, setUserInfo, setRequests} = useContext(AuthContext);
   const { setFeed, feed, setFeedMetrics, setCommentMetrics } =
     useContext(FeedContext);
 
@@ -102,6 +102,28 @@ const UserProfile = () => {
     setUserComments(postsWithUserComments);
   };
 
+  const getOutgoingRequests = async () => {
+    try {
+      const map = {};
+      const token = localStorage.getItem("token");
+      if (!token) return;
+      const respsonse = await fetch(
+        "http://localhost:5000/users/me/friends/outgoing",
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json", token: token },
+        }
+      );
+      const parseRes = await respsonse.json();
+      for (let user of parseRes) {
+        map[user.id] = true;
+      }
+      setRequests(map);
+    } catch (error) {
+      console.error("error");
+    }
+  };
+
   const profileFeed = feed.filter((post) => post.user_id === profile.id);
 
   const postCommentComponents = userComments.map((post) => {
@@ -139,6 +161,7 @@ const UserProfile = () => {
     getPostMetrics();
     getCommentMetrics();
     getFriends();
+    getOutgoingRequests();
   }, [id]);
   return (
     <div className="d-flex flex-column">

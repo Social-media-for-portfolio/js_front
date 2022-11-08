@@ -22,8 +22,9 @@ const Navbar = () => {
 
   return (
     <nav className="d-flex justify-content-between navbar align-items-center">
-      <div className="d-flex justify-content-between mx-2">
-        <h5>About Us</h5>
+      <div className="d-flex">
+        <Link to ="/home" className="link text-dark"><h5 className = "mx-3">Home</h5></Link>
+        <h5>About</h5>
       </div>
       {isAuth && (
         <div className="d-flex align-items-center">
