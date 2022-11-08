@@ -25,9 +25,8 @@ const UserFriends = () => {
 
   const unfriend = async(id) => {
     await removeFriend(id);
-    const obj = {...userFriends};
-    delete obj[id];
-    setUserFriends(obj)
+    const newList = userFriends.filter(friend => friend.id !== id)
+    setUserFriends(newList)
   }
   const cancelRequest = async(id) => {
     await removeFriend(id);
@@ -35,11 +34,12 @@ const UserFriends = () => {
     setOutgoingRequests(newRequests);
   }
 
-  const acceptRequest = async(id) => {
-    const newFriend = await acceptFriendRequest(id);
-    const arr = [newFriend.first_name, newFriend.last_name, newFriend.avatar_url, newFriend.id]
-    const newFriends = {...userFriends, id: arr};
-    setUserFriends(newFriends);
+  const acceptRequest = async(userId) => {
+    const {first_name, last_name, avatar_url, id} = await acceptFriendRequest(userId);
+    const friend = {first_name, last_name, avatar_url, id}
+    const newList = [...userFriends];
+    newList.push(friend)
+    setUserFriends(newList);
     const newRequests = incomingRequests.filter(friend => friend.id !== id);
     setIncomingRequests(newRequests);
   }
