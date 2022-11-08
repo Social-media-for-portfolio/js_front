@@ -19,3 +19,7 @@
   color: white;
   background-color: #7d3cff;
 }
+
+.input-error {
+  border: 1px solid red;
+}

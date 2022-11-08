@@ -15,7 +15,11 @@ const Signup = () => {
     lastName: "",
   });
 
+  const [error, setError] = useState();
+  const [highlightError, setHighlightError] = useState(false);
+
   const handleChange = (e) => {
+    setHighlightError(false);
     switch (e.target.id) {
       case "email":
         setInputs({ ...inputs, email: e.target.value });
@@ -40,6 +44,8 @@ const Signup = () => {
     try {
       const { email, password, firstName, lastName } = inputs;
       if (![email, password, firstName, lastName].every(Boolean)) {
+        setError("missing credentials");
+        setHighlightError(true);
         return;
       }
       const body = {
@@ -58,7 +64,7 @@ const Signup = () => {
         localStorage.setItem("token", parseRes.token);
         setIsAuth(true);
       } else {
-        alert(parseRes);
+        setError(parseRes);
       }
     } catch (error) {
       console.error(error);
@@ -75,34 +81,42 @@ const Signup = () => {
         >
           <img className="logo mb-3" src={logo} />
           <input
-            className="w-25"
+            className={`w-25 ${highlightError ? "input-error" : ""}`}
             onChange={handleChange}
             type="text"
             placeholder="Enter your first name"
             id="firstName"
           />
           <input
-            className="w-25 mt-2"
+            className={`w-25 mt-2 ${highlightError ? "input-error" : ""}`}
             onChange={handleChange}
             type="text"
             placeholder="Enter your last name"
             id="lastName"
           />
           <input
-            className="w-25 mt-2"
+            className={`w-25 mt-2 ${highlightError ? "input-error" : ""}`}
             onChange={handleChange}
             type="email"
             placeholder="Enter your email"
             id="email"
           />
           <input
-            className="w-25 my-2"
+            className={`w-25 my-2 ${highlightError ? "input-error" : ""}`}
             onChange={handleChange}
             type="password"
             placeholder="Enter your password"
             id="password"
           />
           <button className="btn button">Sign up</button>
+          {error === "missing credentials" && (
+            <p className="error my-2 text-danger">
+              Please fill out all required fields
+            </p>
+          )}
+          {error === "user already exists" && (
+            <p className="error my-2 text-danger">This email is alredy taken</p>
+          )}
           <p className="my-2">
             Already have an account? <Link to="/login">Login</Link>
           </p>

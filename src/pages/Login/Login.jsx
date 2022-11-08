@@ -13,9 +13,11 @@ const Login = () => {
     password: "",
   });
 
-  const [error, setError] = useState("");
+  const [error, setError] = useState();
+  const [highlightError, setHighlightError] = useState(false);
 
   const handleChange = (e) => {
+    setHighlightError(false);
     switch (e.target.id) {
       case "email":
         setInputs({ ...inputs, email: e.target.value });
@@ -34,6 +36,7 @@ const Login = () => {
       const { email, password } = inputs;
       if (!email || !password) {
         setError("missing credentials");
+        setHighlightError(true);
         return;
       }
 
@@ -48,7 +51,10 @@ const Login = () => {
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
         setIsAuth(true);
-      } else setError("invalid credentials");
+      } else {
+        setError("invalid credentials");
+        setHighlightError(true);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -64,7 +70,7 @@ const Login = () => {
         >
           <img className="logo mb-3" src={logo} />
           <input
-            className="w-25"
+            className={`w-25 ${highlightError ? "input-error" : ""}`}
             onChange={handleChange}
             type="email"
             placeholder="Enter your email"
@@ -72,7 +78,7 @@ const Login = () => {
           />
 
           <input
-            className="my-2 w-25"
+            className={`w-25 my-2 ${highlightError ? "input-error" : ""}`}
             onChange={handleChange}
             type="password"
             placeholder="Enter your password"
