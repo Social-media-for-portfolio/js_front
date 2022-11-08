@@ -11,3 +11,7 @@
 .link {
   text-decoration: none;
 }
+
+.navbar-option:hover{
+  cursor: pointer;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ToggleFriends = ({ setToggleFriends }) => {
+const ToggleFriends = ({ setToggleFriends, toggleFriends }) => {
   const handleToggle = (e) => {
     switch (e.target.id) {
       case "incoming":
@@ -16,9 +16,18 @@ const ToggleFriends = ({ setToggleFriends }) => {
   };
   return (
     <div className="d-flex justify-content-around mx-2 my-2">
-      <h5 onClick = {handleToggle} id="incoming">Incoming Requests</h5>
-      <h5 onClick = {handleToggle} id="outgoing">Outgoing Requests</h5>
-      <h5 onClick = {handleToggle} id="friends">Friends</h5>
+      <div className="d-flex flex-column">
+      <h5 className = "toggle-option" onClick = {handleToggle} id="friends">Friends</h5>
+      {toggleFriends === "friends" && <div className="toggle-line"></div>}
+      </div>
+      <div className="d-flex flex-column">
+      <h5 className = "toggle-option" onClick = {handleToggle} id="incoming">Incoming Requests</h5>
+      {toggleFriends === "incoming" && <div className="toggle-line"></div>}
+      </div>
+      <div className="d-flex flex-column">
+      <h5 className = "toggle-option"onClick = {handleToggle} id="outgoing">Outgoing Requests</h5>
+      {toggleFriends === "outgoing" && <div className="toggle-line"></div>}
+      </div>
     </div>
   );
 };

@@ -101,11 +101,11 @@ const Comment = ({
           <div className="d-flex">
             <p>{likes}</p>
             {isLiked ? (
-              <FcLike onClick={handleLikeComment} className="mx-2 fs-4" />
+              <FcLike onClick={handleLikeComment} className="mx-2 fs-4 comment-option" />
             ) : (
               <FcLikePlaceholder
                 onClick={handleLikeComment}
-                className="mx-2 fs-4"
+                className="mx-2 fs-4 comment-option"
               />
             )}
           </div>
@@ -113,7 +113,7 @@ const Comment = ({
             {userId === userInfo.id && (
               <TiDeleteOutline
                 onClick={handleDeleteComment}
-                className="mx-2 fs-3"
+                className="mx-2 fs-3 comment-option"
               />
             )}
           </div>

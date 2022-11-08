@@ -11,3 +11,7 @@
     height: 1px;
     background-color: #E8E8E8;
 }
+
+.post-option:hover {
+    cursor: pointer;
+}

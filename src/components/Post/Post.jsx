@@ -120,18 +120,18 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
           <div className="d-flex">
             <p>{likes}</p>
             {isLiked ? (
-              <FcLike onClick={handleLike} className="mx-2 fs-4" />
+              <FcLike onClick={handleLike} className="mx-2 fs-4 post-option" />
             ) : (
-              <FcLikePlaceholder onClick={handleLike} className="mx-2 fs-4" />
+              <FcLikePlaceholder onClick={handleLike} className="mx-2 fs-4 post-option" />
             )}
           </div>
           <div className="d-flex justify-content-between">
             <p>{comments + " "}Comments</p>
-            <FaRegCommentDots onClick={toggleComments} className="mx-2 fs-4" />
+            <FaRegCommentDots onClick={toggleComments} className="mx-2 fs-4 post-option" />
             {userId === id && (
               <TiDeleteOutline
                 onClick={handleDeletePost}
-                className="mx-2 fs-3"
+                className="mx-2 fs-3 post-option"
               />
             )}
           </div>

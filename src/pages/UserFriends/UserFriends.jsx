@@ -75,7 +75,7 @@ const UserFriends = () => {
       <Navbar />
       <div className = "content">
       {userInfo.id === Number(id) && (
-      <><ToggleFriends setToggleFriends={setToggleFriends} />
+      <><ToggleFriends setToggleFriends={setToggleFriends} toggleFriends = {toggleFriends} />
       <div>
         {toggleFriends === "incoming" && <div>{incomingRequestComponents}</div>}
         {toggleFriends === "outgoing" && <div>{outgoingRequestsComponents}</div>}
