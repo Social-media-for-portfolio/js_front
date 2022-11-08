@@ -55,14 +55,14 @@ const UserFriends = () => {
   }
 
   const friendCardComponents = userFriends.map((friend) => {
-    return <UserCard key = {friend.id} firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Remove from Friends!" btnStyle = "btn-danger" func={unfriend}/>
+    return <UserCard key = {friend.id} firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Unfriend" btnStyle = "btn-danger" func={unfriend}/>
   })
   const incomingRequestComponents = incomingRequests.map((friend) => {
     return <UserCard key = {friend.id} firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Accept" btnStyle = "btn-success" func = {acceptRequest} />
   })
 
   const outgoingRequestsComponents = outgoingRequests.map((friend) => {
-    return <UserCard key = {friend.id} firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Cancel Request" btnStyle = "btn-danger" func ={cancelRequest}/>
+    return <UserCard key = {friend.id} firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Cancel" btnStyle = "btn-danger" func ={cancelRequest}/>
   })
 
   useEffect(() => {

@@ -152,24 +152,24 @@ const UserProfileCard = ({
                 <h6 className="my-1"> Bio:</h6>
                 <p>{bio}</p>
                 {isMyUser && (
-                  <button className="my-2 btn btn-success" onClick={handleEdit}>
-                    Edit Profile
+                  <button className="my-2 btn edit-btn" onClick={handleEdit}>
+                    Edit
                   </button>
                 )}
                 {!isMyUser && !(userId in friends) && !(userId in requests) && (
                   <button
                     onClick={sendRequest}
-                    className="btn btn-success h-25 align-self-center mx-4"
+                    className="btn addfriend-btn h-25 align-self-center mx-4"
                   >
-                    Add to friends!
+                    Add friend
                   </button>
                 )}
                 {!isMyUser && userId in friends && (
                   <button
                     onClick={unfriend}
-                    className="btn btn-danger h-25 align-self-center mx-4"
+                    className="btn unfriend-btn h-25 align-self-center mx-4"
                   >
-                    Remove from friends!
+                    Unfriend
                   </button>
                 )}
                 {!isMyUser && userId in requests && (
@@ -177,7 +177,7 @@ const UserProfileCard = ({
                     onClick={unfriend}
                     className="btn btn-secondary h-25 align-self-center mx-4"
                   >
-                    Request sent!
+                    Request sent
                   </button>
                 )}
               </div>
@@ -226,7 +226,7 @@ const UserProfileCard = ({
                 placeholder="Bio"
               ></input>
               {isMyUser && (
-                <button className="my-2 btn btn-success" onClick={handleEdit}>
+                <button className="my-2 btn edit-btn" onClick={handleEdit}>
                   Done editing
                 </button>
               )}
