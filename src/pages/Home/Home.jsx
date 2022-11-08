@@ -10,8 +10,6 @@ import AuthContext from "../../context/authContext/AuthContext";
 import "./home.css";
 
 const Home = () => {
-  // const history = createBrowserHistory();
-  // history.push("/home");
   const { userInfo, setUserInfo, setFriends, setRequests} = useContext(AuthContext);
   const { feed, setFeed, setFeedMetrics, setCommentMetrics } =
     useContext(FeedContext);
@@ -19,7 +17,13 @@ const Home = () => {
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
     const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
-    setFriends(await getFriendsForUser(id));
+
+    const friendsArr = await getFriendsForUser(id);
+    const map = {};
+    for(let friend of friendsArr) {
+      map[friend.id] = true;
+    }
+    setFriends(map);
     setUserInfo({
       ...userInfo,
       id: id,

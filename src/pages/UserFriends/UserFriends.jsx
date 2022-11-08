@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect} from "react";
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
 import ToggleFriends from "../../components/ToggleFriends";
@@ -13,18 +13,14 @@ const UserFriends = () => {
   const { id } = useParams();
 
   const getFriends = async () => {
-    const res = await getFriendsForUser(id);
-    console.log(res)
-    const obj = {...res};
-    if(userInfo.id === Number(id) && userInfo.id in obj) delete obj[userInfo.id];
-    if(id in obj) delete obj[id];
-    setUserFriends(obj)
+    const friends = await getFriendsForUser(id);
+    setUserFriends(friends)   
   };
 
-  const [userFriends, setUserFriends] = useState({});
-  console.log(userFriends);
+  const [userFriends, setUserFriends] = useState([]);
   const [incomingRequests, setIncomingRequests] = useState([]);
   const [outgoingRequests, setOutgoingRequests] = useState([]);
+  const [toggleFriends, setToggleFriends] = useState("friends");
 
 
   const unfriend = async(id) => {
@@ -32,25 +28,20 @@ const UserFriends = () => {
     const obj = {...userFriends};
     delete obj[id];
     setUserFriends(obj)
-
   }
   const cancelRequest = async(id) => {
     await removeFriend(id);
     const newRequests = outgoingRequests.filter(friend => friend.id !== id);
     setOutgoingRequests(newRequests);
-
   }
 
   const acceptRequest = async(id) => {
     const newFriend = await acceptFriendRequest(id);
-    console.log(newFriend)
     const arr = [newFriend.first_name, newFriend.last_name, newFriend.avatar_url, newFriend.id]
     const newFriends = {...userFriends, id: arr};
     setUserFriends(newFriends);
     const newRequests = incomingRequests.filter(friend => friend.id !== id);
     setIncomingRequests(newRequests);
-    
-
   }
 
   const fetchIncomingRequests = async() => {
@@ -63,26 +54,16 @@ const UserFriends = () => {
     setOutgoingRequests(requests);
   }
 
-  const createFriendsArr = (obj) => {
-    const result = [];
-    for(let key in obj) {
-        result.push(obj[key])
-    }
-    return result;
-  } 
-  const friends = createFriendsArr(userFriends);
-
-  const friendCardComponents = friends.map((friend) => {
-    return <UserCard firstName = {friend[0]} lastName = {friend[1]} avatar = {friend[2]} friendId = {friend[3]} authUserId = {userInfo.id} userId = {id} btnText = "Remove from Friends!" btnStyle = "btn-danger" func={unfriend}/>
+  const friendCardComponents = userFriends.map((friend) => {
+    return <UserCard key = {friend.id} firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Remove from Friends!" btnStyle = "btn-danger" func={unfriend}/>
   })
   const incomingRequestComponents = incomingRequests.map((friend) => {
-    return <UserCard firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Accept" btnStyle = "btn-success" func = {acceptRequest} />
+    return <UserCard key = {friend.id} firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Accept" btnStyle = "btn-success" func = {acceptRequest} />
   })
 
   const outgoingRequestsComponents = outgoingRequests.map((friend) => {
-    return <UserCard firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Cancel Request" btnStyle = "btn-danger" func ={cancelRequest}/>
+    return <UserCard key = {friend.id} firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Cancel Request" btnStyle = "btn-danger" func ={cancelRequest}/>
   })
-  const [toggleFriends, setToggleFriends] = useState("friends");
 
   useEffect(() => {
     fetchIncomingRequests();

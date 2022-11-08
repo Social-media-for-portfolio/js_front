@@ -2,10 +2,9 @@ import React from "react";
 import {Link} from "react-router-dom"
 import "./user-friends-card.css";
 
-const UserProfileFriendsCard = ({ avatar1, avatar2, avatar3, id1, id2, id3, friendMetric, userId, userFriends, setUserFriends}) => {
-  const friends = friendMetric ? friendMetric.length - 3 : 0;
-
-
+const UserProfileFriendsCard = ({ avatar1, avatar2, avatar3, id1, id2, id3, userId, userFriends}) => {
+  const friends = userFriends.length > 3 ? userFriends.length - 3 : 0;
+  
   return (
     <div className = "d-flex flex-column align-items-center card">
         <h4 className = "my-5">Friends</h4>

@@ -16,26 +16,37 @@ import {
 import { useParams } from "react-router-dom";
 
 const UserProfile = () => {
-  const { userInfo, setUserInfo, setRequests} = useContext(AuthContext);
-  const { setFeed, feed, setFeedMetrics, setCommentMetrics } =
-    useContext(FeedContext);
+  const { userInfo, setUserInfo, setRequests, setFriends, friends} = useContext(AuthContext);
+  const { setFeed, feed, setFeedMetrics, setCommentMetrics } = useContext(FeedContext);
 
   const [toggle, setToggle] = useState("posts");
+  const [userFriends, setUserFriends] = useState([]);
+  const [profile, setProfile] = useState({});
+  const [userComments, setUserComments] = useState([]);
 
-  const [userFriends, setUserFriends] = useState({});
-
+  const { id } = useParams();
+  const profileFeed = feed.filter((post) => post.user_id === profile.id);
+ 
 
   const retrieveFeed = async () => {
     setFeed(await getAllPosts());
     const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
 
-    setUserInfo({
+     setUserInfo({
       ...userInfo,
       id: id,
       firstName: first_name,
       lastName: last_name,
       avatarUrl: avatar_url,
     });
+    
+    const friendsArr = await getFriendsForUser(id);
+    const map = {};
+
+    for(let friend of friendsArr) {
+      map[friend.id] = true;
+    }
+    setFriends(map);
   };
 
   const getPostMetrics = async () => {
@@ -84,13 +95,11 @@ const UserProfile = () => {
     setCommentMetrics(map);
   };
 
-  const { id } = useParams();
   const getFriends = async () => {
     setUserFriends(await getFriendsForUser(Number(id)));
   };
 
-  const [profile, setProfile] = useState({});
-  const [userComments, setUserComments] = useState([]);
+
 
   const getUserProfile = async () => {
     const profile = await getUserInfo(id);
@@ -124,8 +133,6 @@ const UserProfile = () => {
     }
   };
 
-  const profileFeed = feed.filter((post) => post.user_id === profile.id);
-
   const postCommentComponents = userComments.map((post) => {
     return (
       <Post
@@ -155,8 +162,8 @@ const UserProfile = () => {
   });
 
   useEffect(() => {
-    getUserProfile();
     retrieveFeed();
+    getUserProfile();
     getUserComments();
     getPostMetrics();
     getCommentMetrics();

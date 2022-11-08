@@ -8,13 +8,13 @@ import "./signup.css";
 
 const Signup = () => {
   const { setIsAuth } = useContext(AuthContext);
+
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
     firstName: "",
     lastName: "",
   });
-
   const [error, setError] = useState();
   const [highlightError, setHighlightError] = useState(false);
 
@@ -25,10 +25,7 @@ const Signup = () => {
         setInputs({ ...inputs, email: e.target.value });
         break;
       case "password":
-        setInputs({
-          ...inputs,
-          password: e.target.value,
-        });
+        setInputs({...inputs,  password: e.target.value});
         break;
       case "firstName":
         setInputs({ ...inputs, firstName: e.target.value });
@@ -54,12 +51,14 @@ const Signup = () => {
         first_name: firstName,
         last_name: lastName,
       };
+
       const response = await fetch("http://localhost:5000/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
       const parseRes = await response.json();
+      
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
         setIsAuth(true);

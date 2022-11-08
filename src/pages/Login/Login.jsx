@@ -8,11 +8,11 @@ import "./login.css";
 
 const Login = () => {
   const { setIsAuth } = useContext(AuthContext);
+  
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
   });
-
   const [error, setError] = useState();
   const [highlightError, setHighlightError] = useState(false);
 
@@ -27,6 +27,7 @@ const Login = () => {
           ...inputs,
           password: e.target.value,
         });
+        break;
     }
   };
 
@@ -46,8 +47,8 @@ const Login = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-
       const parseRes = await response.json();
+      
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
         setIsAuth(true);

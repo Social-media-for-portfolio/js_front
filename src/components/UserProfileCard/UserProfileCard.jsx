@@ -1,11 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import UserProfileFriendsCard from "../UserProfileFriendsCard";
 import AuthContext from "../../context/authContext/AuthContext";
-import {
-  removeFriend,
-  updateUserInfo,
-  sendFriendRequest,
-} from "../../utils/api";
+import { removeFriend, updateUserInfo, sendFriendRequest} from "../../utils/api";
 import "./user-profile-card.css";
 
 const UserProfileCard = ({
@@ -24,8 +20,7 @@ const UserProfileCard = ({
   const { userInfo, friends, requests, setRequests, setFriends } =
     useContext(AuthContext);
 
-  const isMyUser = Number(userId) === userInfo.id ? true : false;
-
+  const [isEditing, setIsEditing] = useState(false);
   const [info, setInfo] = useState({
     firstName: "",
     lastName: "",
@@ -34,27 +29,8 @@ const UserProfileCard = ({
     bio: "",
   });
 
-  const [isEditing, setIsEditing] = useState(false);
+  const isMyUser = Number(userId) === userInfo.id ? true : false;
 
-  const unfriend = async () => {
-    await removeFriend(userId);
-    if (userId in friends) {
-      const map = { ...friends };
-      delete map[userId];
-      setFriends(map);
-    }
-    if (userId in requests) {
-      const map = { ...requests };
-      delete map[userId];
-      setRequests(map);
-    }
-  };
-  const sendRequest = async () => {
-    const map = { ...requests };
-    map[userId] = true;
-    setRequests(map);
-    await sendFriendRequest(userId);
-  };
   const handleChange = (e) => {
     switch (e.target.id) {
       case "firstName":
@@ -77,11 +53,10 @@ const UserProfileCard = ({
         break;
     }
   };
-
-  console.log(userFriends);
+  
   const handleInfoUpdate = async () => {
-    const firstName =
-      info.firstName !== "" ? info.firstName : profile.first_name;
+    if([info.firstName, info.lastName, info.lastName, info.birthday, info.bio].every(element => element === "")) return;
+    const firstName = info.firstName !== "" ? info.firstName : profile.first_name;
     const lastName = info.lastName !== "" ? info.lastName : profile.last_name;
     const location = info.location !== "" ? info.location : profile.location;
     const birthday = info.birthday !== "" ? info.birthday : profile.birthday;
@@ -112,6 +87,27 @@ const UserProfileCard = ({
     }
   };
 
+  const unfriend = async () => {
+    await removeFriend(userId);
+    if (userId in friends) {
+      const map = { ...friends };
+      delete map[userId];
+      setFriends(map);
+    }
+    if (userId in requests) {
+      const map = { ...requests };
+      delete map[userId];
+      setRequests(map);
+    }
+  };
+
+  const sendRequest = async () => {
+    const map = { ...requests };
+    map[userId] = true;
+    setRequests(map);
+    await sendFriendRequest(userId);
+  };
+
   const getFriendAvatarsAndId = () => {
     let avatar1 = null;
     let avatar2 = null;
@@ -119,23 +115,23 @@ const UserProfileCard = ({
     let id1 = null;
     let id2 = null;
     let id3 = null;
-    let counter = 0;
-    for (let friend in userFriends) {
-      console.log(friend);
-      if (counter === 0) {
-        avatar1 = userFriends[friend][2];
-        id1 = userFriends[friend][3];
+
+    if(userFriends.length < 1) return { avatar1, avatar2, avatar3, id1, id2, id3 };
+   
+    for(let i = 0; i < userFriends.length; i++) {
+      if(i === 3) break;
+      if(i === 0) {
+        avatar1 = userFriends[i].avatar_url
+        id1 = userFriends[i].id
       }
-      if (counter === 1) {
-        avatar2 = userFriends[friend][2];
-        id2 = userFriends[friend][3];
+      if(i === 1) {
+        avatar2 = userFriends[i].avatar_url
+        id2 = userFriends[i].id
       }
-      if (counter === 2) {
-        avatar3 = userFriends[friend][2];
-        id3 = userFriends[friend][3];
-        break;
+      if(i === 2) {
+        avatar3 = userFriends[i].avatar_url
+        id3 = userFriends[i].id
       }
-      counter++;
     }
     return { avatar1, avatar2, avatar3, id1, id2, id3 };
   };
@@ -241,7 +237,6 @@ const UserProfileCard = ({
           userFriends={userFriends}
           setUserFriends={setUserFriends}
           userId={userId}
-          friendMetric={Object.keys(userFriends)}
           id1={id1}
           id2={id2}
           id3={id3}

@@ -348,19 +348,8 @@ export const getFriendsForUser = async (userId) => {
       }
     );
     const parseRes = await response.json();
-    console.log(parseRes);
-    const filtered = parseRes.filter((friend) => friend.id !== userId);
-    const map = {};
-
-    for (let i = 0; i < filtered.length; i++) {
-      map[filtered[i].id] = [
-        filtered[i].first_name,
-        filtered[i].last_name,
-        filtered[i].avatar_url,
-        filtered[i].id,
-      ];
-    }
-    return map;
+    const filtered = parseRes.filter((friend) => friend.id !== Number(userId));
+    return filtered;
   } catch (error) {
     throw error;
   }
