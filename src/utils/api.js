@@ -435,3 +435,25 @@ export const sendFriendRequest = async (id) => {
     throw error;
   }
 };
+
+export const updateAvatar = async (userId, avatarUrl) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(
+      `http://localhost:5000/users/profile/${userId}/avatar`,
+      {
+        body: JSON.stringify({
+          avatar: avatarUrl
+        }),
+        method: "PUT",
+        headers: { "Content-Type": "application/json", token: token },
+      }
+    );
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};

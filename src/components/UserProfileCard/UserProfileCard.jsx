@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
+import {FaPencilAlt} from "react-icons/fa"
 import UserProfileFriendsCard from "../UserProfileFriendsCard";
 import AuthContext from "../../context/authContext/AuthContext";
-import { removeFriend, updateUserInfo, sendFriendRequest} from "../../utils/api";
+import { removeFriend, updateUserInfo, sendFriendRequest, updateAvatar} from "../../utils/api";
 import "./user-profile-card.css";
 
 const UserProfileCard = ({
@@ -29,8 +30,25 @@ const UserProfileCard = ({
     bio: "",
   });
 
+  const [userAvatar, setUserAvatar] = useState("");
+  const [revealAvatarInput, setRevealAvatarInput] = useState(false)
+  
   const isMyUser = Number(userId) === userInfo.id ? true : false;
 
+  const handleAvatarInput = (e) => {
+    setUserAvatar(e.target.value);
+  }
+  const revealInput = () => {
+    if(revealAvatarInput) setRevealAvatarInput(false);
+    else setRevealAvatarInput(true);
+  }
+  const avatarSubmit = async(e) => {
+    e.preventDefault();
+    if(userAvatar.length < 1) return;
+    await updateAvatar(userId, userAvatar);
+    setProfile({...profile, avatar_url:userAvatar});
+    setUserAvatar("");
+  }
   const handleChange = (e) => {
     switch (e.target.id) {
       case "firstName":
@@ -142,7 +160,18 @@ const UserProfileCard = ({
     <div className="d-flex flex-column profile-card w-75">
       <div className="d-flex justify-content-around align-items-center my-5 py-5 mx-3">
         <div className="d-flex align-items-center">
+          <div className = "d-flex flex-column align-items-center">
           <img src={avatar} className="profile-avatar mx-3" />
+          {isMyUser && (
+            <FaPencilAlt onClick = {revealInput}className = "mt-4 fs-4"/>
+          )}
+          {revealAvatarInput && (
+            <form onSubmit = {avatarSubmit} className = "mt-3 d-flex flex-column align-items-center">
+                <input type = "text" placeholder = "Avatar url" value = {userAvatar} onChange = {handleAvatarInput}></input>
+                <button className = "btn view-btn w-50 mt-2">Submit</button>
+            </form>
+          )}
+        </div>
           {!isEditing && (
             <div className="d-flex">
               <div className="d-flex flex-column justify-content-end align-items-center">
