@@ -2,8 +2,7 @@ import React from 'react'
 import {Link} from "react-router-dom"
 import "./user-card.css"
 
-const UserCard = ({firstName, lastName, avatar, friendId, userId, authUserId, func, btnText, btnStyle}) => {
-  
+const UserCard = ({firstName, lastName, avatar, friendId, userId, authUserId, func, btnText, btnStyle, bio}) => {
   const handleClick = () => {
     func(friendId)
   }
@@ -12,7 +11,9 @@ const UserCard = ({firstName, lastName, avatar, friendId, userId, authUserId, fu
         <Link to = {`/userProfile/${friendId}`}><img className = "card-avatar" src = {avatar}></img></Link>
         <h4>{firstName + " " +lastName}</h4>
         {Number(userId) === authUserId && <button onClick = {handleClick} className = {`btn ${btnStyle} my-2`}>{btnText}</button>}
-
+        {bio && (
+          <p>{bio}</p>
+        )}
     </div>
   )
 }
