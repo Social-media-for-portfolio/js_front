@@ -444,12 +444,28 @@ export const updateAvatar = async (userId, avatarUrl) => {
       `http://localhost:5000/users/profile/${userId}/avatar`,
       {
         body: JSON.stringify({
-          avatar: avatarUrl
+          avatar: avatarUrl,
         }),
         method: "PUT",
         headers: { "Content-Type": "application/json", token: token },
       }
     );
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};
+
+export const getAllUsers = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(`http://localhost:5000/users/`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json", token: token },
+    });
     const parseRes = await response.json();
     return parseRes;
   } catch (error) {
