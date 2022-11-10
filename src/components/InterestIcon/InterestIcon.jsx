@@ -1,9 +1,16 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
+import InterestContext from '../../context/interestContext/InterestContext';
 import { addInterest, removeInterest } from '../../utils/api';
 import "./interest-icon.css"
 
 const InterestIcon = ({interestName, setError, interestsSelected, setInterestsSelected}) => {
+    const {myInterests, setMyinterests} = useContext(InterestContext);
+
     const [selected, setSelected] = useState(false);
+    
+    // if(interestName in myInterests) {
+    //     setSelected(true);
+    // }
 
     const addNewInterest = async() => {
         await addInterest(interestName);
