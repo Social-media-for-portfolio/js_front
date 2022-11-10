@@ -1,11 +1,18 @@
 import React, {useState} from 'react'
 import "./interest-icon.css"
 
-const InterestIcon = ({interestName}) => {
+const InterestIcon = ({interestName, setError, interestsSelected, setInterestsSelected}) => {
     const [selected, setSelected] = useState(false);
     const handleClick = () => {
-        selected ? setSelected(false) : setSelected(true);
-        return
+        if(selected) {
+            setInterestsSelected(interestsSelected - 1);
+            setSelected(false);
+        }
+        else {
+            setError(false);
+            setInterestsSelected(interestsSelected + 1);
+            setSelected(true);
+        }
     }
   return (
     <div onClick = {handleClick} className = {`${selected ? "interest-selected" : "interest"} rounded-pill border border-dark d-flex justify-content-center align-items-center my-2`}>
