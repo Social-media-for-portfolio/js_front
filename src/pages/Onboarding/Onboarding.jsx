@@ -9,17 +9,11 @@ import "./onboarding.css";
 
 const Onboarding = () => {
   const [name, setName] = useState("");
-  const [interestsSelected, setInterestsSelected] = useState(0);
-  const [error, setError] = useState(false);
   const [navigate, setNavigate] = useState(false);
 
   const handleClick = () => {
-    if (interestsSelected < 3) {
-      setError(true);
-      return;
-    } else {
-      setNavigate(true);
-    }
+    setNavigate(true);
+    return;
   };
 
   const getUserInfo = async () => {
@@ -40,23 +34,13 @@ const Onboarding = () => {
         </div>
       </div>
       <div className="my-4 mx-3 d-flex flex-column">
-        <InterestCard
-          setError={setError}
-          interestsSelected={interestsSelected}
-          setInterestsSelected={setInterestsSelected}
-        />
+        <InterestCard/>
         <button
           onClick={handleClick}
           className="btn continue-btn align-self-center my-4"
         >
           Continue
         </button>
-
-        {error && (
-          <p className="error align-self-center">
-            You have to select at least 3 interests.
-          </p>
-        )}
         {navigate && <Navigate to="/home" />}
       </div>
       <Footer />

@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from "react";
-// import {createBrowserHistory} from "history";
 import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
 import Post from "../../components/Post";
