@@ -1,13 +1,29 @@
 import React from 'react'
 import InterestIcon from '../InterestIcon';
+import "./interest-card.css"
 const InterestCard = () => {
-    const interests = ["Animals and Pets",  "Anime", "Art", "Businnes & Finance", "Cars and Motor Vehicles", "Fashion", "Food and Drinks", "Gaming", "History", "Movies", "Music", "Politics", "Programming", "Religion", "Sports", "Science"];
+    const interests = ["Animals & Pets",  "Anime", "Art", "Businnes & Finance", "Cars and Motor Vehicles", "Fashion", "Food and Drinks", "Gaming", "History", "Movies", "Music", "Politics", "Programming", "Religion", "Sports", "Science"];
     const interestComponents = interests.map(interest => {
         return <InterestIcon interestName = {interest}/>
     })
+    const section1 = interestComponents.slice(0, 4);
+    const section2 = interestComponents.slice(4, 8);
+    const section3 = interestComponents.slice(8, 12);
+    const section4 = interestComponents.slice(12, 16)
   return (
-    <div className = "mx-3 d-flex justify-content-between">
-        {interestComponents}
+    <div className = "mx-3 d-flex justify-content-around">
+        <div className = "d-flex flex-column interest-card">
+            {section1}
+        </div>
+        <div className = "d-flex flex-column interest-card">
+        {section2}
+        </div>
+        <div className = "d-flex flex-column interest-card">
+        {section3}
+        </div>
+        <div className = "d-flex flex-column interest-card">
+        {section4}
+        </div>
     </div>
   )
 }

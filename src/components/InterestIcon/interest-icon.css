@@ -1,4 +1,15 @@
 .interest {
-    background-color: lightblue;
+    background-color: rgb(203, 242, 255);
     min-width: 100px;
+}
+.interest-selected {
+    background-color: rgb(77, 227, 238);
+    min-width: 100px;
+}
+
+.interest:hover {
+    cursor:pointer;
+}
+.interest-selected:hover {
+    cursor:pointer;
 }

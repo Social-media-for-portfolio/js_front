@@ -1,7 +1,15 @@
 .content {
   min-height: calc(100vh - 160px);
 }
-.interest-card {
-  min-height: 100px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+.continue-btn {
+  min-height: 50px;
+  min-width: 150px;
+  color: white;
+  background-color: #b698f0;
+}
+
+.continue-btn:hover {
+  color: white;
+  background-color: #7d3cff;
 }
