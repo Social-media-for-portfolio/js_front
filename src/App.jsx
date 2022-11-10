@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import Home from "./pages/Home";
+import Onboarding from "./pages/Onboarding/Onboarding";
 import Login from "./pages/Login/Login";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Users from "./pages/Users";
@@ -31,6 +32,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={isAuth ? <Home /> : <Login />}></Route>
+      <Route path="/onboarding" element={isAuth ? <Onboarding /> : <Login />}></Route>
       <Route path="/login" element={isAuth ? <Home /> : <Login />}></Route>
       <Route path="/register" element={isAuth ? <Home /> : <Signup />}></Route>
       <Route path="/home" element={isAuth ? <Home /> : <Login />}></Route>

@@ -1,0 +1,7 @@
+.content {
+  min-height: calc(100vh - 160px);
+}
+.interest-card {
+  min-height: 100px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
