@@ -473,3 +473,69 @@ export const getAllUsers = async () => {
   } finally {
   }
 };
+
+export const addInterest = async (interest) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(`http://localhost:5000/users/me/interests`, {
+      method: "POST",
+      body: JSON.stringify({interest}),
+      headers: { "Content-Type": "application/json", token: token },
+    });
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};
+
+export const removeInterest = async (interest) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(`http://localhost:5000/users/me/interests`, {
+      method: "DELETE",
+      body: JSON.stringify({interest}),
+      headers: { "Content-Type": "application/json", token: token },
+    });
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};
+
+export const getMyInterests = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(`http://localhost:5000/users/me/interests`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json", token: token },
+    });
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};
+
+export const getInterestsForAllUsers = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(`http://localhost:5000/users/interests`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json", token: token },
+    });
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};
