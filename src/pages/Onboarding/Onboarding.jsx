@@ -4,17 +4,23 @@ import Navbar from "../../sections/Navbar/Navbar";
 import Footer from "../../sections/Footer/Footer";
 import WelcomeCard from "../../components/WelcomeCard";
 import InterestCard from "../../components/InterestCard";
-import { getMyUserInfo } from "../../utils/api";
+import { getMyUserInfo, addInterests} from "../../utils/api";
 import "./onboarding.css";
 
 const Onboarding = () => {
   const [name, setName] = useState("");
   const [navigate, setNavigate] = useState(false);
+  const [interests, setInterests] = useState([]);
 
+  console.log(interests);
   const handleClick = () => {
+    sendInterests();
     setNavigate(true);
     return;
   };
+  const sendInterests = async() => {
+    await addInterests(interests);
+  }
 
   const getUserInfo = async () => {
     const { first_name } = await getMyUserInfo();
@@ -34,7 +40,7 @@ const Onboarding = () => {
         </div>
       </div>
       <div className="my-4 mx-3 d-flex flex-column">
-        <InterestCard/>
+        <InterestCard interests = {interests} setInterests = {setInterests}/>
         <button
           onClick={handleClick}
           className="btn continue-btn align-self-center my-4"

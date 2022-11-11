@@ -474,13 +474,13 @@ export const getAllUsers = async () => {
   }
 };
 
-export const addInterest = async (interest) => {
+export const addInterests = async (interests) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(`http://localhost:5000/users/me/interests`, {
       method: "POST",
-      body: JSON.stringify({interest}),
+      body: JSON.stringify({interests}),
       headers: { "Content-Type": "application/json", token: token },
     });
     const parseRes = await response.json();

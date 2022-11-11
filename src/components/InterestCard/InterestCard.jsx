@@ -1,10 +1,10 @@
 import React from 'react'
 import InterestIcon from '../InterestIcon';
 import "./interest-card.css"
-const InterestCard = () => {
-    const interests = ["Animals & Pets",  "Anime", "Art", "Businnes & Finance", "Cars and Motor Vehicles", "Education", "Fashion", "Food and Drinks", "Gaming", "History", "Nature", "Movies", "Music", "Politics", "Programming", "Religion", "Sports", "Science", "Technology","Travel"];
-    const interestComponents = interests.map(interest => {
-        return <InterestIcon interestName = {interest}/>
+const InterestCard = ({interests, setInterests}) => {
+    const interestList = ["Animals & Pets",  "Anime", "Art", "Businnes & Finance", "Cars and Motor Vehicles", "Education", "Fashion", "Food and Drinks", "Gaming", "History", "Nature", "Movies", "Music", "Politics", "Programming", "Religion", "Sports", "Science", "Technology","Travel"];
+    const interestComponents = interestList.map(interest => {
+        return <InterestIcon interestName = {interest} interests = {interests} setInterests = {setInterests}/>
     })
 
     const section1 = interestComponents.slice(0, 4);
