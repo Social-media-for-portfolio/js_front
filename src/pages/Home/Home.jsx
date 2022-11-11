@@ -3,7 +3,7 @@ import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
 import Post from "../../components/Post";
 import PostInput from "../../components/PostInput";
-import { getAllPosts, getMyUserInfo, getFriendsForUser } from "../../utils/api";
+import { getAllPosts, getMyUserInfo, getFriendsForUser, getPostTags, getMyInterests} from "../../utils/api";
 import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
 import "./home.css";
@@ -14,7 +14,23 @@ const Home = () => {
     useContext(FeedContext);
 
   const retrieveFeed = async () => {
-    setFeed(await getAllPosts());
+    const tags = await getPostTags();
+    const tagMap = {};
+    for(let tag of tags) {
+      tagMap[tag.tag] = tag.post_id;
+    }
+
+    console.log(tagMap)
+    const myInterests = await getMyInterests();
+    const interestMap = {};
+    for(let interest of myInterests) {
+        interestMap[interest.interest] = true;
+    }
+    const posts = await getAllPosts();
+  
+    console.log(posts)
+    setFeed(posts);
+   
     const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
 
     const friendsArr = await getFriendsForUser(id);
