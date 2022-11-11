@@ -17,18 +17,33 @@ const Home = () => {
     const tags = await getPostTags();
     const tagMap = {};
     for(let tag of tags) {
-      tagMap[tag.tag] = tag.post_id;
+      if(tag.post_id in tagMap) {
+        tagMap[tag.post_id].push(tag.tag)
+      }
+      else tagMap[tag.post_id] = [tag.tag];
     }
 
-    console.log(tagMap)
     const myInterests = await getMyInterests();
     const interestMap = {};
     for(let interest of myInterests) {
         interestMap[interest.interest] = true;
     }
     const posts = await getAllPosts();
-  
-    console.log(posts)
+
+    for(let post of posts) {
+      post.score = 0;
+      if(post.id in tagMap) {
+        post.tag = [];
+        for(let tagName of tagMap[post.id]) {
+          post.tag.push(tagName)
+          if(tagName in interestMap) {
+            post.score ++;
+          }
+        }
+
+      }
+    }
+    posts.sort((a, b) => b.score - a.score)
     setFeed(posts);
    
     const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
