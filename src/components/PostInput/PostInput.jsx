@@ -27,6 +27,7 @@ const PostInput = ({ }) => {
 
   const handleDropdown = () => {
     setDropdown(!dropDown);
+    setTagMap({});
   };
 
   const handleChange = (e) => {
