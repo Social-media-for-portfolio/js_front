@@ -12,3 +12,7 @@
   background-color: white;
   z-index: 1;
 }
+
+.dropdown-btn:hover {
+  cursor:pointer;
+}

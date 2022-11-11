@@ -72,7 +72,7 @@ const PostInput = ({ }) => {
         />
           <MdOutlineArrowDropDownCircle
             onClick={handleDropdown}
-            className="fs-1 align-self-end mx-1"
+            className="fs-1 align-self-end mx-1 dropdown-btn"
           />
         <button className="btn btn-success submit-btn h-25 align-self-end">
           Post!
