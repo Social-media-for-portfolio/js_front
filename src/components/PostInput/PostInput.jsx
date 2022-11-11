@@ -7,16 +7,16 @@ import AuthContext from "../../context/authContext/AuthContext";
 import { createPost } from "../../utils/api";
 import "./post-input.css";
 
-const PostInput = ({ userAvatar }) => {
+const PostInput = ({ }) => {
   const { userInfo } = useContext(AuthContext);
   const { feed, setFeed } = useContext(FeedContext);
   const [postContent, setPostContent] = useState("");
   const [dropDown, setDropdown] = useState(false);
-  const [tagString, setTagString] = useState("");
+  const [tagMap, setTagMap] = useState({});
   const tags = ["Animals & Pets",  "Anime", "Art", "Businnes & Finance", "Cars and Motor Vehicles", "Education", "Fashion", "Food and Drinks", "Gaming", "History", "Nature", "Movies", "Music", "Politics", "Programming", "Religion", "Sports", "Science", "Technology","Travel"];
-
+  console.log(tagMap)
   const tagComponents = tags.map(tag => {
-    return <PostTag tagName={tag} tagString = {tagString} setTagString = {setTagString}/>
+    return <PostTag tagName={tag} tagMap = {tagMap} setTagMap = {setTagMap}/>
   })
 
     const section1 = tagComponents.slice(0, 4);
