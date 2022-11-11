@@ -539,3 +539,34 @@ export const getInterestsForAllUsers = async () => {
   } finally {
   }
 };
+
+export const checkOnboarding = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(`http://localhost:5000/users/me/onboarding`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json", token: token },
+    });
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};
+export const setOnboarding = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+    const response = await fetch(`http://localhost:5000/users/me/onboarding`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", token: token },
+    });
+    const parseRes = await response.json();
+    return parseRes;
+  } catch (error) {
+    throw error;
+  } finally {
+  }
+};

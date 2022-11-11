@@ -4,7 +4,7 @@ import Navbar from "../../sections/Navbar/Navbar";
 import Footer from "../../sections/Footer/Footer";
 import WelcomeCard from "../../components/WelcomeCard";
 import InterestCard from "../../components/InterestCard";
-import { getMyUserInfo, addInterests} from "../../utils/api";
+import { getMyUserInfo, addInterests, checkOnboarding, setOnboarding} from "../../utils/api";
 import "./onboarding.css";
 
 const Onboarding = () => {
@@ -12,7 +12,7 @@ const Onboarding = () => {
   const [navigate, setNavigate] = useState(false);
   const [interests, setInterests] = useState([]);
 
-  console.log(interests);
+
   const handleClick = () => {
     sendInterests();
     setNavigate(true);
@@ -20,9 +20,14 @@ const Onboarding = () => {
   };
   const sendInterests = async() => {
     await addInterests(interests);
+    await setOnboarding();
   }
 
   const getUserInfo = async () => {
+    const {onboarding} = await checkOnboarding();
+    if(!onboarding) {
+        setNavigate(true);
+    }
     const { first_name } = await getMyUserInfo();
     setName(first_name);
   };
