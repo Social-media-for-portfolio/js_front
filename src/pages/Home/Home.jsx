@@ -14,6 +14,21 @@ const Home = () => {
     useContext(FeedContext);
 
   const retrieveFeed = async () => {
+    const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
+
+    const friendsArr = await getFriendsForUser(id);
+    const friendsMap = {};
+    for(let friend of friendsArr) {
+      friendsMap[friend.id] = true;
+    }
+    setFriends(friendsMap);
+    setUserInfo({
+      ...userInfo,
+      id: id,
+      firstName: first_name,
+      lastName: last_name,
+      avatarUrl: avatar_url,
+    });
 
     //////////Reccomendation Engine////////
     const tags = await getPostTags();
@@ -33,7 +48,8 @@ const Home = () => {
     const posts = await getAllPosts();
 
     for(let post of posts) {
-      post.score = 0;
+      post.score = 0; 
+      if(post.user_id in friendsMap) post.score +=3;
       if(post.id in tagMap) {
         post.tag = [];
         for(let tagName of tagMap[post.id]) {
@@ -45,25 +61,11 @@ const Home = () => {
 
       }
     }
+    console.log(posts);
     posts.sort((a, b) => b.score - a.score)
     ////////////Recomendation engine////////////////
     setFeed(posts);
-   
-    const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
 
-    const friendsArr = await getFriendsForUser(id);
-    const map = {};
-    for(let friend of friendsArr) {
-      map[friend.id] = true;
-    }
-    setFriends(map);
-    setUserInfo({
-      ...userInfo,
-      id: id,
-      firstName: first_name,
-      lastName: last_name,
-      avatarUrl: avatar_url,
-    });
   };
 
   const postComponents = feed.map((post) => {

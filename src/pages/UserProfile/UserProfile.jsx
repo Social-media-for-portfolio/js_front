@@ -16,7 +16,7 @@ import {
 import { useParams } from "react-router-dom";
 
 const UserProfile = () => {
-  const { userInfo, setUserInfo, setRequests, setFriends, friends} = useContext(AuthContext);
+  const { userInfo, setUserInfo, setRequests, setFriends} = useContext(AuthContext);
   const { setFeed, feed, setFeedMetrics, setCommentMetrics } = useContext(FeedContext);
 
   const [toggle, setToggle] = useState("posts");
