@@ -31,41 +31,38 @@ const Home = () => {
     });
 
     //////////Reccomendation Engine////////
-    const tags = await getPostTags();
-    const tagMap = {};
-    for(let tag of tags) {
-      if(tag.post_id in tagMap) {
-        tagMap[tag.post_id].push(tag.tag)
-      }
-      else tagMap[tag.post_id] = [tag.tag];
-    }
-
     const myInterests = await getMyInterests();
     const interestMap = {};
     for(let interest of myInterests) {
         interestMap[interest.interest] = true;
     }
+
+    const tags = await getPostTags();
+    const tagMap = {};
+    for(let tag of tags) {
+      const score = tag.tag in interestMap ? 1 : 0;
+      if(tag.post_id in tagMap) {
+        tagMap[tag.post_id][0] += score;
+        tagMap[tag.post_id].push(tag.tag)
+      }
+      else tagMap[tag.post_id] = [score, tag.tag];
+    }
+    console.log(tagMap)
+
+  
     const posts = await getAllPosts();
 
     for(let post of posts) {
       post.score = 0; 
       if(post.user_id in friendsMap) post.score +=3;
       if(post.id in tagMap) {
-        post.tag = [];
-        for(let tagName of tagMap[post.id]) {
-          post.tag.push(tagName)
-          if(tagName in interestMap) {
-            post.score ++;
-          }
-        }
-
+          post.score += tagMap[post.id][0];
       }
-    }
+      }
     console.log(posts);
     posts.sort((a, b) => b.score - a.score)
     ////////////Recomendation engine////////////////
     setFeed(posts);
-
   };
 
   const postComponents = feed.map((post) => {
