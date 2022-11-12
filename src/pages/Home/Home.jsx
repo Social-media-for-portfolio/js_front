@@ -14,6 +14,8 @@ const Home = () => {
     useContext(FeedContext);
 
   const retrieveFeed = async () => {
+
+    //////////Reccomendation Engine////////
     const tags = await getPostTags();
     const tagMap = {};
     for(let tag of tags) {
@@ -44,6 +46,7 @@ const Home = () => {
       }
     }
     posts.sort((a, b) => b.score - a.score)
+    ////////////Recomendation engine////////////////
     setFeed(posts);
    
     const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
