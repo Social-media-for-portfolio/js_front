@@ -47,7 +47,7 @@ const Home = () => {
       }
       else tagMap[tag.post_id] = [score, tag.tag];
     }
-    console.log(tagMap)
+    // console.log(tagMap)
 
   
     const posts = await getAllPosts();
@@ -59,7 +59,7 @@ const Home = () => {
           post.score += tagMap[post.id][0];
       }
       }
-    console.log(posts);
+    // console.log(posts);
     posts.sort((a, b) => b.score - a.score)
     ////////////Recomendation engine////////////////
     setFeed(posts);
@@ -97,6 +97,7 @@ const Home = () => {
       headers: { "Content-Type": "application/json", token: token },
     });
     const likeData = await likeResponse.json();
+    console.log(likeData)
     for (let likeMetric of likeData) {
       if (likeMetric.post_id in map) {
         map[likeMetric.post_id][1] = parseInt(likeMetric.likecount);
