@@ -7,14 +7,14 @@ import AuthContext from "../../context/authContext/AuthContext";
 import { createPost, } from "../../utils/api";
 import "./post-input.css";
 
-const PostInput = ({ }) => {
+const PostInput = ({ tags, setTags }) => {
   const { userInfo } = useContext(AuthContext);
   const { feed, setFeed } = useContext(FeedContext);
   const [postContent, setPostContent] = useState("");
   const [dropDown, setDropdown] = useState(false);
   const [tagArray, setTagArray] = useState([]);
-  const tags = ["Animals & Pets",  "Anime", "Art", "Businnes & Finance", "Cars and Motor Vehicles", "Education", "Fashion", "Food and Drinks", "Gaming", "History", "Nature", "Movies", "Music", "Politics", "Programming", "Religion", "Sports", "Science", "Technology","Travel"];
-  const tagComponents = tags.map(tag => {
+  const tagList = ["Animals & Pets",  "Anime", "Art", "Businnes & Finance", "Cars and Motor Vehicles", "Education", "Fashion", "Food and Drinks", "Gaming", "History", "Nature", "Movies", "Music", "Politics", "Programming", "Religion", "Sports", "Science", "Technology","Travel"];
+  const tagComponents = tagList.map(tag => {
     return <PostTag tagName={tag} tagArray = {tagArray} setTagArray = {setTagArray}/>
   })
 
@@ -34,6 +34,7 @@ const PostInput = ({ }) => {
   };
 
   const createNewPostData = (postId) => {
+    console.log(tagArray)
     const { avatarUrl, firstName, lastName, id } = userInfo;
     const post = {
       id: postId,
@@ -50,9 +51,14 @@ const PostInput = ({ }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newPost = await createPost(postContent, tagArray);
-    const post = createNewPostData(newPost[0].id);
+    const newPostId = newPost[0].id
+    const post = createNewPostData(newPostId);
     setFeed([post, ...feed]);
+    const tagMap = {...tags};
+    tagMap[newPostId] = [0, ...tagArray];
+    setTags(tagMap)
     setPostContent("");
+    setDropdown(false);
   };
   return (
     <div className = "d-flex flex-column">

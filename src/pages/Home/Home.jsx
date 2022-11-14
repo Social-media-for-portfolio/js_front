@@ -14,6 +14,7 @@ const Home = () => {
     useContext(FeedContext);
 
   const [tags, setTags] = useState({});
+  console.log(tags)
   const retrieveFeed = async () => {
     const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
 
@@ -50,6 +51,7 @@ const Home = () => {
     }
     // console.log(tagMap)
     setTags(tagMap)
+    console.log(tagMap)
     const posts = await getAllPosts();
 
     for(let post of posts) {
@@ -155,7 +157,7 @@ const Home = () => {
     <div className="container-fluid d-flex flex-column p-0">
       <Navbar />
       <div className="post-input">
-        <PostInput />
+        <PostInput tags = {tags} setTags = {setTags}/>
       </div>
       <div className="d-flex flex-column align-items-center my-4">
         {postComponents}

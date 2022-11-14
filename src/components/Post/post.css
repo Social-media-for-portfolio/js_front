@@ -15,3 +15,13 @@
 .post-option:hover {
     cursor: pointer;
 }
+.view-tags-btn {
+    cursor:pointer;
+    color: white;
+    background-color: #b698f0;
+}
+.view-tags-btn:hover {
+    cursor:pointer;
+    color: white;
+    background-color: #7d3cff;
+}

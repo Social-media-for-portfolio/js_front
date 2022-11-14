@@ -117,6 +117,11 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId, tags}) =>
       
         <div className = "d-flex justify-content-between align-self-start">
           {tagComponents}
+          {tagComponents.length < allTags.length - 1 && (
+            <div className = "view-tags-btn rounded-pill">
+            <p className = "my-2 mx-2 ">View all tags</p>
+            </div>
+          )}
         </div>
       </div>
       <div>
