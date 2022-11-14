@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState} from "react";
 import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
 import Post from "../../components/Post";
@@ -13,6 +13,7 @@ const Home = () => {
   const { feed, setFeed, setFeedMetrics, setCommentMetrics } =
     useContext(FeedContext);
 
+  const [tags, setTags] = useState({});
   const retrieveFeed = async () => {
     const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
 
@@ -48,8 +49,7 @@ const Home = () => {
       else tagMap[tag.post_id] = [score, tag.tag];
     }
     // console.log(tagMap)
-
-  
+    setTags(tagMap)
     const posts = await getAllPosts();
 
     for(let post of posts) {
@@ -75,6 +75,7 @@ const Home = () => {
         username={post.first_name + " " + post.last_name}
         dateTime={post.created_at}
         body={post.content}
+        tags = {tags[post.id] ? tags[post.id] : []}
       />
     );
   });

@@ -46,14 +46,14 @@ export const getUserInfo = async (id) => {
   }
 };
 
-export const createPost = async (content) => {
+export const createPost = async (content, tagArr) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch("http://localhost:5000/feed/posts", {
       method: "POST",
       headers: { "Content-Type": "application/json", token: token },
-      body: JSON.stringify({ content: content }),
+      body: JSON.stringify({ content: content, tags: tagArr }),
     });
     const parseRes = await response.json();
     return parseRes;

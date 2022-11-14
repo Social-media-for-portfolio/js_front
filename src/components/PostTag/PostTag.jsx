@@ -1,20 +1,20 @@
 import React, {useState, useEffect} from 'react'
 import "./post-tag.css"
 
-const PostTag = ({tagName, tagMap, setTagMap}) => {
+const PostTag = ({tagName, tagArray, setTagArray}) => {
     const [selected, setSelected] = useState(false);
 
 
     const handleClick = () => {
-        const map = {...tagMap};
+        const array = [...tagArray];
         if(selected) {
-            delete map[tagName];
-            setTagMap(map);
+            const newTags = array.filter(tag => tag !== tagName);
+            setTagArray(newTags);
             setSelected(false)
         }
         else {
-            map[tagName] = true;
-            setTagMap(map);
+            array.push(tagName);
+            setTagArray(array);
             setSelected(true);
         } 
     }

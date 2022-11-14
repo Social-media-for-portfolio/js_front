@@ -4,7 +4,7 @@ import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 import PostTag from "../PostTag";
 import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
-import { createPost } from "../../utils/api";
+import { createPost, } from "../../utils/api";
 import "./post-input.css";
 
 const PostInput = ({ }) => {
@@ -12,11 +12,10 @@ const PostInput = ({ }) => {
   const { feed, setFeed } = useContext(FeedContext);
   const [postContent, setPostContent] = useState("");
   const [dropDown, setDropdown] = useState(false);
-  const [tagMap, setTagMap] = useState({});
+  const [tagArray, setTagArray] = useState([]);
   const tags = ["Animals & Pets",  "Anime", "Art", "Businnes & Finance", "Cars and Motor Vehicles", "Education", "Fashion", "Food and Drinks", "Gaming", "History", "Nature", "Movies", "Music", "Politics", "Programming", "Religion", "Sports", "Science", "Technology","Travel"];
-  console.log(tagMap)
   const tagComponents = tags.map(tag => {
-    return <PostTag tagName={tag} tagMap = {tagMap} setTagMap = {setTagMap}/>
+    return <PostTag tagName={tag} tagArray = {tagArray} setTagArray = {setTagArray}/>
   })
 
     const section1 = tagComponents.slice(0, 4);
@@ -27,7 +26,7 @@ const PostInput = ({ }) => {
 
   const handleDropdown = () => {
     setDropdown(!dropDown);
-    setTagMap({});
+    setTagArray([]);
   };
 
   const handleChange = (e) => {
@@ -50,7 +49,7 @@ const PostInput = ({ }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newPost = await createPost(postContent);
+    const newPost = await createPost(postContent, tagArray);
     const post = createNewPostData(newPost[0].id);
     setFeed([post, ...feed]);
     setPostContent("");
@@ -94,6 +93,9 @@ const PostInput = ({ }) => {
           </div>
           <div className = "d-flex flex-column align-items-center">
           {section4}
+          </div>
+          <div className = "d-flex flex-column align-items-center">
+          {section5}
           </div>
         </div>
         </div>)

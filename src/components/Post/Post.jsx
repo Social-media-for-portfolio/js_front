@@ -6,6 +6,7 @@ import { FaRegCommentDots } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
 import { DateTime } from "luxon";
 import CommentInput from "../CommentInput/CommentInput";
+import Tag from "../Tag"
 import Comment from "../Comment";
 import AuthContext from "../../context/authContext/AuthContext";
 import FeedContext from "../../context/feedContext/FeedContext";
@@ -18,15 +19,13 @@ import {
 } from "../../utils/api";
 import "./post.css";
 
-const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
+const Post = ({ postId, src, avatar, username, dateTime, body, userId, tags}) => {
   const { userInfo } = useContext(AuthContext);
   const { feed, setFeed, feedMetrics, setFeedMetrics } =
     useContext(FeedContext);
   const { id } = userInfo;
-
   const likes = feedMetrics[postId] ? feedMetrics[postId][1] : 0;
   const comments = feedMetrics[postId] ? feedMetrics[postId][0] : 0;
-
   const [revealComments, setRevealComments] = useState(false);
   const [postComments, setPostComments] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
@@ -65,7 +64,11 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
       />
     );
   });
-
+  
+  const allTags = tags.map((tag) => {
+    return <Tag tagName = {tag}/>
+  })
+  const tagComponents = allTags.slice(1, 5)
   const updateComments = async (id) => {
     const comments = await getAllComments(id);
     setPostComments(comments);
@@ -94,7 +97,6 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
     const newFeed = updateFeed();
     setFeed(newFeed);
   };
-  const handleNavigate = () => {};
 
   useEffect(() => {
     updateComments(postId);
@@ -102,13 +104,19 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId }) => {
   }, []);
   return (
     <div className="my-5 w-50 post p-3">
-      <div className="d-flex align-items-center">
+      <div className="d-flex justify-content-between">
+        <div>
         <Link to={`/userProfile/${userId}`}>
-          <img src={avatar} className="post-avatar" />
+          <img src={avatar} className="post-avatar mx-3" />
         </Link>
         <div className="d-flex flex-column mx-3">
           <h2>{username}</h2>
           <p>{DateTime.fromISO(dateTime).toRelative()}</p>
+        </div>
+        </div>
+      
+        <div className = "d-flex justify-content-between align-self-start">
+          {tagComponents}
         </div>
       </div>
       <div>
