@@ -12,6 +12,7 @@ import {
   getMyUserInfo,
   getPostsWithUserComments,
   getFriendsForUser,
+  getPostTags
 } from "../../utils/api";
 import { useParams } from "react-router-dom";
 
@@ -23,12 +24,19 @@ const UserProfile = () => {
   const [userFriends, setUserFriends] = useState([]);
   const [profile, setProfile] = useState({});
   const [userComments, setUserComments] = useState([]);
-
+  const [tags, setTags] = useState({});
+  console.log(tags);
   const { id } = useParams();
   const profileFeed = feed.filter((post) => post.user_id === profile.id);
  
 
   const retrieveFeed = async () => {
+    const tagsArr = await getPostTags()
+    const tagMap = {};
+    for(let tag of tagsArr) {
+      tagMap[tag.post_id] ? tagMap[tag.post_id].push(tag.tag) : tagMap[tag.post_id] = [0, tag.tag]
+    }
+    setTags(tagMap);
     setFeed(await getAllPosts());
     const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
 
@@ -143,6 +151,7 @@ const UserProfile = () => {
         username={post.first_name + " " + post.last_name}
         dateTime={post.created_at}
         body={post.content}
+        tags = {tags[post.id] ?  tags[post.id] : []}
       />
     );
   });
@@ -157,6 +166,7 @@ const UserProfile = () => {
         username={post.first_name + " " + post.last_name}
         dateTime={post.created_at}
         body={post.content}
+        tags = {tags[post.id] ?  tags[post.id] : []}
       />
     );
   });
