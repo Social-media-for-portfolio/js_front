@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import { DateTime } from "luxon";
-import { MdOutlineArrowDropDownCircle } from "react-icons/md";
+import { IoIosPricetags } from "react-icons/io";
 import PostTag from "../PostTag";
+import PostTagsModal from "../PostTagsModal";
 import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
 import { createPost, } from "../../utils/api";
@@ -13,16 +14,17 @@ const PostInput = ({ tags, setTags }) => {
   const [postContent, setPostContent] = useState("");
   const [dropDown, setDropdown] = useState(false);
   const [tagArray, setTagArray] = useState([]);
+  const [modalShow, setModalShow] = useState(false);
   const tagList = ["Animals & Pets",  "Anime", "Art", "Businnes & Finance", "Cars and Motor Vehicles", "Education", "Fashion", "Food and Drinks", "Gaming", "History", "Nature", "Movies", "Music", "Politics", "Programming", "Religion", "Sports", "Science", "Technology","Travel"];
   const tagComponents = tagList.map(tag => {
     return <PostTag tagName={tag} tagArray = {tagArray} setTagArray = {setTagArray}/>
   })
 
-    const section1 = tagComponents.slice(0, 4);
-    const section2 = tagComponents.slice(4, 8);
-    const section3 = tagComponents.slice(8, 12);
-    const section4 = tagComponents.slice(12, 16);
-    const section5 = tagComponents.slice(16, 20)
+    // const section1 = tagComponents.slice(0, 4);
+    // const section2 = tagComponents.slice(4, 8);
+    // const section3 = tagComponents.slice(8, 12);
+    // const section4 = tagComponents.slice(12, 16);
+    // const section5 = tagComponents.slice(16, 20)
 
   const handleDropdown = () => {
     setDropdown(!dropDown);
@@ -75,16 +77,18 @@ const PostInput = ({ tags, setTags }) => {
           type="text"
           placeholder="Write a post..."
         />
-          <MdOutlineArrowDropDownCircle
-            onClick={handleDropdown}
-            className="fs-1 align-self-end mx-1 dropdown-btn"
+          <IoIosPricetags
+            onClick={() => setModalShow(true)}
+            className="fs-2 align-self-end mx-1 dropdown-btn"
           />
-        <button className="btn btn-success submit-btn h-25 align-self-end">
+        <button className="mx-2 btn btn-success submit-btn h-25 align-self-end">
           Post!
         </button>
       </form>
     </div>
-    {dropDown && (
+
+      <PostTagsModal tagComponents = {tagComponents} show={modalShow} onHide={() => setModalShow(false)} />
+    {/* {dropDown && (
       <div className="d-flex flex-column dropdown-wrapper my-2">
         <h5 className = "align-self-center">Add tags to your post</h5>
       <div className = "d-flex justify-content-between">
@@ -104,8 +108,8 @@ const PostInput = ({ tags, setTags }) => {
           {section5}
           </div>
         </div>
-        </div>)
-        }
+        </div>
+        )} */}
     </div>
   );
 };

@@ -4,6 +4,7 @@
     min-width: 200px;
     color: white;
     background-color: #b698f0;
+    max-width:50px;
 }
 .tag-selected {
     cursor: pointer;
@@ -11,4 +12,5 @@
     min-width: 200px;
     color: white;
     background-color: #7d3cff;
+    max-width:50px;
 }
