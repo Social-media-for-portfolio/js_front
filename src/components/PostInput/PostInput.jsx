@@ -1,6 +1,6 @@
 import React, { useState, useContext} from "react";
 import AuthContext from "../../context/authContext/AuthContext";
-import PostTagsModal from "../PostTagsModal";
+import PostInputModal from "../PostInputModal";
 import "./post-input.css";
 
 const PostInput = ({ tags, setTags }) => {
@@ -45,7 +45,7 @@ const PostInput = ({ tags, setTags }) => {
       {error && (
         <p className = " my-2 align-self-center error">Your post can't be empty</p>
       )}
-      <PostTagsModal setModalShow = {setModalShow} postContent = {postContent} setPostContent = {setPostContent} tags = {tags} setTags = {setTags} show={modalShow}/>
+      <PostInputModal setModalShow = {setModalShow} postContent = {postContent} setPostContent = {setPostContent} tags = {tags} setTags = {setTags} show={modalShow}/>
     </div>
   );
 };

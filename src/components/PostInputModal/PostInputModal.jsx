@@ -9,9 +9,9 @@ import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import { createPost } from "../../utils/api";
-import "./post-tags-modal.css";
+import "./post-input-modal.css";
 
-const PostTagsModal = (props) => {
+const PostInputModal = (props) => {
   const {tags, setTags, postContent, setPostContent, setModalShow} = props
   const { userInfo } = useContext(AuthContext);
   const { feed, setFeed } = useContext(FeedContext);
@@ -97,4 +97,4 @@ const PostTagsModal = (props) => {
   );
 };
 
-export default PostTagsModal;
+export default PostInputModal;
