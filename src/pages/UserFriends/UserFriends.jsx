@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
 import ToggleFriends from "../../components/ToggleFriends";
+import ToggleMutual from "../../components/ToggleMutual";
 import UserCard from "../../components/UserCard";
 import { getIncomingRequests, removeFriend, getFriendsForUser, getOutgoingRequests, acceptFriendRequest} from "../../utils/api";
 import AuthContext from "../../context/authContext/AuthContext";
 
 
 const UserFriends = () => {
-  const {userInfo} = useContext(AuthContext);
+  const {userInfo, friends} = useContext(AuthContext);
   const { id } = useParams();
 
   const getFriends = async () => {
@@ -21,6 +22,7 @@ const UserFriends = () => {
   const [incomingRequests, setIncomingRequests] = useState([]);
   const [outgoingRequests, setOutgoingRequests] = useState([]);
   const [toggleFriends, setToggleFriends] = useState("friends");
+  const [toggleMutual, setToggleMutual] = useState("all-friends")
 
 
   const unfriend = async(id) => {
@@ -65,6 +67,8 @@ const UserFriends = () => {
     return <UserCard key = {friend.id} firstName = {friend.first_name} lastName = {friend.last_name} avatar = {friend.avatar_url} friendId = {friend.id} authUserId = {userInfo.id} userId = {id} btnText = "Cancel" btnStyle = "unfriend-btn" func ={cancelRequest}/>
   })
 
+  
+  const mutualFriends = friendCardComponents.filter(component => component.props.friendId in friends);
   useEffect(() => {
     fetchIncomingRequests();
     fetchOutgoingRequests();
@@ -84,7 +88,17 @@ const UserFriends = () => {
       </>)}
       {userInfo.id !== Number(id) && (
         <div>
-        {friendCardComponents}
+        <ToggleMutual toggleMutual = {toggleMutual} setToggleMutual = {setToggleMutual}/>
+        {toggleMutual === "all-friends" && (
+          <div>
+          {friendCardComponents}
+          </div>
+        )}
+         {toggleMutual === "mutual-friends" && (
+          <div>
+          {mutualFriends}
+          </div>
+        )}
         </div>
       )}
       </div>
