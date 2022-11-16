@@ -8,6 +8,7 @@ import { DateTime } from "luxon";
 import CommentInput from "../CommentInput/CommentInput";
 import Tag from "../Tag"
 import Comment from "../Comment";
+import PostTagsModal from "../PostTagsModal/PostTagsModal"
 import AuthContext from "../../context/authContext/AuthContext";
 import FeedContext from "../../context/feedContext/FeedContext";
 import {
@@ -29,6 +30,7 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId, tags}) =>
   const [revealComments, setRevealComments] = useState(false);
   const [postComments, setPostComments] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
   const handleLike = () => {
     const map = { ...feedMetrics };
@@ -97,6 +99,11 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId, tags}) =>
     const newFeed = updateFeed();
     setFeed(newFeed);
   };
+  
+  const handleModalShow = (e) => {
+    e.preventDefault();
+    setModalShow(true);
+  }
 
   useEffect(() => {
     updateComments(postId);
@@ -118,7 +125,7 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId, tags}) =>
         <div className = "d-flex justify-content-between align-self-start">
           {tagComponents}
           {tagComponents.length < allTags.length - 1 && (
-            <div className = "view-tags-btn rounded-pill">
+            <div onClick = {handleModalShow}className = "view-tags-btn rounded-pill">
             <p className = "my-2 mx-2 ">View all tags</p>
             </div>
           )}
@@ -165,6 +172,8 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId, tags}) =>
           </div>
         </div>
       )}
+      <PostTagsModal tags = {tags} show={modalShow}
+        onHide={() => setModalShow(false)}/>
     </div>
   );
 };
