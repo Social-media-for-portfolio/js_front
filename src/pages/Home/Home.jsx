@@ -9,6 +9,7 @@ import AuthContext from "../../context/authContext/AuthContext";
 import "./home.css";
 
 const Home = () => {
+  
   const { userInfo, setUserInfo, setFriends, setRequests} = useContext(AuthContext);
   const { feed, setFeed, setFeedMetrics, setCommentMetrics } =
     useContext(FeedContext);

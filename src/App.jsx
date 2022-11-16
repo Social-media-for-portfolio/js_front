@@ -4,7 +4,7 @@ import Onboarding from "./pages/Onboarding/Onboarding";
 import Login from "./pages/Login/Login";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Users from "./pages/Users";
-import { getMyUserInfo, updateUserInfo } from "./utils/api";
+import { getMyUserInfo } from "./utils/api";
 import UserFriends from "./pages/UserFriends/UserFriends";
 import { Routes, Route } from "react-router-dom";
 

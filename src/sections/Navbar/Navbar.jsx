@@ -1,18 +1,15 @@
 import React, { useContext } from "react";
-import { createBrowserHistory } from "history";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/authContext/AuthContext";
 import "./navbar.css";
 
 const Navbar = () => {
-  const history = createBrowserHistory();
   const { isAuth, setIsAuth, userInfo } = useContext(AuthContext);
   const userId = userInfo.id;
 
   const logout = () => {
     localStorage.removeItem("token");
     setIsAuth(false);
-    history.replace("/login");
   };
   const handleClick = (e) => {
     e.preventDefault();
