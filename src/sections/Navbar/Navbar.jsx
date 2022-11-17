@@ -29,7 +29,6 @@ const Navbar = () => {
             <h5 className="mx-3">People</h5>
           </Link>
         )}
-        <h5 className = "mx-3">About</h5>
       </div>
       {isAuth && (
         <div className="d-flex align-items-center">

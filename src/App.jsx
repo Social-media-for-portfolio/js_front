@@ -4,6 +4,7 @@ import Onboarding from "./pages/Onboarding/Onboarding";
 import Login from "./pages/Login/Login";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Users from "./pages/Users";
+import Welcome from "./pages/Welcome"
 import { getMyUserInfo } from "./utils/api";
 import UserFriends from "./pages/UserFriends/UserFriends";
 import { Routes, Route } from "react-router-dom";
@@ -31,7 +32,7 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/" element={isAuth ? <Home /> : <Login />}></Route>
+      <Route path="/" element={isAuth ? <Home /> : <Welcome />}></Route>
       <Route path="/onboarding" element={isAuth ? <Onboarding /> : <Login />}></Route>
       <Route path="/login" element={isAuth ? <Home /> : <Login />}></Route>
       <Route path="/register" element={isAuth ? <Onboarding /> : <Signup />}></Route>
