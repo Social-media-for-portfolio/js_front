@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 import Navbar from "../../sections/Navbar";
 import Footer from "../../sections/Footer";
 import friends from "../../assets/friends.jpg";
@@ -9,15 +10,16 @@ import profile from "../../assets/user-profile.jpg";
 import logo from "../../assets/logo.jpg";
 import "./welcome.css";
 const Welcome = () => {
+  const [navigate, setNavigate] = useState(false);
   return (
-    <div classname="container-fluild d-flex flex-column">
+    <div classname="container-fluild">
       <Navbar />
       <div className="welcome d-flex flex-column">
-        <div className = "mt-3 d-flex flex-column align-items-center">
+        <div className="mt-3 d-flex flex-column align-items-center">
           <h1 className=" welcome-txt">Welcome to</h1>
           <img className="welcome-logo" src={logo} />
         </div>
-
+        <div className="welcome-line my-2"></div>
         <div className="row mx-0">
           <div className="col">
             <div className="welcome-card-wrapper d-flex flex-column align-items-center mx-3 my-3">
@@ -66,8 +68,16 @@ const Welcome = () => {
             </div>
           </div>
         </div>
+        <div className="welcome-line my-2"></div>
+        <button
+          onClick={() => setNavigate(true)}
+          className="align-self-center btn welcome-btn my-2"
+        >
+          Continue to website
+        </button>
       </div>
       <Footer />
+      {navigate && <Navigate to="/login" />}
     </div>
   );
 };

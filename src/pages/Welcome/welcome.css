@@ -39,3 +39,17 @@
 .welcome-txt {
     font-family: 'Bungee', cursive;
 }
+.welcome-btn {
+    height:50px;
+    width:500px;
+    color: white;
+    background-color: #b698f0;
+}
+.welcome-btn:hover {
+    color: white;
+    background-color: #7d3cff;
+}
+.welcome-line {
+    height:5px;
+    background-color: #E8E8E8
+}
