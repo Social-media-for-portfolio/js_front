@@ -33,3 +33,9 @@
 .user-profile-img {
     max-width:1200px;
 }
+.welcome-logo {
+    width:450px;
+}
+.welcome-txt {
+    font-family: 'Bungee', cursive;
+}

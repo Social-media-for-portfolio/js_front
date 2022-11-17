@@ -29,6 +29,9 @@ const Navbar = () => {
             <h5 className="mx-3">People</h5>
           </Link>
         )}
+        {!isAuth && (
+              <Link to = "/login" className="link text-dark"><h5 className = "mx-3">Login</h5></Link>
+        )}
       </div>
       {isAuth && (
         <div className="d-flex align-items-center">
