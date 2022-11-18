@@ -26,7 +26,7 @@ const PostInput = ({ tags, setTags }) => {
   return (
     <div className="d-flex flex-column">
       <div className="d-flex justify-content-between h-100 align-items-center">
-        <img className="post-input-avatar" src={userInfo.avatarUrl} />
+        <img className="post-input-avatar" src={userInfo.avatarUrl} alt = "user-avatar"/>
         <form className="d-flex justify-content-between w-100">
           <textarea
             className="w-100 mx-2 p-2 input-area"

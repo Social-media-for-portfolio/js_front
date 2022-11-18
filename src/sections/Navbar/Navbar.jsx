@@ -43,7 +43,11 @@ const Navbar = () => {
             Logout
           </h5>
           <Link to={`/userProfile/${userId}`}>
-            <img className="navbar-avatar mx-3" src={userInfo.avatarUrl} />
+            <img
+              className="navbar-avatar mx-3"
+              src={userInfo.avatarUrl}
+              alt="user-avatar"
+            />
           </Link>
         </div>
       )}

@@ -20,17 +20,29 @@ const UserProfileFriendsCard = ({
       <div className="d-flex justify-content-between align-items-center px-4">
         {avatar1 && (
           <Link to={`/userProfile/${id1}`}>
-            <img className="friends-avatar" src={avatar1}></img>
+            <img
+              className="friends-avatar"
+              src={avatar1}
+              alt="friend-avatar1"
+            ></img>
           </Link>
         )}
         {avatar2 && (
           <Link to={`/userProfile/${id2}`}>
-            <img className="friends-avatar" src={avatar2}></img>
+            <img
+              className="friends-avatar"
+              src={avatar2}
+              alt="friend-avatar2"
+            ></img>
           </Link>
         )}
         {avatar3 && (
           <Link to={`/userProfile/${id3}`}>
-            <img className="friends-avatar" src={avatar3}></img>
+            <img
+              className="friends-avatar"
+              src={avatar3}
+              alt="friend-avatar3"
+            ></img>
           </Link>
         )}
         {friends > 0 && <h6 className="mx-2">{`and ${friends} more`}</h6>}

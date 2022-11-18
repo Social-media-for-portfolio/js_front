@@ -17,14 +17,14 @@ const Welcome = () => {
       <div className="welcome d-flex flex-column">
         <div className="mt-3 d-flex flex-column align-items-center">
           <h1 className=" welcome-txt">Welcome to</h1>
-          <img className="welcome-logo" src={logo} />
+          <img className="welcome-logo" src={logo} alt="logo" />
         </div>
         <div className="welcome-line my-2"></div>
         <div className="row mx-0">
           <div className="col">
             <div className="welcome-card-wrapper d-flex flex-column align-items-center mx-3 my-3">
               <div className="my-3">
-                <img className="friends-img" src={friends} />
+                <img className="friends-img" src={friends} alt="friends-pic" />
               </div>
               <div class="d-flex flex-column align-items-center">
                 <div class="card-title">Friends</div>
@@ -38,9 +38,21 @@ const Welcome = () => {
           <div className="col">
             <div className="welcome-card-wrapper d-flex flex-column align-items-center mx-3 my-3">
               <div className="my-3 d-flex justify-content-between">
-                <img className="interest1-img mx-2" src={interest1} />
-                <img className="interest3-img mx-2" src={interest3} />
-                <img className="interest2-img mx-2 " src={interest2} />
+                <img
+                  className="interest1-img mx-2"
+                  src={interest1}
+                  alt="interest-pic"
+                />
+                <img
+                  className="interest3-img mx-2"
+                  src={interest3}
+                  alt="interest-pic"
+                />
+                <img
+                  className="interest2-img mx-2 "
+                  src={interest2}
+                  alt="interest-pic"
+                />
               </div>
               <div class="d-flex flex-column align-items-center">
                 <div class="card-title">Interests</div>
@@ -56,7 +68,11 @@ const Welcome = () => {
           <div className="col">
             <div className="welcome-card-wrapper d-flex flex-column align-items-center mx-3 my-3">
               <div className="my-3">
-                <img className="user-profile-img mx-2" src={profile} />
+                <img
+                  className="user-profile-img mx-2"
+                  src={profile}
+                  alt="user-profile-pic"
+                />
               </div>
               <div class="d-flex flex-column align-items-center">
                 <div class="card-title">User Profile</div>

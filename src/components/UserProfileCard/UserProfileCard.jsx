@@ -74,6 +74,8 @@ const UserProfileCard = ({
       case "bio":
         setInfo({ ...info, bio: e.target.value });
         break;
+      default:
+        break;
     }
   };
 
@@ -177,7 +179,11 @@ const UserProfileCard = ({
       <div className="d-flex justify-content-around align-items-center my-5 py-5 mx-3">
         <div className="d-flex align-items-center">
           <div className="d-flex flex-column align-items-center">
-            <img src={avatar} className="profile-avatar mx-3" />
+            <img
+              src={avatar}
+              className="profile-avatar mx-3"
+              alt="user-avatar"
+            />
             {isMyUser && (
               <FaPencilAlt onClick={revealInput} className="mt-4 fs-4" />
             )}

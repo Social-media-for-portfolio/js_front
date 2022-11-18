@@ -122,7 +122,7 @@ const Post = ({
       <div className="d-flex justify-content-between">
         <div>
           <Link to={`/userProfile/${userId}`}>
-            <img src={avatar} className="post-avatar mx-3" />
+            <img src={avatar} className="post-avatar mx-3" alt="user-avatar" />
           </Link>
           <div className="d-flex flex-column mx-3">
             <h2>{username}</h2>
@@ -144,7 +144,7 @@ const Post = ({
       </div>
       <div>
         <p className="px-3 pt-3">{body}</p>
-        {src && <img src={src} className="w-100 h-100" />}
+        {src && <img src={src} className="w-100 h-100" alt="post-img" />}
       </div>
       <div className="mt-5">
         <div className="d-flex justify-content-between">

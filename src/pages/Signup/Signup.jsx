@@ -33,6 +33,8 @@ const Signup = () => {
       case "lastName":
         setInputs({ ...inputs, lastName: e.target.value });
         break;
+      default:
+        break;
     }
   };
 
@@ -52,11 +54,14 @@ const Signup = () => {
         last_name: lastName,
       };
 
-      const response = await fetch("http://emir-connect.herokuapp.com/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "http://emir-connect.herokuapp.com/auth/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
       const parseRes = await response.json();
 
       if (parseRes.token) {
@@ -78,7 +83,7 @@ const Signup = () => {
           onSubmit={handleSubmit}
           className="d-flex flex-column w-50 px-4 py-4 align-items-center justify-content-center form-wrapper"
         >
-          <img className="logo mb-3" src={logo} />
+          <img className="logo mb-3" src={logo} alt="logo" />
           <input
             className={`w-25 ${highlightError ? "input-error" : ""}`}
             onChange={handleChange}

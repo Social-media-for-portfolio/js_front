@@ -20,7 +20,7 @@ const UserCard = ({
   return (
     <div className="d-flex flex-column w-25 align-items-center card my-2 mx-2 my-2">
       <Link to={`/userProfile/${friendId}`}>
-        <img className="card-avatar" src={avatar}></img>
+        <img className="card-avatar" src={avatar} alt = "user-avatar"></img>
       </Link>
       <h4>{firstName + " " + lastName}</h4>
       {Number(userId) === authUserId && (

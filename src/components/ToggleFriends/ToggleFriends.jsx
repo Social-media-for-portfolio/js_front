@@ -12,6 +12,8 @@ const ToggleFriends = ({ setToggleFriends, toggleFriends }) => {
       case "friends":
         setToggleFriends("friends");
         break;
+        default:
+          break;
     }
   };
   return (

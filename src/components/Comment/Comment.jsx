@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import AuthContext from "../../context/authContext/AuthContext";
 import FeedContext from "../../context/feedContext/FeedContext";
 import {
-  deleteComment, likeComment,
-  unlikeComment, userLikesComment
+  deleteComment,
+  likeComment,
+  unlikeComment,
+  userLikesComment,
 } from "../../utils/api";
 import "./comment.css";
 
@@ -82,7 +84,7 @@ const Comment = ({
     <div className="my-2 comment p-3">
       <div className="d-flex align-items-center">
         <Link to={`/userProfile/${userId}`}>
-          <img src={avatar} className="comment-avatar" />
+          <img src={avatar} className="comment-avatar" alt="user-avatar" />
         </Link>
         <div className="d-flex flex-column mx-3">
           <h4>{username}</h4>
