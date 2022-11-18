@@ -1,1 +1,1 @@
-export {default} from "./InterestIcon"
+export { default } from "./InterestIcon";

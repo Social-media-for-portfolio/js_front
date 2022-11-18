@@ -1,1 +1,1 @@
-export {default} from "./ToggleMutual"
+export { default } from "./ToggleMutual";

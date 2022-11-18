@@ -1,18 +1,18 @@
 .navbar {
-    height: 80px;
-  background-color: #92A8D1;
+  height: 80px;
+  background-color: #92a8d1;
 }
 
 .navbar-avatar {
-    width: 60px;
-    height:60px;
-    border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }
 
 .link {
   text-decoration: none;
 }
 
-.navbar-option:hover{
+.navbar-option:hover {
   cursor: pointer;
 }

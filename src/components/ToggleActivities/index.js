@@ -1,1 +1,1 @@
-export {default} from "./ToggleActivites"
+export { default } from "./ToggleActivites";

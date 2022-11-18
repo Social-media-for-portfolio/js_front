@@ -1,7 +1,7 @@
 .toggle-line {
-    height: 3px;
-    background-color: #a075f7;
+  height: 3px;
+  background-color: #a075f7;
 }
 .toggle-option:hover {
-    cursor:pointer;
+  cursor: pointer;
 }

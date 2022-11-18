@@ -1,1 +1,1 @@
-export {default} from "./PostInputModal"
+export { default } from "./PostInputModal";

@@ -1,55 +1,55 @@
 .welcome {
-    min-height: calc(100vh - 160px);
+  min-height: calc(100vh - 160px);
 }
 .friends-img {
-    max-width: 750px;
-    border-radius: 2%;
+  max-width: 750px;
+  border-radius: 2%;
 }
 
 .welcome-card-wrapper {
-    background-color: white;
-    border-radius: 0.25rem;
-    box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25);
+  background-color: white;
+  border-radius: 0.25rem;
+  box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
 }
 
-  .card-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-  .interest1-img {
-    max-width: 350px;
-    border-radius: 2%;
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.interest1-img {
+  max-width: 350px;
+  border-radius: 2%;
 }
 .interest2-img {
-    max-width: 350px;
-    border-radius: 2%;
+  max-width: 350px;
+  border-radius: 2%;
 }
 .interest3-img {
-    max-width: 250px;
-    border-radius: 2%;
+  max-width: 250px;
+  border-radius: 2%;
 }
 .user-profile-img {
-    max-width:1200px;
+  max-width: 1200px;
 }
 .welcome-logo {
-    width:450px;
+  width: 450px;
 }
 .welcome-txt {
-    font-family: 'Bungee', cursive;
+  font-family: "Bungee", cursive;
 }
 .welcome-btn {
-    height:50px;
-    width:500px;
-    color: white;
-    background-color: #b698f0;
+  height: 50px;
+  width: 500px;
+  color: white;
+  background-color: #b698f0;
 }
 .welcome-btn:hover {
-    color: white;
-    background-color: #7d3cff;
+  color: white;
+  background-color: #7d3cff;
 }
 .welcome-line {
-    height:5px;
-    background-color: #E8E8E8
+  height: 5px;
+  background-color: #e8e8e8;
 }

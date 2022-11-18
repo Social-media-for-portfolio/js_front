@@ -1,6 +1,6 @@
 .profile-avatar {
   width: 270px;
-  height:270px;
+  height: 270px;
   border-radius: 50%;
 }
 
@@ -25,18 +25,18 @@
 }
 
 .unfriend-btn {
-  color:white;
+  color: white;
   background-color: #f5716c;
 }
 
 .unfriend-btn:hover {
-  color:white;
+  color: white;
   background-color: #e23832;
 }
 
 .addfriend-btn {
-  color:white;
-  background-color:#85dd85 ;
+  color: white;
+  background-color: #85dd85;
 }
 
 .addfriend-btn:hover {

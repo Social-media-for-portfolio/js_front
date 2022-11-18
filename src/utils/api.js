@@ -480,7 +480,7 @@ export const addInterests = async (interests) => {
     if (!token) throw new Error("No token");
     const response = await fetch(`http://localhost:5000/users/me/interests`, {
       method: "POST",
-      body: JSON.stringify({interests}),
+      body: JSON.stringify({ interests }),
       headers: { "Content-Type": "application/json", token: token },
     });
     const parseRes = await response.json();
@@ -497,7 +497,7 @@ export const removeInterest = async (interest) => {
     if (!token) throw new Error("No token");
     const response = await fetch(`http://localhost:5000/users/me/interests`, {
       method: "DELETE",
-      body: JSON.stringify({interest}),
+      body: JSON.stringify({ interest }),
       headers: { "Content-Type": "application/json", token: token },
     });
     const parseRes = await response.json();
@@ -586,4 +586,3 @@ export const getPostTags = async () => {
   } finally {
   }
 };
-

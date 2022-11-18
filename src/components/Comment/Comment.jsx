@@ -1,16 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { FcLikePlaceholder } from "react-icons/fc";
-import { FcLike } from "react-icons/fc";
-import { TiDeleteOutline } from "react-icons/ti";
 import { DateTime } from "luxon";
+import React, { useContext, useEffect, useState } from "react";
+import { FcLike, FcLikePlaceholder } from "react-icons/fc";
+import { TiDeleteOutline } from "react-icons/ti";
+import { Link } from "react-router-dom";
 import AuthContext from "../../context/authContext/AuthContext";
 import FeedContext from "../../context/feedContext/FeedContext";
 import {
-  deleteComment,
-  userLikesComment,
-  likeComment,
-  unlikeComment,
+  deleteComment, likeComment,
+  unlikeComment, userLikesComment
 } from "../../utils/api";
 import "./comment.css";
 
@@ -101,7 +98,10 @@ const Comment = ({
           <div className="d-flex">
             <p>{likes}</p>
             {isLiked ? (
-              <FcLike onClick={handleLikeComment} className="mx-2 fs-4 comment-option" />
+              <FcLike
+                onClick={handleLikeComment}
+                className="mx-2 fs-4 comment-option"
+              />
             ) : (
               <FcLikePlaceholder
                 onClick={handleLikeComment}

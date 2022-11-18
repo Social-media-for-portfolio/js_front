@@ -1,16 +1,22 @@
-import React, { useEffect, useContext, useState} from "react";
-import Navbar from "../../sections/Navbar";
-import Footer from "../../sections/Footer";
+import React, { useContext, useEffect, useState } from "react";
 import Post from "../../components/Post";
 import PostInput from "../../components/PostInput";
-import { getAllPosts, getMyUserInfo, getFriendsForUser, getPostTags, getMyInterests} from "../../utils/api";
-import FeedContext from "../../context/feedContext/FeedContext";
 import AuthContext from "../../context/authContext/AuthContext";
+import FeedContext from "../../context/feedContext/FeedContext";
+import Footer from "../../sections/Footer";
+import Navbar from "../../sections/Navbar";
+import {
+  getAllPosts,
+  getFriendsForUser,
+  getMyInterests,
+  getMyUserInfo,
+  getPostTags,
+} from "../../utils/api";
 import "./home.css";
 
 const Home = () => {
-  
-  const { userInfo, setUserInfo, setFriends, setRequests} = useContext(AuthContext);
+  const { userInfo, setUserInfo, setFriends, setRequests } =
+    useContext(AuthContext);
   const { feed, setFeed, setFeedMetrics, setCommentMetrics } =
     useContext(FeedContext);
 
@@ -20,7 +26,7 @@ const Home = () => {
 
     const friendsArr = await getFriendsForUser(id);
     const friendsMap = {};
-    for(let friend of friendsArr) {
+    for (let friend of friendsArr) {
       friendsMap[friend.id] = true;
     }
     setFriends(friendsMap);
@@ -35,31 +41,30 @@ const Home = () => {
     //////////Reccomendation Engine////////
     const myInterests = await getMyInterests();
     const interestMap = {};
-    for(let interest of myInterests) {
-        interestMap[interest.interest] = true;
+    for (let interest of myInterests) {
+      interestMap[interest.interest] = true;
     }
 
     const tags = await getPostTags();
     const tagMap = {};
-    for(let tag of tags) {
+    for (let tag of tags) {
       const score = tag.tag in interestMap ? 1 : 0;
-      if(tag.post_id in tagMap) {
+      if (tag.post_id in tagMap) {
         tagMap[tag.post_id][0] += score;
-        tagMap[tag.post_id].push(tag.tag)
-      }
-      else tagMap[tag.post_id] = [score, tag.tag];
+        tagMap[tag.post_id].push(tag.tag);
+      } else tagMap[tag.post_id] = [score, tag.tag];
     }
-    setTags(tagMap)
+    setTags(tagMap);
     const posts = await getAllPosts();
 
-    for(let post of posts) {
-      post.score = 0; 
-      if(post.user_id in friendsMap) post.score +=3;
-      if(post.id in tagMap) {
-          post.score += tagMap[post.id][0];
+    for (let post of posts) {
+      post.score = 0;
+      if (post.user_id in friendsMap) post.score += 3;
+      if (post.id in tagMap) {
+        post.score += tagMap[post.id][0];
       }
-      }
-    posts.sort((a, b) => b.score - a.score)
+    }
+    posts.sort((a, b) => b.score - a.score);
     ////////////Recomendation engine////////////////
     setFeed(posts);
   };
@@ -74,7 +79,7 @@ const Home = () => {
         username={post.first_name + " " + post.last_name}
         dateTime={post.created_at}
         body={post.content}
-        tags = {tags[post.id] ? tags[post.id] : []}
+        tags={tags[post.id] ? tags[post.id] : []}
       />
     );
   });
@@ -153,7 +158,7 @@ const Home = () => {
     <div className="container-fluid d-flex flex-column p-0">
       <Navbar />
       <div className="post-input">
-        <PostInput tags = {tags} setTags = {setTags}/>
+        <PostInput tags={tags} setTags={setTags} />
       </div>
       <div className="d-flex flex-column align-items-center my-4">
         {postComponents}

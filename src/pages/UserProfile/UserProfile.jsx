@@ -1,57 +1,59 @@
-import React, { useEffect, useState, useContext } from "react";
-import Navbar from "../../sections/Navbar";
-import Footer from "../../sections/Footer";
-import UserProfileCard from "../../components/UserProfileCard";
-import ToggleActivites from "../../components/ToggleActivities/ToggleActivites";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Post from "../../components/Post";
-import FeedContext from "../../context/feedContext/FeedContext";
+import ToggleActivites from "../../components/ToggleActivities/ToggleActivites";
+import UserProfileCard from "../../components/UserProfileCard";
 import AuthContext from "../../context/authContext/AuthContext";
+import FeedContext from "../../context/feedContext/FeedContext";
+import Footer from "../../sections/Footer";
+import Navbar from "../../sections/Navbar";
 import {
-  getUserInfo,
   getAllPosts,
+  getFriendsForUser,
   getMyUserInfo,
   getPostsWithUserComments,
-  getFriendsForUser,
-  getPostTags
+  getPostTags,
+  getUserInfo,
 } from "../../utils/api";
-import { useParams } from "react-router-dom";
 
 const UserProfile = () => {
-  const { userInfo, setUserInfo, setRequests, setFriends} = useContext(AuthContext);
-  const { setFeed, feed, setFeedMetrics, setCommentMetrics } = useContext(FeedContext);
+  const { userInfo, setUserInfo, setRequests, setFriends } =
+    useContext(AuthContext);
+  const { setFeed, feed, setFeedMetrics, setCommentMetrics } =
+    useContext(FeedContext);
 
   const [toggle, setToggle] = useState("posts");
   const [userFriends, setUserFriends] = useState([]);
   const [profile, setProfile] = useState({});
   const [userComments, setUserComments] = useState([]);
   const [tags, setTags] = useState({});
-  console.log(tags);
   const { id } = useParams();
   const profileFeed = feed.filter((post) => post.user_id === profile.id);
- 
 
   const retrieveFeed = async () => {
-    const tagsArr = await getPostTags()
+    const tagsArr = await getPostTags();
     const tagMap = {};
-    for(let tag of tagsArr) {
-      tagMap[tag.post_id] ? tagMap[tag.post_id].push(tag.tag) : tagMap[tag.post_id] = [0, tag.tag]
+    for (let tag of tagsArr) {
+      tagMap[tag.post_id]
+        ? tagMap[tag.post_id].push(tag.tag)
+        : (tagMap[tag.post_id] = [0, tag.tag]);
     }
     setTags(tagMap);
     setFeed(await getAllPosts());
     const { id, first_name, last_name, avatar_url } = await getMyUserInfo();
 
-     setUserInfo({
+    setUserInfo({
       ...userInfo,
       id: id,
       firstName: first_name,
       lastName: last_name,
       avatarUrl: avatar_url,
     });
-    
+
     const friendsArr = await getFriendsForUser(id);
     const map = {};
 
-    for(let friend of friendsArr) {
+    for (let friend of friendsArr) {
       map[friend.id] = true;
     }
     setFriends(map);
@@ -107,8 +109,6 @@ const UserProfile = () => {
     setUserFriends(await getFriendsForUser(Number(id)));
   };
 
-
-
   const getUserProfile = async () => {
     const profile = await getUserInfo(id);
     setProfile(profile);
@@ -151,7 +151,7 @@ const UserProfile = () => {
         username={post.first_name + " " + post.last_name}
         dateTime={post.created_at}
         body={post.content}
-        tags = {tags[post.id] ?  tags[post.id] : []}
+        tags={tags[post.id] ? tags[post.id] : []}
       />
     );
   });
@@ -166,7 +166,7 @@ const UserProfile = () => {
         username={post.first_name + " " + post.last_name}
         dateTime={post.created_at}
         body={post.content}
-        tags = {tags[post.id] ?  tags[post.id] : []}
+        tags={tags[post.id] ? tags[post.id] : []}
       />
     );
   });
@@ -183,28 +183,28 @@ const UserProfile = () => {
   return (
     <div className="d-flex flex-column">
       <Navbar />
-      <div className = "content">
-      <div className="d-flex flex-column align-items-center mt-3">
-        <UserProfileCard
-          userFriends={userFriends}
-          setUserFriends = {setUserFriends}
-          profile={profile}
-          setProfile={setProfile}
-          userId={id}
-          avatar={profile.avatar_url}
-          firstName={profile.first_name}
-          lastName={profile.last_name}
-          bio={profile.bio}
-          location={profile.location}
-          birthday={profile.birthday}
-        />
+      <div className="content">
+        <div className="d-flex flex-column align-items-center mt-3">
+          <UserProfileCard
+            userFriends={userFriends}
+            setUserFriends={setUserFriends}
+            profile={profile}
+            setProfile={setProfile}
+            userId={id}
+            avatar={profile.avatar_url}
+            firstName={profile.first_name}
+            lastName={profile.last_name}
+            bio={profile.bio}
+            location={profile.location}
+            birthday={profile.birthday}
+          />
         </div>
-        <div className = "mt-4">
-        <ToggleActivites toggle={toggle} setToggle={setToggle} />
-        <div className="d-flex flex-column align-items-center">
-          {toggle === "posts" ? postComponents : postCommentComponents}
+        <div className="mt-4">
+          <ToggleActivites toggle={toggle} setToggle={setToggle} />
+          <div className="d-flex flex-column align-items-center">
+            {toggle === "posts" ? postComponents : postCommentComponents}
+          </div>
         </div>
-      </div>
       </div>
       <Footer />
     </div>

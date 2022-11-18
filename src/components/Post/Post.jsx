@@ -1,14 +1,9 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FcLikePlaceholder } from "react-icons/fc";
-import { FcLike } from "react-icons/fc";
-import { FaRegCommentDots } from "react-icons/fa";
-import { TiDeleteOutline } from "react-icons/ti";
 import { DateTime } from "luxon";
-import CommentInput from "../CommentInput/CommentInput";
-import Tag from "../Tag"
-import Comment from "../Comment";
-import PostTagsModal from "../PostTagsModal/PostTagsModal"
+import React, { useContext, useEffect, useState } from "react";
+import { FaRegCommentDots } from "react-icons/fa";
+import { FcLike, FcLikePlaceholder } from "react-icons/fc";
+import { TiDeleteOutline } from "react-icons/ti";
+import { Link } from "react-router-dom";
 import AuthContext from "../../context/authContext/AuthContext";
 import FeedContext from "../../context/feedContext/FeedContext";
 import {
@@ -18,9 +13,22 @@ import {
   unlikePost,
   userLikesPost,
 } from "../../utils/api";
+import Comment from "../Comment";
+import CommentInput from "../CommentInput/CommentInput";
+import PostTagsModal from "../PostTagsModal/PostTagsModal";
+import Tag from "../Tag";
 import "./post.css";
 
-const Post = ({ postId, src, avatar, username, dateTime, body, userId, tags}) => {
+const Post = ({
+  postId,
+  src,
+  avatar,
+  username,
+  dateTime,
+  body,
+  userId,
+  tags,
+}) => {
   const { userInfo } = useContext(AuthContext);
   const { feed, setFeed, feedMetrics, setFeedMetrics } =
     useContext(FeedContext);
@@ -66,11 +74,11 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId, tags}) =>
       />
     );
   });
-  
+
   const allTags = tags.map((tag) => {
-    return <Tag tagName = {tag}/>
-  })
-  const tagComponents = allTags.slice(1, 5)
+    return <Tag tagName={tag} />;
+  });
+  const tagComponents = allTags.slice(1, 5);
   const updateComments = async (id) => {
     const comments = await getAllComments(id);
     setPostComments(comments);
@@ -99,11 +107,11 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId, tags}) =>
     const newFeed = updateFeed();
     setFeed(newFeed);
   };
-  
+
   const handleModalShow = (e) => {
     e.preventDefault();
     setModalShow(true);
-  }
+  };
 
   useEffect(() => {
     updateComments(postId);
@@ -113,20 +121,23 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId, tags}) =>
     <div className="my-5 w-50 post p-3">
       <div className="d-flex justify-content-between">
         <div>
-        <Link to={`/userProfile/${userId}`}>
-          <img src={avatar} className="post-avatar mx-3" />
-        </Link>
-        <div className="d-flex flex-column mx-3">
-          <h2>{username}</h2>
-          <p>{DateTime.fromISO(dateTime).toRelative()}</p>
+          <Link to={`/userProfile/${userId}`}>
+            <img src={avatar} className="post-avatar mx-3" />
+          </Link>
+          <div className="d-flex flex-column mx-3">
+            <h2>{username}</h2>
+            <p>{DateTime.fromISO(dateTime).toRelative()}</p>
+          </div>
         </div>
-        </div>
-      
-        <div className = "d-flex justify-content-between align-self-start">
+
+        <div className="d-flex justify-content-between align-self-start">
           {tagComponents}
           {tagComponents.length < allTags.length - 1 && (
-            <div onClick = {handleModalShow}className = "view-tags-btn rounded-pill">
-            <p className = "my-2 mx-2 ">View all tags</p>
+            <div
+              onClick={handleModalShow}
+              className="view-tags-btn rounded-pill"
+            >
+              <p className="my-2 mx-2 ">View all tags</p>
             </div>
           )}
         </div>
@@ -142,12 +153,18 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId, tags}) =>
             {isLiked ? (
               <FcLike onClick={handleLike} className="mx-2 fs-4 post-option" />
             ) : (
-              <FcLikePlaceholder onClick={handleLike} className="mx-2 fs-4 post-option" />
+              <FcLikePlaceholder
+                onClick={handleLike}
+                className="mx-2 fs-4 post-option"
+              />
             )}
           </div>
           <div className="d-flex justify-content-between">
             <p>{comments + " "}Comments</p>
-            <FaRegCommentDots onClick={toggleComments} className="mx-2 fs-4 post-option" />
+            <FaRegCommentDots
+              onClick={toggleComments}
+              className="mx-2 fs-4 post-option"
+            />
             {userId === id && (
               <TiDeleteOutline
                 onClick={handleDeletePost}
@@ -172,8 +189,11 @@ const Post = ({ postId, src, avatar, username, dateTime, body, userId, tags}) =>
           </div>
         </div>
       )}
-      <PostTagsModal tags = {tags} show={modalShow}
-        onHide={() => setModalShow(false)}/>
+      <PostTagsModal
+        tags={tags}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
     </div>
   );
 };

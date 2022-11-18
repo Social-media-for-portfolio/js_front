@@ -1,1 +1,1 @@
-export {default} from "./PostTagsModal"
+export { default } from "./PostTagsModal";

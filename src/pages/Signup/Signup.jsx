@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
-import { Link, Navigate} from "react-router-dom";
-import Navbar from "../../sections/Navbar";
-import Footer from "../../sections/Footer";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
 import AuthContext from "../../context/authContext/AuthContext";
+import Footer from "../../sections/Footer";
+import Navbar from "../../sections/Navbar";
 import "./signup.css";
 
 const Signup = () => {
@@ -25,7 +25,7 @@ const Signup = () => {
         setInputs({ ...inputs, email: e.target.value });
         break;
       case "password":
-        setInputs({...inputs,  password: e.target.value});
+        setInputs({ ...inputs, password: e.target.value });
         break;
       case "firstName":
         setInputs({ ...inputs, firstName: e.target.value });
@@ -58,7 +58,7 @@ const Signup = () => {
         body: JSON.stringify(body),
       });
       const parseRes = await response.json();
-      
+
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
         setIsAuth(true);

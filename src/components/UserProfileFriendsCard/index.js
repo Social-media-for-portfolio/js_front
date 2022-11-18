@@ -1,1 +1,1 @@
-export {default} from "./UserProfileFriendsCard"
+export { default } from "./UserProfileFriendsCard";

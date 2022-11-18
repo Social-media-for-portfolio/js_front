@@ -1,30 +1,31 @@
 .post-avatar {
-    width: 80px;
-    height:80px;
-    border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
 }
 
 .post {
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
 
 .line {
-    height: 1px;
-    background-color: #E8E8E8;
+  height: 1px;
+  background-color: #e8e8e8;
 }
 
 .post-option:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 .view-tags-btn {
-    cursor:pointer;
-    color: white;
-    border: 1px solid black;
-    background-color: #b698f0;
+  cursor: pointer;
+  color: white;
+  border: 1px solid black;
+  background-color: #b698f0;
 }
 .view-tags-btn:hover {
-    cursor:pointer;
-    color: white;
-    border: 1px solid black;
-    background-color: #7d3cff;
+  cursor: pointer;
+  color: white;
+  border: 1px solid black;
+  background-color: #7d3cff;
 }

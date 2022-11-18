@@ -1,1 +1,1 @@
-export {default} from "./ToggleFriends"
+export { default } from "./ToggleFriends";

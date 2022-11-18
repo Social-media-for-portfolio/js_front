@@ -1,1 +1,1 @@
-export {default} from "./PostInput"
+export { default } from "./PostInput";

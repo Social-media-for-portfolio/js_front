@@ -1,7 +1,7 @@
 import React from "react";
 import "./toggle.css";
 
-const ToggleActivites = ({toggle, setToggle}) => {
+const ToggleActivites = ({ toggle, setToggle }) => {
   const handleClick = (e) => {
     setToggle(e.target.id);
   };
@@ -12,13 +12,13 @@ const ToggleActivites = ({toggle, setToggle}) => {
       </div>
       <div className="d-flex justify-content-around my-5">
         <div className="d-flex flex-column">
-          <h5 className = "toggle-option"id="posts" onClick={handleClick}>
+          <h5 className="toggle-option" id="posts" onClick={handleClick}>
             Posts
           </h5>
           {toggle === "posts" && <div className="toggle-line"></div>}
         </div>
         <div>
-          <h5 className = "toggle-option" id="comments" onClick={handleClick}>
+          <h5 className="toggle-option" id="comments" onClick={handleClick}>
             Comments
           </h5>
           {toggle === "comments" && <div className="toggle-line"></div>}

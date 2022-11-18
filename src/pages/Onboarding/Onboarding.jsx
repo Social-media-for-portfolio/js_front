@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import Navbar from "../../sections/Navbar/Navbar";
-import Footer from "../../sections/Footer/Footer";
-import WelcomeCard from "../../components/WelcomeCard";
 import InterestCard from "../../components/InterestCard";
-import { getMyUserInfo, addInterests, checkOnboarding, setOnboarding} from "../../utils/api";
+import WelcomeCard from "../../components/WelcomeCard";
+import Footer from "../../sections/Footer/Footer";
+import Navbar from "../../sections/Navbar/Navbar";
+import {
+  addInterests,
+  checkOnboarding,
+  getMyUserInfo,
+  setOnboarding,
+} from "../../utils/api";
 import "./onboarding.css";
 
 const Onboarding = () => {
@@ -12,21 +17,20 @@ const Onboarding = () => {
   const [navigate, setNavigate] = useState(false);
   const [interests, setInterests] = useState([]);
 
-
   const handleClick = () => {
     sendInterests();
     setNavigate(true);
     return;
   };
-  const sendInterests = async() => {
+  const sendInterests = async () => {
     await addInterests(interests);
     await setOnboarding();
-  }
+  };
 
   const getUserInfo = async () => {
-    const {onboarding} = await checkOnboarding();
-    if(!onboarding) {
-        setNavigate(true);
+    const { onboarding } = await checkOnboarding();
+    if (!onboarding) {
+      setNavigate(true);
     }
     const { first_name } = await getMyUserInfo();
     setName(first_name);
@@ -45,7 +49,7 @@ const Onboarding = () => {
         </div>
       </div>
       <div className="my-4 mx-3 d-flex flex-column">
-        <InterestCard interests = {interests} setInterests = {setInterests}/>
+        <InterestCard interests={interests} setInterests={setInterests} />
         <button
           onClick={handleClick}
           className="btn continue-btn align-self-center my-4"

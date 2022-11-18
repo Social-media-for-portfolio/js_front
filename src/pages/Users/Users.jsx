@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-import Navbar from "../../sections/Navbar";
-import Footer from "../../sections/Footer";
+import React, { useEffect, useState } from "react";
 import UserCard from "../../components/UserCard";
+import Footer from "../../sections/Footer";
+import Navbar from "../../sections/Navbar";
 import { getAllUsers, getMyUserInfo } from "../../utils/api";
 
 const Users = () => {

@@ -1,8 +1,13 @@
 import React, { useContext, useState } from "react";
-import {FaPencilAlt} from "react-icons/fa"
-import UserProfileFriendsCard from "../UserProfileFriendsCard";
+import { FaPencilAlt } from "react-icons/fa";
 import AuthContext from "../../context/authContext/AuthContext";
-import { removeFriend, updateUserInfo, sendFriendRequest, updateAvatar} from "../../utils/api";
+import {
+  removeFriend,
+  sendFriendRequest,
+  updateAvatar,
+  updateUserInfo,
+} from "../../utils/api";
+import UserProfileFriendsCard from "../UserProfileFriendsCard";
 import "./user-profile-card.css";
 
 const UserProfileCard = ({
@@ -31,24 +36,24 @@ const UserProfileCard = ({
   });
 
   const [userAvatar, setUserAvatar] = useState("");
-  const [revealAvatarInput, setRevealAvatarInput] = useState(false)
-  
+  const [revealAvatarInput, setRevealAvatarInput] = useState(false);
+
   const isMyUser = Number(userId) === userInfo.id ? true : false;
 
   const handleAvatarInput = (e) => {
     setUserAvatar(e.target.value);
-  }
+  };
   const revealInput = () => {
-    if(revealAvatarInput) setRevealAvatarInput(false);
+    if (revealAvatarInput) setRevealAvatarInput(false);
     else setRevealAvatarInput(true);
-  }
-  const avatarSubmit = async(e) => {
+  };
+  const avatarSubmit = async (e) => {
     e.preventDefault();
-    if(userAvatar.length < 1) return;
+    if (userAvatar.length < 1) return;
     await updateAvatar(userId, userAvatar);
-    setProfile({...profile, avatar_url:userAvatar});
+    setProfile({ ...profile, avatar_url: userAvatar });
     setUserAvatar("");
-  }
+  };
   const handleChange = (e) => {
     switch (e.target.id) {
       case "firstName":
@@ -71,10 +76,20 @@ const UserProfileCard = ({
         break;
     }
   };
-  
+
   const handleInfoUpdate = async () => {
-    if([info.firstName, info.lastName, info.lastName, info.birthday, info.bio].every(element => element === "")) return;
-    const firstName = info.firstName !== "" ? info.firstName : profile.first_name;
+    if (
+      [
+        info.firstName,
+        info.lastName,
+        info.lastName,
+        info.birthday,
+        info.bio,
+      ].every((element) => element === "")
+    )
+      return;
+    const firstName =
+      info.firstName !== "" ? info.firstName : profile.first_name;
     const lastName = info.lastName !== "" ? info.lastName : profile.last_name;
     const location = info.location !== "" ? info.location : profile.location;
     const birthday = info.birthday !== "" ? info.birthday : profile.birthday;
@@ -134,21 +149,22 @@ const UserProfileCard = ({
     let id2 = null;
     let id3 = null;
 
-    if(userFriends.length < 1) return { avatar1, avatar2, avatar3, id1, id2, id3 };
-   
-    for(let i = 0; i < userFriends.length; i++) {
-      if(i === 3) break;
-      if(i === 0) {
-        avatar1 = userFriends[i].avatar_url
-        id1 = userFriends[i].id
+    if (userFriends.length < 1)
+      return { avatar1, avatar2, avatar3, id1, id2, id3 };
+
+    for (let i = 0; i < userFriends.length; i++) {
+      if (i === 3) break;
+      if (i === 0) {
+        avatar1 = userFriends[i].avatar_url;
+        id1 = userFriends[i].id;
       }
-      if(i === 1) {
-        avatar2 = userFriends[i].avatar_url
-        id2 = userFriends[i].id
+      if (i === 1) {
+        avatar2 = userFriends[i].avatar_url;
+        id2 = userFriends[i].id;
       }
-      if(i === 2) {
-        avatar3 = userFriends[i].avatar_url
-        id3 = userFriends[i].id
+      if (i === 2) {
+        avatar3 = userFriends[i].avatar_url;
+        id3 = userFriends[i].id;
       }
     }
     return { avatar1, avatar2, avatar3, id1, id2, id3 };
@@ -160,18 +176,26 @@ const UserProfileCard = ({
     <div className="d-flex flex-column profile-card w-75">
       <div className="d-flex justify-content-around align-items-center my-5 py-5 mx-3">
         <div className="d-flex align-items-center">
-          <div className = "d-flex flex-column align-items-center">
-          <img src={avatar} className="profile-avatar mx-3" />
-          {isMyUser && (
-            <FaPencilAlt onClick = {revealInput}className = "mt-4 fs-4"/>
-          )}
-          {revealAvatarInput && (
-            <form onSubmit = {avatarSubmit} className = "mt-3 d-flex flex-column align-items-center">
-                <input type = "text" placeholder = "Avatar url" value = {userAvatar} onChange = {handleAvatarInput}></input>
-                <button className = "btn view-btn w-50 mt-2">Submit</button>
-            </form>
-          )}
-        </div>
+          <div className="d-flex flex-column align-items-center">
+            <img src={avatar} className="profile-avatar mx-3" />
+            {isMyUser && (
+              <FaPencilAlt onClick={revealInput} className="mt-4 fs-4" />
+            )}
+            {revealAvatarInput && (
+              <form
+                onSubmit={avatarSubmit}
+                className="mt-3 d-flex flex-column align-items-center"
+              >
+                <input
+                  type="text"
+                  placeholder="Avatar url"
+                  value={userAvatar}
+                  onChange={handleAvatarInput}
+                ></input>
+                <button className="btn view-btn w-50 mt-2">Submit</button>
+              </form>
+            )}
+          </div>
           {!isEditing && (
             <div className="d-flex">
               <div className="d-flex flex-column justify-content-end align-items-center">

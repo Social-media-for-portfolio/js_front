@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
-import Navbar from "../../sections/Navbar";
-import Footer from "../../sections/Footer";
 import friends from "../../assets/friends.jpg";
 import interest1 from "../../assets/interest1.jpg";
 import interest2 from "../../assets/interest2.jpg";
 import interest3 from "../../assets/interest3.jpg";
-import profile from "../../assets/user-profile.jpg";
 import logo from "../../assets/logo.jpg";
+import profile from "../../assets/user-profile.jpg";
+import Footer from "../../sections/Footer";
+import Navbar from "../../sections/Navbar";
 import "./welcome.css";
 const Welcome = () => {
   const [navigate, setNavigate] = useState(false);

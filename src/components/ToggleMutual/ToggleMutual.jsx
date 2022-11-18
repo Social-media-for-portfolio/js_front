@@ -1,9 +1,9 @@
 import React from "react";
 
-const ToggleMutual = ({toggleMutual, setToggleMutual}) => {
-    const handleToggle = (e) => {
-        setToggleMutual(e.target.id)
-    }
+const ToggleMutual = ({ toggleMutual, setToggleMutual }) => {
+  const handleToggle = (e) => {
+    setToggleMutual(e.target.id);
+  };
 
   return (
     <div className="d-flex justify-content-around mx-2 my-2">
@@ -14,10 +14,16 @@ const ToggleMutual = ({toggleMutual, setToggleMutual}) => {
         {toggleMutual === "all-friends" && <div className="toggle-line"></div>}
       </div>
       <div className="d-flex flex-column">
-        <h5 className="toggle-option" onClick={handleToggle} id="mutual-friends">
+        <h5
+          className="toggle-option"
+          onClick={handleToggle}
+          id="mutual-friends"
+        >
           Mutual Friends
         </h5>
-        {toggleMutual === "mutual-friends" && <div className="toggle-line"></div>}
+        {toggleMutual === "mutual-friends" && (
+          <div className="toggle-line"></div>
+        )}
       </div>
     </div>
   );

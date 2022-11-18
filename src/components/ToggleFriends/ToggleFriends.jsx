@@ -17,16 +17,22 @@ const ToggleFriends = ({ setToggleFriends, toggleFriends }) => {
   return (
     <div className="d-flex justify-content-around mx-2 my-2">
       <div className="d-flex flex-column">
-      <h5 className = "toggle-option" onClick = {handleToggle} id="friends">Friends</h5>
-      {toggleFriends === "friends" && <div className="toggle-line"></div>}
+        <h5 className="toggle-option" onClick={handleToggle} id="friends">
+          Friends
+        </h5>
+        {toggleFriends === "friends" && <div className="toggle-line"></div>}
       </div>
       <div className="d-flex flex-column">
-      <h5 className = "toggle-option" onClick = {handleToggle} id="incoming">Incoming Requests</h5>
-      {toggleFriends === "incoming" && <div className="toggle-line"></div>}
+        <h5 className="toggle-option" onClick={handleToggle} id="incoming">
+          Incoming Requests
+        </h5>
+        {toggleFriends === "incoming" && <div className="toggle-line"></div>}
       </div>
       <div className="d-flex flex-column">
-      <h5 className = "toggle-option"onClick = {handleToggle} id="outgoing">Outgoing Requests</h5>
-      {toggleFriends === "outgoing" && <div className="toggle-line"></div>}
+        <h5 className="toggle-option" onClick={handleToggle} id="outgoing">
+          Outgoing Requests
+        </h5>
+        {toggleFriends === "outgoing" && <div className="toggle-line"></div>}
       </div>
     </div>
   );

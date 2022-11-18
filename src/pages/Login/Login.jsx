@@ -1,14 +1,14 @@
-import React, { useState, useContext } from "react";
-import { Link} from "react-router-dom";
-import Navbar from "../../sections/Navbar";
-import Footer from "../../sections/Footer";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
 import AuthContext from "../../context/authContext/AuthContext";
+import Footer from "../../sections/Footer";
+import Navbar from "../../sections/Navbar";
 import "./login.css";
 
 const Login = () => {
   const { setIsAuth } = useContext(AuthContext);
-  
+
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -48,7 +48,7 @@ const Login = () => {
         body: JSON.stringify(body),
       });
       const parseRes = await response.json();
-      
+
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
         setIsAuth(true);

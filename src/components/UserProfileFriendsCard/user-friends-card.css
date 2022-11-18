@@ -1,20 +1,19 @@
 .friends-avatar {
-    border-radius: 50%;
-    width: 75px;
-    height:75px;
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
 }
 
 .card {
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    min-width: 25%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  min-width: 25%;
 }
 
 .view-btn {
-    color: white;
-    background-color: #b698f0;
+  color: white;
+  background-color: #b698f0;
 }
 .view-btn:hover {
-    color: white;
-    background-color: #7d3cff;
+  color: white;
+  background-color: #7d3cff;
 }
-

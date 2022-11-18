@@ -1,16 +1,16 @@
 .tag {
-    cursor:pointer;
-    border: 1px solid black;
-    min-width: 200px;
-    color: white;
-    background-color: #b698f0;
-    max-width:50px;
+  cursor: pointer;
+  border: 1px solid black;
+  min-width: 200px;
+  color: white;
+  background-color: #b698f0;
+  max-width: 50px;
 }
 .tag-selected {
-    cursor: pointer;
-    border: 1px solid black;
-    min-width: 200px;
-    color: white;
-    background-color: #7d3cff;
-    max-width:50px;
+  cursor: pointer;
+  border: 1px solid black;
+  min-width: 200px;
+  color: white;
+  background-color: #7d3cff;
+  max-width: 50px;
 }

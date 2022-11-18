@@ -1,26 +1,48 @@
-import React, {useState, useContext} from "react";
 import { DateTime } from "luxon";
-import PostTag from "../PostTag";
-import AuthContext from "../../context/authContext/AuthContext";
-import FeedContext from "../../context/feedContext/FeedContext";
+import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
+import AuthContext from "../../context/authContext/AuthContext";
+import FeedContext from "../../context/feedContext/FeedContext";
 import { createPost } from "../../utils/api";
+import PostTag from "../PostTag";
 import "./post-input-modal.css";
 
 const PostInputModal = (props) => {
-  const {tags, setTags, postContent, setPostContent, setModalShow} = props
+  const { tags, setTags, postContent, setPostContent, setModalShow } = props;
   const { userInfo } = useContext(AuthContext);
   const { feed, setFeed } = useContext(FeedContext);
   const [tagArray, setTagArray] = useState([]);
-  const tagList = ["Animals & Pets",  "Anime", "Art", "Businnes & Finance", "Cars and Motor Vehicles", "Education", "Fashion", "Food and Drinks", "Gaming", "History", "Nature", "Movies", "Music", "Politics", "Programming", "Religion", "Sports", "Science", "Technology","Travel"];
-  console.log(tagArray)
-  const tagComponents = tagList.map(tag => {
-    return <PostTag tagName={tag} tagArray = {tagArray} setTagArray = {setTagArray}/>
-  })
+  const tagList = [
+    "Animals & Pets",
+    "Anime",
+    "Art",
+    "Businnes & Finance",
+    "Cars and Motor Vehicles",
+    "Education",
+    "Fashion",
+    "Food and Drinks",
+    "Gaming",
+    "History",
+    "Nature",
+    "Movies",
+    "Music",
+    "Politics",
+    "Programming",
+    "Religion",
+    "Sports",
+    "Science",
+    "Technology",
+    "Travel",
+  ];
+  const tagComponents = tagList.map((tag) => {
+    return (
+      <PostTag tagName={tag} tagArray={tagArray} setTagArray={setTagArray} />
+    );
+  });
 
   const section1 = tagComponents.slice(0, 5);
   const section2 = tagComponents.slice(5, 10);
@@ -38,19 +60,18 @@ const PostInputModal = (props) => {
       created_at: DateTime.now().toISO(),
       content: postContent,
     };
-    console.log(post)
     return post;
   };
-  
+
   const handlePost = async (e) => {
     e.preventDefault();
     const newPost = await createPost(postContent, tagArray);
-    const newPostId = newPost[0].id
+    const newPostId = newPost[0].id;
     const post = createNewPostData(newPostId);
     setFeed([post, ...feed]);
-    const tagMap = {...tags};
+    const tagMap = { ...tags };
     tagMap[newPostId] = [0, ...tagArray];
-    setTags(tagMap)
+    setTags(tagMap);
     setPostContent("");
     setTagArray([]);
     setModalShow(false);
@@ -59,7 +80,7 @@ const PostInputModal = (props) => {
   const closeModal = () => {
     setTagArray([]);
     setModalShow(false);
-  }
+  };
   return (
     <Modal
       dialogClassName="tags-modal"
@@ -90,8 +111,12 @@ const PostInputModal = (props) => {
         </Container>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant = "danger"onClick={closeModal}>Close</Button>
-        <Button variant="success" onClick = {handlePost}>Submit</Button>
+        <Button variant="danger" onClick={closeModal}>
+          Close
+        </Button>
+        <Button variant="success" onClick={handlePost}>
+          Submit
+        </Button>
       </Modal.Footer>
     </Modal>
   );
