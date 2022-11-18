@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import AuthContext from "../../context/authContext/AuthContext";
 import "./navbar.css";
 
 const Navbar = () => {
+  const location = useLocation();
   const { isAuth, setIsAuth, userInfo } = useContext(AuthContext);
   const userId = userInfo.id;
 
@@ -13,6 +14,7 @@ const Navbar = () => {
   };
   const handleClick = (e) => {
     e.preventDefault();
+    location.pathname = "/login";
     logout();
   };
 
@@ -24,18 +26,22 @@ const Navbar = () => {
             <h5 className="mx-3">Home</h5>
           </Link>
         )}
-            {isAuth && (
+        {isAuth && (
           <Link to="/users" className="link text-dark">
             <h5 className="mx-3">People</h5>
           </Link>
         )}
         {!isAuth && (
-              <Link to = "/login" className="link text-dark"><h5 className = "mx-3">Login</h5></Link>
+          <Link to="/login" className="link text-dark">
+            <h5 className="mx-3">Login</h5>
+          </Link>
         )}
       </div>
       {isAuth && (
         <div className="d-flex align-items-center">
-          <h5 className = "navbar-option"onClick={handleClick}>Logout</h5>
+          <h5 className="navbar-option" onClick={handleClick}>
+            Logout
+          </h5>
           <Link to={`/userProfile/${userId}`}>
             <img className="navbar-avatar mx-3" src={userInfo.avatarUrl} />
           </Link>
