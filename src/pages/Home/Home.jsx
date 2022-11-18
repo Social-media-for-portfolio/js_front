@@ -153,6 +153,7 @@ const Home = () => {
     getPostMetrics();
     getCommentMetrics();
     getOutgoingRequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="container-fluid d-flex flex-column p-0">

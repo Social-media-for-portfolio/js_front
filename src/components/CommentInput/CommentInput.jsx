@@ -48,7 +48,11 @@ const CommentInput = ({ postId, postComments, setPostComments }) => {
 
   return (
     <div className="d-flex justify-content-between h-100 align-items-center">
-      <img className="comment-input-avatar" src={userInfo.avatarUrl} />
+      <img
+        className="comment-input-avatar"
+        src={userInfo.avatarUrl}
+        alt="user-avatar"
+      />
       <form
         className="d-flex justify-content-between w-100"
         onSubmit={handleSubmit}

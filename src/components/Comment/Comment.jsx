@@ -93,7 +93,7 @@ const Comment = ({
       </div>
       <div>
         <p className="px-3 pt-3">{body}</p>
-        {src && <img src={src} className="w-100 h-100" />}
+        {src && <img src={src} className="w-100 h-100" alt="comment-img" />}
       </div>
       <div className="mt-5">
         <div className="d-flex justify-content-end">

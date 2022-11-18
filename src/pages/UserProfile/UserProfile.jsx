@@ -179,6 +179,7 @@ const UserProfile = () => {
     getCommentMetrics();
     getFriends();
     getOutgoingRequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   return (
     <div className="d-flex flex-column">

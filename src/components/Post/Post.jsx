@@ -116,6 +116,7 @@ const Post = ({
   useEffect(() => {
     updateComments(postId);
     checkLike();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="my-5 w-50 post p-3">
