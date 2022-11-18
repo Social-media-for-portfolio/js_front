@@ -45,7 +45,7 @@ const Login = () => {
 
       const body = { email: email, password: password };
       const response = await fetch(
-        "http://emir-connect.herokuapp.com/auth/login",
+        "https://emir-connect.herokuapp.com/auth/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

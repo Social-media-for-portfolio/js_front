@@ -55,7 +55,7 @@ const Signup = () => {
       };
 
       const response = await fetch(
-        "http://emir-connect.herokuapp.com/auth/register",
+        "https://emir-connect.herokuapp.com/auth/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
