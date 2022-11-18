@@ -64,7 +64,7 @@ const UserProfile = () => {
     if (!token) throw new Error("No token");
     const map = {};
     const commentResponse = await fetch(
-      "http://localhost:5000/feed/comments/metrics",
+      "http://emir-connect.herokuapp.com/feed/comments/metrics",
       {
         method: "GET",
         headers: { "Content-Type": "application/json", token: token },
@@ -74,7 +74,7 @@ const UserProfile = () => {
     for (let commentMetric of commentData) {
       map[commentMetric.post_id] = [parseInt(commentMetric.commentcount), 0];
     }
-    const likeResponse = await fetch("http://localhost:5000/feed/posts/likes", {
+    const likeResponse = await fetch("http://emir-connect.herokuapp.com/feed/posts/likes", {
       method: "GET",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -94,7 +94,7 @@ const UserProfile = () => {
     if (!token) throw new Error("No token");
     const map = {};
 
-    const response = await fetch("http://localhost:5000/feed/comments/likes", {
+    const response = await fetch("http://emir-connect.herokuapp.com/feed/comments/likes", {
       method: "GET",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -125,7 +125,7 @@ const UserProfile = () => {
       const token = localStorage.getItem("token");
       if (!token) return;
       const respsonse = await fetch(
-        "http://localhost:5000/users/me/friends/outgoing",
+        "http://emir-connect.herokuapp.com/users/me/friends/outgoing",
         {
           method: "GET",
           headers: { "Content-Type": "application/json", token: token },

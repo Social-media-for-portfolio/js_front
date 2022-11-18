@@ -22,7 +22,7 @@ const AuthContextProvider = ({ children }) => {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const response = await fetch("http://localhost:5000/auth/is-verified", {
+        const response = await fetch("http://emir-connect.herokuapp.com/auth/is-verified", {
           method: "GET",
           headers: { "Content-Type": "application/json", token: token },
         });

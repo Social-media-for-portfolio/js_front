@@ -2,7 +2,7 @@ export const getAllPosts = async () => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch("http://localhost:5000/feed/posts", {
+    const response = await fetch("http://emir-connect.herokuapp.com/feed/posts", {
       method: "GET",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -18,7 +18,7 @@ export const getMyUserInfo = async () => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/me`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/users/me`, {
       method: "GET",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -34,7 +34,7 @@ export const getUserInfo = async (id) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/profile/${id}`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/users/profile/${id}`, {
       method: "GET",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -50,7 +50,7 @@ export const createPost = async (content, tagArr) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch("http://localhost:5000/feed/posts", {
+    const response = await fetch("http://emir-connect.herokuapp.com/feed/posts", {
       method: "POST",
       headers: { "Content-Type": "application/json", token: token },
       body: JSON.stringify({ content: content, tags: tagArr }),
@@ -67,7 +67,7 @@ export const postComment = async (content, id) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/feed/posts/${id}`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/feed/posts/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json", token: token },
       body: JSON.stringify({ content: content }),
@@ -85,7 +85,7 @@ export const getAllComments = async (id) => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/feed/posts/${id}/comments`,
+      `http://emir-connect.herokuapp.com/feed/posts/${id}/comments`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json", token: token },
@@ -103,7 +103,7 @@ export const getPost = async (id) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/feed/posts/${id}`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/feed/posts/${id}`, {
       method: "GET",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -119,7 +119,7 @@ export const deletePost = async (id) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/feed/posts/${id}`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/feed/posts/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -136,7 +136,7 @@ export const deleteComment = async (postId, commentId) => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/feed/posts/${postId}/comments/${commentId}`,
+      `http://emir-connect.herokuapp.com/feed/posts/${postId}/comments/${commentId}`,
       {
         method: "DELETE",
         headers: { "Content-Type": "application/json", token: token },
@@ -155,7 +155,7 @@ export const likePost = async (postId) => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/feed/posts/${postId}/likes`,
+      `http://emir-connect.herokuapp.com/feed/posts/${postId}/likes`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json", token: token },
@@ -174,7 +174,7 @@ export const unlikePost = async (postId) => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/feed/posts/${postId}/likes`,
+      `http://emir-connect.herokuapp.com/feed/posts/${postId}/likes`,
       {
         method: "DELETE",
         headers: { "Content-Type": "application/json", token: token },
@@ -193,7 +193,7 @@ export const userLikesPost = async (postId) => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/feed/posts/${postId}/likes`,
+      `http://emir-connect.herokuapp.com/feed/posts/${postId}/likes`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json", token: token },
@@ -212,7 +212,7 @@ export const userLikesComment = async (commentId) => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/feed/comments/${commentId}/likes`,
+      `http://emir-connect.herokuapp.com/feed/comments/${commentId}/likes`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json", token: token },
@@ -231,7 +231,7 @@ export const likeComment = async (commentId, postId) => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/feed/comments/${commentId}/likes`,
+      `http://emir-connect.herokuapp.com/feed/comments/${commentId}/likes`,
       {
         body: JSON.stringify({ postId }),
         method: "POST",
@@ -251,7 +251,7 @@ export const unlikeComment = async (commentId) => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/feed/comments/${commentId}/likes`,
+      `http://emir-connect.herokuapp.com/feed/comments/${commentId}/likes`,
       {
         method: "DELETE",
         headers: { "Content-Type": "application/json", token: token },
@@ -270,7 +270,7 @@ export const getPostsByUser = async (userId) => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/users/profile/${userId}/posts`,
+      `http://emir-connect.herokuapp.com/users/profile/${userId}/posts`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json", token: token },
@@ -289,7 +289,7 @@ export const getPostsWithUserComments = async (userId) => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/users/profile/${userId}/comments`,
+      `http://emir-connect.herokuapp.com/users/profile/${userId}/comments`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json", token: token },
@@ -315,7 +315,7 @@ export const updateUserInfo = async (
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/users/profile/${userId}/info`,
+      `http://emir-connect.herokuapp.com/users/profile/${userId}/info`,
       {
         body: JSON.stringify({
           firstName: firstName,
@@ -341,7 +341,7 @@ export const getFriendsForUser = async (userId) => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/users/profile/${userId}/friends`,
+      `http://emir-connect.herokuapp.com/users/profile/${userId}/friends`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json", token: token },
@@ -360,7 +360,7 @@ export const getIncomingRequests = async () => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/users/me/friends/incoming`,
+      `http://emir-connect.herokuapp.com/users/me/friends/incoming`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json", token: token },
@@ -377,7 +377,7 @@ export const removeFriend = async (id) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/profile/${id}`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/users/profile/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -393,7 +393,7 @@ export const getOutgoingRequests = async () => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/users/me/friends/outgoing`,
+      `http://emir-connect.herokuapp.com/users/me/friends/outgoing`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json", token: token },
@@ -410,7 +410,7 @@ export const acceptFriendRequest = async (id) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/profile/${id}`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/users/profile/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -425,7 +425,7 @@ export const sendFriendRequest = async (id) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/profile/${id}`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/users/profile/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -441,7 +441,7 @@ export const updateAvatar = async (userId, avatarUrl) => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
     const response = await fetch(
-      `http://localhost:5000/users/profile/${userId}/avatar`,
+      `http://emir-connect.herokuapp.com/users/profile/${userId}/avatar`,
       {
         body: JSON.stringify({
           avatar: avatarUrl,
@@ -462,7 +462,7 @@ export const getAllUsers = async () => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/users/`, {
       method: "GET",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -478,7 +478,7 @@ export const addInterests = async (interests) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/me/interests`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/users/me/interests`, {
       method: "POST",
       body: JSON.stringify({ interests }),
       headers: { "Content-Type": "application/json", token: token },
@@ -495,7 +495,7 @@ export const removeInterest = async (interest) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/me/interests`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/users/me/interests`, {
       method: "DELETE",
       body: JSON.stringify({ interest }),
       headers: { "Content-Type": "application/json", token: token },
@@ -512,7 +512,7 @@ export const getMyInterests = async () => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/me/interests`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/users/me/interests`, {
       method: "GET",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -528,7 +528,7 @@ export const getInterestsForAllUsers = async () => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/interests`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/users/interests`, {
       method: "GET",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -544,7 +544,7 @@ export const checkOnboarding = async () => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/me/onboarding`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/users/me/onboarding`, {
       method: "GET",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -559,7 +559,7 @@ export const setOnboarding = async () => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/users/me/onboarding`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/users/me/onboarding`, {
       method: "PUT",
       headers: { "Content-Type": "application/json", token: token },
     });
@@ -575,7 +575,7 @@ export const getPostTags = async () => {
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token");
-    const response = await fetch(`http://localhost:5000/feed/tags`, {
+    const response = await fetch(`http://emir-connect.herokuapp.com/feed/tags`, {
       method: "GET",
       headers: { "Content-Type": "application/json", token: token },
     });

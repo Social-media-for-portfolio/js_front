@@ -52,7 +52,7 @@ const Signup = () => {
         last_name: lastName,
       };
 
-      const response = await fetch("http://localhost:5000/auth/register", {
+      const response = await fetch("http://emir-connect.herokuapp.com/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
