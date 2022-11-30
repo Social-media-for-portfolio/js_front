@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import friends from "../../assets/friends.jpg";
 import interest1 from "../../assets/interest1.jpg";
@@ -11,6 +11,12 @@ import Navbar from "../../sections/Navbar";
 import "./welcome.css";
 const Welcome = () => {
   const [navigate, setNavigate] = useState(false);
+  const warmUpFetch = () => {
+    fetch("https://emir-connect.herokuapp.com/");
+  };
+  useEffect(() => {
+    warmUpFetch();
+  }, []);
   return (
     <div classname="container-fluild">
       <Navbar />
